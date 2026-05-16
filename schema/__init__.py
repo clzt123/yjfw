@@ -16,3 +16,11 @@ from .student_schemas import (
     StudyAbroadProgressResponse,
     RawSQLRequest
 )
+from .course_schemas import (
+    CourseProjectResponse
+)
+from .event_schemas import (
+    EventLectureResponse,
+    EventRegistrationCreate,
+    EventRegistrationResponse
+)

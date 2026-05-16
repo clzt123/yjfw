@@ -5,6 +5,7 @@ from core.config import settings
 
 engine = create_engine(
     settings.DATABASE_URL,
+    connect_args={"auth_plugin_map": settings.AUTH_PLUGIN_MAP},
     pool_pre_ping=True,
     pool_recycle=300,
     echo=settings.DEBUG
