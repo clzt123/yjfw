@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from dao import event_lecture_dao, event_registration_dao
-from model.schemas import EventLectureResponse, EventRegistrationCreate, EventRegistrationResponse
+from schema.event_schemas import EventLectureResponse, EventRegistrationCreate, EventRegistrationResponse
 from fastapi import HTTPException
 
 def get_available_events(db: Session):

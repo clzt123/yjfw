@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from core.database import get_db
 from service import course_service
-from model.schemas import CourseProjectResponse
+from schema.course_schemas import CourseProjectResponse
 from typing import List, Optional
 
 router = APIRouter()
