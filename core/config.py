@@ -1,30 +1,15 @@
-# 数据库连接配置模块
-# 提供 SQLAlchemy 引擎、会话管理器和基类
+from pydantic_settings import BaseSettings
+from dotenv import load_dotenv
+import os
 
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-
-# MySQL 数据库连接字符串
-DATABASE_URL = "mysql+pymysql://root:123456@localhost/osatable"
-
-# 创建数据库引擎
-engine = create_engine(DATABASE_URL)
-
-# 创建会话工厂，用于获取数据库会话
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-# 创建基类，所有 ORM 模型继承此基类
-Base = declarative_base()
+load_dotenv()
 
 
-def get_db():
-    """
-    依赖注入函数，获取数据库会话
-    用法: 在 FastAPI 路由函数参数中使用 db: Session = Depends(get_db)
-    """
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+class Settings(BaseSettings):
+    DATABASE_URL: str = os.getenv("DATABASE_URL", "mysql+mysqldb://root:password@localhost:3306/example_db")
+    APP_HOST: str = os.getenv("APP_HOST", "0.0.0.0")
+    APP_PORT: int = int(os.getenv("APP_PORT", "8000"))
+    DEBUG: bool = os.getenv("DEBUG", "false").lower() == "true"
+
+
+settings = Settings()
