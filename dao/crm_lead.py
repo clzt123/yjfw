@@ -3,7 +3,7 @@
 
 from sqlalchemy.orm import Session
 from model.crm_lead import CrmLead
-from schemas.crm_lead import LeadCreate, LeadUpdate
+from schema.crm_lead import LeadCreate, LeadUpdate
 
 
 def lead_create(db: Session, lead: LeadCreate):

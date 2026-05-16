@@ -4,8 +4,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 import json
 from sqlalchemy.orm import Session
-from core.config import get_db
-from schemas.crm_lead import LeadCreate, LeadUpdate, LeadUpdateById, LeadOut
+from core.database import get_db
+from schema.crm_lead import LeadCreate, LeadUpdate, LeadUpdateById, LeadOut
 from service.crm_lead import service_lead_create, service_lead_update, service_lead_delete
 
 router = APIRouter()

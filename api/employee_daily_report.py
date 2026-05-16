@@ -3,8 +3,8 @@
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from core.config import get_db
-from schemas.employee_daily_report import DailyReportCreate, DailyReportUpdate, DailyReportOut
+from core.database import get_db
+from schema.employee_daily_report import DailyReportCreate, DailyReportUpdate, DailyReportOut
 from service.employee_daily_report import service_daily_report_create, service_daily_report_update, service_daily_report_delete
 
 router = APIRouter()

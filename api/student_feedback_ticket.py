@@ -3,8 +3,8 @@
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from core.config import get_db
-from schemas.student_feedback_ticket import FeedbackCreate, FeedbackUpdate, FeedbackUpdateById, FeedbackOut
+from core.database import get_db
+from schema.student_feedback_ticket import FeedbackCreate, FeedbackUpdate, FeedbackUpdateById, FeedbackOut
 from service.student_feedback_ticket import service_feedback_create, service_feedback_update, service_feedback_delete
 
 router = APIRouter()

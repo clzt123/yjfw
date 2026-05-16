@@ -2,7 +2,7 @@
 # 透传 DAO 调用，不做复杂业务逻辑
 
 from sqlalchemy.orm import Session
-from schemas.student_feedback_ticket import FeedbackCreate, FeedbackUpdate, FeedbackOut
+from schema.student_feedback_ticket import FeedbackCreate, FeedbackUpdate, FeedbackOut
 from dao.student_feedback_ticket import feedback_create, feedback_update, feedback_delete
 
 

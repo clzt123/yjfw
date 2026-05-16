@@ -1,8 +1,8 @@
 # student_admin_service 表 API 路由层
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from core.config import get_db
-from schemas.student_admin_service import StudentServiceCreate, StudentServiceUpdate, StudentServiceUpdateById, StudentServiceOut
+from core.database import get_db
+from schema.student_admin_service import StudentServiceCreate, StudentServiceUpdate, StudentServiceUpdateById, StudentServiceOut
 from service.student_admin_service_service import service_student_admin_service_create, service_student_admin_service_update
 
 router = APIRouter()

@@ -3,7 +3,7 @@
 
 from sqlalchemy.orm import Session
 from model.student_score import StudentScore
-from schemas.student_score import ScoreCreate, ScoreUpdate
+from schema.student_score import ScoreCreate, ScoreUpdate
 
 
 def score_create(db: Session, score: ScoreCreate):

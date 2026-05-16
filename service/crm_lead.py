@@ -2,7 +2,7 @@
 # 透传 DAO 调用，不做复杂业务逻辑
 
 from sqlalchemy.orm import Session
-from schemas.crm_lead import LeadCreate, LeadUpdate, LeadOut
+from schema.crm_lead import LeadCreate, LeadUpdate, LeadOut
 from dao.crm_lead import lead_create, lead_update, lead_delete
 
 

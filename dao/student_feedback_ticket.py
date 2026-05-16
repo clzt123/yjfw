@@ -3,7 +3,7 @@
 
 from sqlalchemy.orm import Session
 from model.student_feedback_ticket import StudentFeedbackTicket
-from schemas.student_feedback_ticket import FeedbackCreate, FeedbackUpdate
+from schema.student_feedback_ticket import FeedbackCreate, FeedbackUpdate
 
 
 def feedback_create(db: Session, feedback: FeedbackCreate):
