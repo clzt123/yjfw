@@ -3,7 +3,7 @@
 
 from sqlalchemy.orm import Session
 from sqlalchemy import text
-from core.config import SessionLocal
+from core.database import SessionLocal
 
 
 def execute_query(sql: str) -> list[dict]:

@@ -2,7 +2,7 @@
 # 实现数据库的增删改操作
 
 from sqlalchemy.orm import Session
-from model.student_feedback_ticket import StudentFeedbackTicket
+from model.student_models import StudentFeedbackTicket
 from schema.student_feedback_ticket import FeedbackCreate, FeedbackUpdate
 
 
