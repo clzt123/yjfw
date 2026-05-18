@@ -2,8 +2,28 @@ from sqlalchemy import Column, Integer, String, Text, DateTime
 from datetime import datetime
 from core.database import Base
 
+
 class CourseProject(Base):
+    """
+    课程项目数据模型
+
+    存储所有课程/项目信息，包括语言培训、背景提升、硕博连读等各类留学相关项目
+
+    Attributes:
+        id: 项目ID，主键自增
+        project_name: 项目/课程名称
+        category: 类别（如：语言培训、背景提升、硕博连读）
+        target_education: 适合学历
+        duration: 学制时长
+        tuition_fee: 学费
+        project_advantage: 项目优势
+        application_condition: 申请条件
+        target_country: 目标国家
+        target_major: 意向专业
+        status: 招生状态（默认：招生中）
+    """
     __tablename__ = "course_project"
+
     id = Column(Integer, primary_key=True, autoincrement=True, comment="项目ID")
     project_name = Column(String(100), nullable=False, comment="项目/课程名称")
     category = Column(String(50), comment="类别（如：语言培训、背景提升、硕博连读）")
@@ -16,8 +36,25 @@ class CourseProject(Base):
     target_major = Column(String(100), comment="意向专业")
     status = Column(String(20), default='招生中', comment="招生状态")
 
+
 class EventLecture(Base):
+    """
+    活动讲座数据模型
+
+    存储活动/讲座信息，包括线上和线下活动
+
+    Attributes:
+        id: 主键ID，自增
+        event_name: 活动名称
+        event_type: 活动类型（线上/线下）
+        start_time: 开始时间
+        location: 地点或会议链接
+        max_participants: 最大报名人数
+        current_participants: 当前已报名人数（默认0）
+        create_time: 创建时间
+    """
     __tablename__ = "event_lecture"
+
     id = Column(Integer, primary_key=True, autoincrement=True, comment="主键ID")
     event_name = Column(String(100), nullable=False, comment="活动名称")
     event_type = Column(String(20), comment="活动类型（线上/线下）")
@@ -27,8 +64,25 @@ class EventLecture(Base):
     current_participants = Column(Integer, default=0, comment="已报名人数")
     create_time = Column(DateTime, default=datetime.now, comment="创建时间")
 
+
 class EventRegistration(Base):
+    """
+    活动报名数据模型
+
+    存储用户报名参加活动的信息
+
+    Attributes:
+        id: 主键ID，自增
+        event_id: 关联的活动ID
+        customer_name: 客户姓名
+        phone: 联系电话
+        email: 邮箱（可选）
+        remark: 备注信息（可选）
+        status: 报名状态（默认：已报名）
+        create_time: 报名时间
+    """
     __tablename__ = "event_registration"
+
     id = Column(Integer, primary_key=True, autoincrement=True, comment="主键ID")
     event_id = Column(Integer, nullable=False, comment="活动ID")
     customer_name = Column(String(50), comment="客户姓名")

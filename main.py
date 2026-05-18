@@ -4,6 +4,8 @@ from api.student_routes import router as student_router
 from api.course import router as course_router
 from api.event import router as event_router
 from core.config import settings
+from typing import Dict
+
 
 app = FastAPI(
     title="Dify HTTP Request Service",
@@ -11,7 +13,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# 配置CORS（允许Dify跨域调用）
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -20,14 +22,27 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 注册路由
+
 app.include_router(student_router, prefix="/api/v1/osa")
 app.include_router(course_router, prefix="/api/course", tags=["课程项目"])
 app.include_router(event_router, prefix="/api/event", tags=["活动讲座"])
 
-@app.get("/")
-def health_check():
+
+@app.get("/", summary="健康检查", description="验证服务是否正常运行")
+def health_check() -> Dict[str, str]:
+    """
+    健康检查接口
+
+    用于验证服务是否正常运行，返回服务的基本状态信息
+
+    Returns:
+        Dict: 包含服务状态和名称的字典
+
+    Example:
+        GET / 返回 {"status": "ok", "service": "Dify HTTP Request Service"}
+    """
     return {"status": "ok", "service": "Dify HTTP Request Service"}
+
 
 if __name__ == "__main__":
     import uvicorn
