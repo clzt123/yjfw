@@ -5,9 +5,9 @@ from core.config import settings
 from typing import Generator
 
 
+# 修复：移除 auth_plugin_map 参数，这个参数在某些MySQL驱动中不被支持
 engine = create_engine(
     settings.DATABASE_URL,
-    connect_args={"auth_plugin_map": settings.AUTH_PLUGIN_MAP},
     pool_pre_ping=True,
     pool_recycle=300,
     echo=settings.DEBUG

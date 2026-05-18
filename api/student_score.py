@@ -3,8 +3,8 @@
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from core.config import get_db
-from schemas.student_score import ScoreCreate, ScoreUpdate, ScoreOut
+from core.database import get_db
+from schema.student_score import ScoreCreate, ScoreUpdate, ScoreOut
 from service.student_score import service_score_create, service_score_update, service_score_delete
 
 router = APIRouter()

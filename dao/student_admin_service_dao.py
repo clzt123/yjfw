@@ -1,6 +1,6 @@
 # student_admin_service 表 DAO 数据访问层
 from sqlalchemy.orm import Session
-from model.student_admin_service import StudentAdminService
+from model.student_models import StudentAdminService
 
 
 def student_admin_service_create(db: Session, service) -> StudentAdminService:
@@ -30,30 +30,17 @@ def student_admin_service_update(db: Session, service) -> StudentAdminService:
     """
     更新学生服务记录
     :param db: 数据库会话
-    :param service: 更新请求对象，必须包含 id 字段
+    :param service: 更新请求对象
     :return: 更新后的记录
     """
     db_service = db.query(StudentAdminService).filter(StudentAdminService.id == service.id).first()
-    if db_service:
-        # 更新所有非 None 的字段
-        if service.student_id is not None:
-            db_service.student_id = service.student_id
-        if service.service_type is not None:
-            db_service.service_type = service.service_type
-        if service.start_time is not None:
-            db_service.start_time = service.start_time
-        if service.end_time is not None:
-            db_service.end_time = service.end_time
-        if service.reason is not None:
-            db_service.reason = service.reason
-        if service.status is not None:
-            db_service.status = service.status
-        if service.approver_id is not None:
-            db_service.approver_id = service.approver_id
-        if service.related_academic_id is not None:
-            db_service.related_academic_id = service.related_academic_id
-        
-        db.commit()
-        db.refresh(db_service)
+    if not db_service:
+        return None
     
+    update_data = service.model_dump(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(db_service, key, value)
+    
+    db.commit()
+    db.refresh(db_service)
     return db_service

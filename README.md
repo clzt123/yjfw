@@ -1,235 +1,187 @@
-# Dify HTTP Request Service
 
-用于对接 Dify 的 Python 后端服务，提供数据库 CRUD 操作和动态 SQL 查询功能。
+# 统一智能体入口系统
 
-## 技术栈
-
-- **Web 框架**: FastAPI
-- **ORM**: SQLAlchemy 2.0+
-- **数据库**: MySQL (pymysql/mysqlclient)
-- **数据校验**: Pydantic V2
-- **配置管理**: python-dotenv / pydantic-settings
+一个用于对接多个Dify智能体的统一入口系统，包含后端（Java Spring Boot）和前端（HTML/JS）。
 
 ## 项目结构
 
 ```
-.
-├── main.py                 # 应用入口
-├── requirements.txt        # 依赖列表
-├── .env.example            # 环境变量模板
-├── api/                    # 路由接口层
-│   └── routes.py           # API 路由定义
-├── core/                   # 核心配置层
-│   ├── config.py           # 配置读取
-│   └── database.py         # 数据库连接与会话管理
-├── dao/                    # 数据访问层
-│   └── base_dao.py         # 通用 DAO 逻辑
-├── model/                  # 业务逻辑层
-│   └── base_service.py     # 服务层封装
-├── schema/                 # 数据模型层
-│   ├── models.py           # SQLAlchemy 表定义
-│   └── schemas.py          # Pydantic 校验模型
-└── utils/                  # 工具类
-    └── sql_validator.py    # SQL 安全校验
+├── backend/                    # 后端代码
+│   ├── src/main/java/com/example/app/
+│   │   ├── api/              # RESTful接口（Controller）
+│   │   ├── dao/              # 数据访问层（Repository）
+│   │   ├── model/            # 实体类（Entity）
+│   │   ├── schema/           # DTO模型
+│   │   ├── service/          # 业务逻辑层
+│   │   └── DifyAgentGatewayApplication.java
+│   ├── src/main/resources/
+│   │   ├── application.yml   # 应用配置
+│   │   └── schema.sql        # 数据库初始化脚本
+│   └── pom.xml               # Maven依赖管理
+├── frontend/                  # 前端代码
+│   ├── index.html            # 主页面
+│   ├── css/
+│   │   └── style.css         # 样式文件
+│   └── js/
+│       ├── config.js         # 配置文件（Dify智能体参数）
+│       └── app.js            # 应用逻辑
+└── README.md                 # 项目说明
 ```
+
+## 功能特性
+
+- **客服入口**：无需登录，直接进入客服智能体聊天界面
+- **员工入口**：登录验证后进入企业智能体聊天界面
+- **学生入口**：登录验证后进入学生智能体聊天界面，自动传递学生ID
+
+## 技术栈
+
+### 后端
+- Java 21
+- Spring Boot 3.2.0
+- Spring Data JPA
+- MySQL 8.0+
+
+### 前端
+- HTML5
+- CSS3
+- JavaScript (ES6+)
 
 ## 快速开始
 
-### 1. 安装依赖
+### 1. 环境要求
+
+- JDK 21+
+- Maven 3.8+
+- MySQL 8.0+
+
+### 2. 数据库配置
+
+创建MySQL数据库并执行初始化脚本：
+
+```sql
+CREATE DATABASE example_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE example_db;
+SOURCE backend/src/main/resources/schema.sql;
+```
+
+### 3. 修改配置
+
+编辑 `backend/src/main/resources/application.yml`：
+
+```yaml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/example_db?useSSL=false&serverTimezone=Asia/Shanghai
+    username: your_username
+    password: your_password
+```
+
+### 4. 启动后端服务
 
 ```bash
-pip install -r requirements.txt
+cd backend
+mvn spring-boot:run
 ```
 
-### 2. 配置环境变量
+服务将在 http://localhost:8080 启动。
 
-复制 `.env.example` 为 `.env`，并修改数据库配置：
+### 5. 启动前端
 
-```env
-DATABASE_URL=mysql+mysqldb://username:password@localhost:3306/database_name
-APP_HOST=0.0.0.0
-APP_PORT=8000
-DEBUG=false
-```
-
-### 3. 启动服务
+使用任意HTTP服务器（如Nginx、Python SimpleHTTPServer）或直接在浏览器中打开：
 
 ```bash
-python main.py
+cd frontend
+python -m http.server 8000
 ```
 
-服务启动后访问 `http://localhost:8000/docs` 查看 Swagger API 文档。
+访问 http://localhost:8000 查看前端页面。
 
-## API 接口
+## API接口
 
-### 通用 CRUD
+### 用户登录
 
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| POST | `/api/v1/osa/{table_name}/create` | 创建记录（仅插入非空字段） |
-| PATCH | `/api/v1/osa/{table_name}/{id}` | 更新记录（仅更新非空字段） |
-| DELETE | `/api/v1/osa/{table_name}/{id}` | 删除记录 |
-| GET | `/api/v1/osa/{table_name}/{id}` | 根据ID查询记录 |
+**POST** `/api/user/login`
 
-### 动态 SQL 查询（核心功能）
-
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| POST | `/api/v1/osa/query` | 执行动态 SQL 查询 |
-
-**请求示例**：
+请求体：
 ```json
 {
-    "sql": "SELECT * FROM student_psych_profile WHERE emotion_score > 80"
+    "username": "string",
+    "password": "string"
 }
 ```
 
-**响应示例**：
+响应体：
 ```json
 {
-    "status": "success",
-    "data": [
-        {
-            "id": 1,
-            "student_id": 1001,
-            "latest_emotion_tag": "开心",
-            "emotion_score": 95,
-            "last_interaction_time": "2024-01-15T10:30:00",
-            "emotion_history": "开心,愉悦,平静",
-            "update_time": "2024-01-15T10:30:00"
-        }
-    ]
+    "success": true,
+    "message": "登录成功",
+    "id": 1,
+    "username": "admin",
+    "realName": "管理员",
+    "userType": "EMPLOYEE",
+    "employeeRole": "管理员",
+    "department": "信息中心"
 }
 ```
 
-### SQL 安全校验
+## Dify智能体配置
 
-为防止 Dify 生成危险 SQL 语句，系统会自动校验：
+在 `frontend/js/config.js` 中配置：
 
-- SQL 语句必须以 `SELECT` 开头
-- 禁止包含危险关键字：`DROP`, `DELETE`, `UPDATE`, `INSERT`, `TRUNCATE`, `ALTER`, `CREATE` 等
+| 智能体类型 | AppID | BaseURL | APIKey |
+|-----------|-------|---------|--------|
+| 客服智能体 | G3Tsuspuu40ayj52 | http://192.168.110.49:5001/v1 | app-3VKersja1rrvoUav5qupHw1s |
+| 企业智能体 | 7looxs6HP9YBSnK8 | http://192.168.110.60:5001/v1 | app-088VszaN9vwAYpbFEMy1U0Hr |
+| 学生智能体 | EE4fkzwDP1FPz5ux | http://192.168.110.48:5001/v1 | app-CXyS5dzufPsEFYFR7fADR7Kj |
 
-校验失败时返回 400 错误：
+## 测试账号
 
-```json
-{
-    "detail": "SQL 语句包含危险操作关键字: DROP"
-}
-```
+| 用户名 | 密码 | 用户类型 |
+|--------|------|----------|
+| admin | 123456 | 员工（管理员） |
+| teacher001 | 123456 | 员工（教师） |
+| student001 | 123456 | 学生 |
+| student002 | 123456 | 学生 |
 
-## 数据库模型
-
-### 1. student_admin_service（学生行政服务表）
-
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| id | INTEGER | 主键 |
-| student_id | INTEGER | 学生ID |
-| service_type | VARCHAR(100) | 服务类型 |
-| start_time | DATETIME | 开始时间 |
-| end_time | DATETIME | 结束时间 |
-| reason | VARCHAR(100) | 原因 |
-| status | VARCHAR(100) | 状态（默认'待审批'） |
-| approver_id | INTEGER | 审批人ID |
-| related_academic_id | INTEGER | 关联学业ID |
-| create_time | DATETIME | 创建时间 |
-| update_time | DATETIME | 更新时间 |
-
-### 2. student_psych_profile（学生心理画像表）
-
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| id | INTEGER | 主键 |
-| student_id | INTEGER | 学生ID（唯一） |
-| latest_emotion_tag | VARCHAR(100) | 最新情绪标签 |
-| emotion_score | INTEGER | 情绪评分 |
-| last_interaction_time | DATETIME | 最近互动时间 |
-| emotion_history | VARCHAR(100) | 情绪历史 |
-| update_time | DATETIME | 更新时间 |
-
-### 3. student_psych_alert（学生心理预警表）
-
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| id | INTEGER | 主键 |
-| student_id | INTEGER | 学生ID |
-| trigger_reason | VARCHAR(100) | 触发原因 |
-| risk_level | VARCHAR(100) | 风险等级 |
-| status | VARCHAR(100) | 状态（默认'未处理'） |
-| teacher_id | INTEGER | 负责教师ID |
-| create_time | DATETIME | 创建时间 |
-
-### 4. student_feedback_ticket（学生反馈工单表）
-
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| id | INTEGER | 主键 |
-| student_id | INTEGER | 学生ID |
-| content | VARCHAR(100) | 内容 |
-| detail | VARCHAR(100) | 详情 |
-| status | VARCHAR(100) | 状态（默认'待处理'） |
-| solution | VARCHAR(100) | 解决方案 |
-| is_notified | INTEGER | 是否已通知（默认0） |
-| create_time | DATETIME | 创建时间 |
-| update_time | DATETIME | 更新时间 |
-
-### 5. study_abroad_progress（留学申请进度追踪表）
-
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| id | INTEGER | 主键 |
-| student_id | INTEGER | 学生ID |
-| service_stage | VARCHAR(50) | 服务阶段（文书/申请/签证） |
-| current_status | VARCHAR(100) | 当前具体状态（如：初稿撰写中） |
-| detail_info | TEXT | 详细备注（如：文案老师正在润色PS第二段） |
-| last_update_time | DATETIME | 最后更新时间 |
-| update_by | INTEGER | 最后更新人（顾问ID） |
-
-## 使用示例
-
-### 创建记录
-
-```bash
-curl -X POST "http://localhost:8000/api/v1/osa/student_psych_profile/create" \
-     -H "Content-Type: application/json" \
-     -d '{"student_id": 1001, "latest_emotion_tag": "开心", "emotion_score": 85}'
-```
-
-### 更新记录
-
-```bash
-curl -X PATCH "http://localhost:8000/api/v1/osa/student_psych_profile/1" \
-     -H "Content-Type: application/json" \
-     -d '{"emotion_score": 90}'
-```
-
-### 删除记录
-
-```bash
-curl -X DELETE "http://localhost:8000/api/v1/osa/student_psych_profile/1"
-```
-
-### 执行动态 SQL
-
-```bash
-curl -X POST "http://localhost:8000/api/v1/osa/query" \
-     -H "Content-Type: application/json" \
-     -d '{"sql": "SELECT * FROM student_psych_profile WHERE emotion_score > 80"}'
-```
-
-## 开发说明
-
-### Clean Architecture 分层
+## 项目流程图
 
 ```
-api/routes.py      → 路由接口层（接收请求、调用服务、返回响应）
-model/             → 业务逻辑层（复杂事务处理）
-dao/               → 数据访问层（直接操作数据库）
-schema/            → 数据模型层（SQLAlchemy ORM & Pydantic）
+用户访问首页
+    │
+    ▼
+┌───────────────────────────────────────┐
+│         菜单页面                       │
+│  [客服入口] [员工入口] [学生入口]      │
+└───────────────────────────────────────┘
+    │              │              │
+    ▼              ▼              ▼
+客服智能体    登录页面        登录页面
+(无需登录)    ┌───────┐      ┌───────┐
+    │         │输入   │      │输入   │
+    │         │账号密码│      │账号密码│
+    │         └──┬────┘      └──┬────┘
+    │            │              │
+    │            ▼              ▼
+    │      验证员工身份      验证学生身份
+    │            │              │
+    │            ▼              ▼
+    │      企业智能体      学生智能体
+    │      (传递用户信息)   (传递student_id)
+    │
+    ▼
+┌───────────────────────────────────────┐
+│         聊天界面 (iframe嵌入)          │
+└───────────────────────────────────────┘
 ```
 
-### 代码规范
+## 注意事项
 
-- 遵循 PEP 8
-- 使用 Type Hints
-- Pydantic V2 配置：`model_config = ConfigDict(from_attributes=True)`
+1. 前端使用iframe嵌入Dify WebApp，请确保Dify服务可访问
+2. 学生智能体登录时会自动将username作为student_id传递
+3. 生产环境请使用HTTPS和密码加密存储
+4. 数据库连接信息应使用环境变量配置，避免硬编码
+
+## License
+
+MIT License

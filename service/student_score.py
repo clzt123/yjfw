@@ -2,7 +2,7 @@
 # 透传 DAO 调用，不做复杂业务逻辑
 
 from sqlalchemy.orm import Session
-from schemas.student_score import ScoreCreate, ScoreUpdate, ScoreOut
+from schema.student_score import ScoreCreate, ScoreUpdate, ScoreOut
 from dao.student_score import score_create, score_update, score_delete
 
 

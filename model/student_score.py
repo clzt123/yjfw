@@ -3,7 +3,7 @@
 
 from sqlalchemy import Column, Integer, String, DECIMAL, DateTime
 from sqlalchemy.sql import func
-from core.config import Base
+from core.database import Base
 
 
 class StudentScore(Base):

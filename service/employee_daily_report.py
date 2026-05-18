@@ -2,7 +2,7 @@
 # 透传 DAO 调用，不做复杂业务逻辑
 
 from sqlalchemy.orm import Session
-from schemas.employee_daily_report import DailyReportCreate, DailyReportUpdate, DailyReportOut
+from schema.employee_daily_report import DailyReportCreate, DailyReportUpdate, DailyReportOut
 from dao.employee_daily_report import daily_report_create, daily_report_update, daily_report_delete
 
 

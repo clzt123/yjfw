@@ -1,7 +1,7 @@
 # student_admin_service 表 ORM 模型
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.sql import func
-from core.config import Base
+from core.database import Base
 
 
 class StudentAdminService(Base):

@@ -3,7 +3,7 @@
 
 from sqlalchemy.orm import Session
 from model.employee_daily_report import EmployeeDailyReport
-from schemas.employee_daily_report import DailyReportCreate, DailyReportUpdate
+from schema.employee_daily_report import DailyReportCreate, DailyReportUpdate
 
 
 def daily_report_create(db: Session, report: DailyReportCreate):

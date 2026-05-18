@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>统一智能体入口系统</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 菜单页面 -->
+    <div id="menu-page" class="page active">
+        <div class="container">
+            <div class="header">
+                <h1>智能助手入口</h1>
+                <p>请选择您的角色入口</p>
+            </div>
+            
+            <div class="card-grid">
+                <div class="card customer-card" onclick="navigateToChat('customer')">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3>客服入口</h3>
+                    <p>在线客服支持，无需登录</p>
+                </div>
+                
+                <div class="card employee-card" onclick="navigateToLogin('EMPLOYEE')">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h3>员工入口</h3>
+                    <p>企业智能助手，需员工账号登录</p>
+                </div>
+                
+                <div class="card student-card" onclick="navigateToLogin('STUDENT')">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 4.354a4 4 0 1 1 0 5.292M15 21H3v-1a6 6 0 0 1 12 0v1zm0 0h6v-1a6 6 0 0 0-9-5.197M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"></path>
+                        </svg>
+                    </div>
+                    <h3>学生入口</h3>
+                    <p>学生专属智能助手，需学号登录</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 登录页面 -->
+    <div id="login-page" class="page">
+        <div class="container">
+            <div class="login-card">
+                <div class="login-header">
+                    <button class="back-btn" onclick="goBack()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <h2>用户登录</h2>
+                </div>
+                
+                <form id="login-form" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="username">用户名</label>
+                        <input type="text" id="username" placeholder="请输入用户名" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <input type="password" id="password" placeholder="请输入密码" required>
+                    </div>
+                    
+                    <button type="submit" class="login-btn">登录</button>
+                </form>
+                
+                <p id="login-error" class="error-message"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 聊天页面 -->
+    <div id="chat-page" class="page">
+        <div class="chat-header">
+            <button class="back-btn" onclick="goBack()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </button>
+            <h2 id="chat-title">智能助手</h2>
+            <span id="agent-type" class="agent-type"></span>
+        </div>
+        <iframe id="chat-iframe" frameborder="0"></iframe>
+    </div>
+
+    <!-- 加载遮罩 -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>加载中...</p>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
