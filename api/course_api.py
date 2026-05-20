@@ -1,3 +1,4 @@
+
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from core.database import get_db
@@ -13,7 +14,8 @@ router = APIRouter()
     "/recommend",
     response_model=List[CourseProjectResponse],
     summary="智能推荐课程项目",
-    description="根据目标学历、国家和专业进行模糊匹配查询，返回符合条件的课程项目列表"
+    description="根据目标学历、国家和专业进行模糊匹配查询，返回符合条件的课程项目列表",
+    operation_id="智能推荐课程项目"
 )
 def recommend_courses(
     target_education: Optional[str] = Query(

@@ -9,8 +9,8 @@ from core.database import Base
 class EmployeeDailyReport(Base):
     __tablename__ = "employee_daily_report"
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    employee_id = Column(Integer, nullable=False)
-    report_date = Column(Date, nullable=False)
-    content = Column(Text, nullable=False)
-    create_time = Column(DateTime, server_default=func.now())
+    id = Column(Integer, primary_key=True, autoincrement=True, comment='主键ID')
+    employee_id = Column(Integer, nullable=False, comment='员工ID')
+    report_date = Column(Date, nullable=False, comment='汇报日期')
+    content = Column(Text, nullable=False, comment='日报内容')
+    create_time = Column(DateTime, server_default=func.now(), comment='创建时间')

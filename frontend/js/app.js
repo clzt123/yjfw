@@ -52,8 +52,8 @@ function openChat(agentTypeStr, studentId = null) {
     agentType.textContent = config.name;
     
     // 构造Dify WebApp URL（正确格式）
-    // 格式: http://host/chatbot/{appId}
-    let iframeUrl = `${config.baseUrl}/chatbot/${config.appId}`;
+    // 格式: http://host/chat/{appId}
+    let iframeUrl = `${config.baseUrl}/chat/${config.appId}`;
     
     // 如果是学生智能体，添加student_id参数
     if (agentTypeStr === 'student' && studentId) {

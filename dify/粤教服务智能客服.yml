@@ -1,0 +1,2443 @@
+app:
+  description: 能够精准识别前来咨询的客户的各种问题并做出精准的回答和引导下一步操作。
+  icon: c4635044-9674-4b00-8cc8-c495939f3475
+  icon_background: '#FFEAD5'
+  icon_type: image
+  mode: advanced-chat
+  name: 粤教服务智能客服
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.1.37@223919aad8f236c511b32b1954905b5ddf935e109dc25881441552c31fbc4bac
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables:
+  - description: ''
+    id: 374f354f-20c9-46cb-a444-091d6187e7fb
+    name: current_branch
+    selector:
+    - conversation
+    - current_branch
+    value: ''
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: '尊敬的客户，您好，想要咨询什么捏？
+
+      想咨询公司信息相关请输示例：公司地址
+
+      想咨询公司业务相关请输示例：公司有哪些业务
+
+      想咨询留学政策相关请输示例：新加坡留学
+
+      想咨询课程推荐相关请输示例：最近有什么课程推荐？
+
+      想咨询活动报名请输示例：我想活动报名
+
+      想自助了解常见问题请输示例：申请流程是？
+
+      日常闲聊请输示例：你好'
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: true
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: if-else
+      id: 1778742773712-source-1778742927015-target
+      selected: false
+      source: '1778742773712'
+      sourceHandle: source
+      target: '1778742927015'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1778742927015-false-1778743069689-target
+      selected: false
+      source: '1778742927015'
+      sourceHandle: 'false'
+      target: '1778743069689'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1778759714759-source-1778742773712-target
+      selected: false
+      source: '1778759714759'
+      sourceHandle: source
+      target: '1778742773712'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1778811663002-source-1778811978213-target
+      selected: false
+      source: '1778811663002'
+      sourceHandle: source
+      target: '1778811978213'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: http-request
+      id: 1778815356228-1-1778742172218-target
+      selected: false
+      source: '1778815356228'
+      sourceHandle: '1'
+      target: '1778742172218'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1778815356228-2-1778759714759-target
+      selected: false
+      source: '1778815356228'
+      sourceHandle: '2'
+      target: '1778759714759'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1778735030358-source-1778821557139-target
+      selected: false
+      source: '1778735030358'
+      sourceHandle: source
+      target: '1778821557139'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: question-classifier
+      id: 1778821557139-true-1778748596555-target
+      selected: false
+      source: '1778821557139'
+      sourceHandle: 'true'
+      target: '1778748596555'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1778821557139-false-1778821664766-target
+      selected: false
+      source: '1778821557139'
+      sourceHandle: 'false'
+      target: '1778821664766'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: assigner
+      id: 1778748596555-1778748629924-1778821940881-target
+      selected: false
+      source: '1778748596555'
+      sourceHandle: '1778748629924'
+      target: '1778821940881'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: question-classifier
+      id: 1778821940881-source-1778815356228-target
+      selected: false
+      source: '1778821940881'
+      sourceHandle: source
+      target: '1778815356228'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: assigner
+      id: 1778748596555-1778748630949-1778822080702-target
+      selected: false
+      source: '1778748596555'
+      sourceHandle: '1778748630949'
+      target: '1778822080702'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: knowledge-retrieval
+      id: 1778822080702-source-1778811663002-target
+      selected: false
+      source: '1778822080702'
+      sourceHandle: source
+      target: '1778811663002'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: assigner
+      id: 1778748596555-1778748632267-1778822105126-target
+      selected: false
+      source: '1778748596555'
+      sourceHandle: '1778748632267'
+      target: '1778822105126'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 1778822105126-source-1778743423351-target
+      selected: false
+      source: '1778822105126'
+      sourceHandle: source
+      target: '1778743423351'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1778821664766-false-1778743423351-target
+      selected: false
+      source: '1778821664766'
+      sourceHandle: 'false'
+      target: '1778743423351'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: if-else
+      id: 1778742172218-source-1778846489208-target
+      selected: false
+      source: '1778742172218'
+      sourceHandle: source
+      target: '1778846489208'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1778846489208-true-1778820055009-target
+      selected: false
+      source: '1778846489208'
+      sourceHandle: 'true'
+      target: '1778820055009'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1778846489208-false-1778846556386-target
+      selected: false
+      source: '1778846489208'
+      sourceHandle: 'false'
+      target: '1778846556386'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1778820055009-source-1778820404482-target
+      selected: false
+      source: '1778820055009'
+      sourceHandle: source
+      target: '1778820404482'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 17789062237550-2-17789062492240-target
+      selected: false
+      source: '17789062237550'
+      sourceHandle: '2'
+      target: '17789062492240'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 17789058834040-source-17789062852710-target
+      selected: false
+      source: '17789058834040'
+      sourceHandle: source
+      target: '17789062852710'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1778906093836-source-17789062912670-target
+      selected: false
+      source: '1778906093836'
+      sourceHandle: source
+      target: '17789062912670'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1778906109734-source-17789062987310-target
+      selected: false
+      source: '1778906109734'
+      sourceHandle: source
+      target: '17789062987310'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 17789062237550-1-17789063379890-target
+      selected: false
+      source: '17789062237550'
+      sourceHandle: '1'
+      target: '17789063379890'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 17789064415550-source-1778906452523-target
+      source: '17789064415550'
+      sourceHandle: source
+      target: '1778906452523'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 17789064294620-source-17789064415550-target
+      source: '17789064294620'
+      sourceHandle: source
+      target: '17789064415550'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 17789062492240-source-17789064294620-target
+      source: '17789062492240'
+      sourceHandle: source
+      target: '17789064294620'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: assigner
+      id: 1778748596555-1-1778915855317-target
+      source: '1778748596555'
+      sourceHandle: '1'
+      target: '1778915855317'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: knowledge-retrieval
+      id: 1778915855317-source-17789058834040-target
+      source: '1778915855317'
+      sourceHandle: source
+      target: '17789058834040'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: assigner
+      id: 1778748596555-2-1778915886423-target
+      source: '1778748596555'
+      sourceHandle: '2'
+      target: '1778915886423'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: knowledge-retrieval
+      id: 1778915886423-source-1778906093836-target
+      source: '1778915886423'
+      sourceHandle: source
+      target: '1778906093836'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: assigner
+      id: 1778748596555-1778748626739-1778915909684-target
+      source: '1778748596555'
+      sourceHandle: '1778748626739'
+      target: '1778915909684'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: knowledge-retrieval
+      id: 1778915909684-source-1778906109734-target
+      source: '1778915909684'
+      sourceHandle: source
+      target: '1778906109734'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: assigner
+      id: 1778748596555-1778748628483-1778915931615-target
+      source: '1778748596555'
+      sourceHandle: '1778748628483'
+      target: '1778915931615'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: question-classifier
+      id: 1778915931615-source-17789062237550-target
+      source: '1778915931615'
+      sourceHandle: source
+      target: '17789062237550'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1778821664766-true-17789058834040-target
+      source: '1778821664766'
+      sourceHandle: 'true'
+      target: '17789058834040'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1778821664766-71f9c965-c30e-4562-9ced-dcd15eb3436c-1778906093836-target
+      source: '1778821664766'
+      sourceHandle: 71f9c965-c30e-4562-9ced-dcd15eb3436c
+      target: '1778906093836'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1778821664766-d64af2d5-a5e1-4065-844e-3e670901aa57-1778906109734-target
+      source: '1778821664766'
+      sourceHandle: d64af2d5-a5e1-4065-844e-3e670901aa57
+      target: '1778906109734'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: question-classifier
+      id: 1778821664766-bacd8f98-7c1b-469b-9355-80d3bc577b48-17789062237550-target
+      source: '1778821664766'
+      sourceHandle: bacd8f98-7c1b-469b-9355-80d3bc577b48
+      target: '17789062237550'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: question-classifier
+      id: 1778821664766-7dbe04e8-ea70-464f-a79c-9e5d7ccf7182-1778815356228-target
+      source: '1778821664766'
+      sourceHandle: 7dbe04e8-ea70-464f-a79c-9e5d7ccf7182
+      target: '1778815356228'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1778821664766-44bc41c9-626f-439c-a819-910cbdc2fdbb-1778811663002-target
+      source: '1778821664766'
+      sourceHandle: 44bc41c9-626f-439c-a819-910cbdc2fdbb
+      target: '1778811663002'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1778821557139-76def82c-f32a-488f-99a3-6e3cc42fe6ad-1778916940901-target
+      source: '1778821557139'
+      sourceHandle: 76def82c-f32a-488f-99a3-6e3cc42fe6ad
+      target: '1778916940901'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1778916940901-source-1778916959322-target
+      source: '1778916940901'
+      sourceHandle: source
+      target: '1778916959322'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 17789062852710-source-1778906312236-target
+      source: '17789062852710'
+      sourceHandle: source
+      target: '1778906312236'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 17789062912670-source-1778906316931-target
+      source: '17789062912670'
+      sourceHandle: source
+      target: '1778906316931'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 17789062987310-source-1778906322268-target
+      source: '17789062987310'
+      sourceHandle: source
+      target: '1778906322268'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 17789063379890-source-1778906420040-target
+      source: '17789063379890'
+      sourceHandle: source
+      target: '1778906420040'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778820404482-source-1778820478661-target
+      source: '1778820404482'
+      sourceHandle: source
+      target: '1778820478661'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1778742927015-true-1778743060187-target
+      source: '1778742927015'
+      sourceHandle: 'true'
+      target: '1778743060187'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778811978213-source-1778812412301-target
+      source: '1778811978213'
+      sourceHandle: source
+      target: '1778812412301'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778743423351-source-1778743435934-target
+      source: '1778743423351'
+      sourceHandle: source
+      target: '1778743435934'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1778821557139-b600335b-7afe-4bb8-a755-8435cd183bb1-1778916959322-target
+      source: '1778821557139'
+      sourceHandle: b600335b-7afe-4bb8-a755-8435cd183bb1
+      target: '1778916959322'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables: []
+      height: 73
+      id: '1778735030358'
+      position:
+        x: -436.70636526875785
+        y: 156.6523798065316
+      positionAbsolute:
+        x: -436.70636526875785
+        y: 156.6523798065316
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - type: text
+            value: ''
+          type: none
+        headers: 'accept: application/json'
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+          write: 10
+        title: （获取活动列表）
+        type: http-request
+        url: http://host.docker.internal:8000/api/event/available
+        variables: []
+      height: 138
+      id: '1778742172218'
+      position:
+        x: 1363.7963601277052
+        y: 299.2942516788833
+      positionAbsolute:
+        x: 1363.7963601277052
+        y: 299.2942516788833
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: ed170e12-b464-4947-943c-d62bb9f57faf
+          role: system
+          text: '你只输出严格标准JSON，**禁止输出任何多余文字、解释、换行、空格**。
+
+            提取字段并校验格式：
+
+            1. event_id：纯数字，必须存在且为有效活动ID
+
+            2. customer_name：非空字符串
+
+            3. phone：11位手机号（格式：1[3-9]\d{9}）
+
+            4. email：合法邮箱格式（xxx@xxx.xxx）
+
+            5. remark：可选，无则为空字符串
+
+            若格式错误，输出{"error":"具体错误信息"}，例如：{"error":"手机号格式错误"}
+
+            用户输入：{{{#sys.query#}}'
+        selected: false
+        structured_output_enabled: false
+        title: 活动报名
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1778759714759'
+      position:
+        x: 1374.8766598478094
+        y: 465.34832298887204
+      positionAbsolute:
+        x: 1374.8766598478094
+        y: 465.34832298887204
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-1597
+            key: ''
+            type: text
+            value: '{{#1778759714759.text#}}'
+          type: raw-text
+        headers: 'accept: application/json
+
+          Content-Type: application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: （提交报名）
+        type: http-request
+        url: http://host.docker.internal:8000/api/event/register
+        variables: []
+      height: 138
+      id: '1778742773712'
+      position:
+        x: 1656.2537565345244
+        y: 460.07029134578033
+      positionAbsolute:
+        x: 1656.2537565345244
+        y: 460.07029134578033
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: '='
+            id: b4ad487b-e99d-4c0a-a8a4-8cad40d8da4c
+            value: '200'
+            varType: number
+            variable_selector:
+            - '1778742773712'
+            - status_code
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支 2
+        type: if-else
+      height: 148
+      id: '1778742927015'
+      position:
+        x: 2011.1191295998306
+        y: 465.34832298887204
+      positionAbsolute:
+        x: 2011.1191295998306
+        y: 465.34832298887204
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '🎉 报名成功！我们会尽快联系您
+
+          想咨询其他项目请回复退出'
+        selected: false
+        title: 直接回复 5
+        type: answer
+        variables: []
+      height: 116
+      id: '1778743060187'
+      position:
+        x: 2447.429099877022
+        y: 460.07029134578033
+      positionAbsolute:
+        x: 2447.429099877022
+        y: 460.07029134578033
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '😢 报名失败：{{{#1778742773712.body#}}
+
+          请检查一下您的输入格式和内容是否完整，再次输入
+
+          如果多次还不行，请联系我们工作人员：电话020-37628058、邮箱postmaster@ges1981.com'
+        selected: false
+        title: 直接回复 6
+        type: answer
+        variables: []
+      height: 183
+      id: '1778743069689'
+      position:
+        x: 2392.875127733284
+        y: 636.2074657582704
+      positionAbsolute:
+        x: 2392.875127733284
+        y: 636.2074657582704
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params:
+            enable_search: true
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 2cf50fae-f48d-488d-b719-2974c243bbff
+          role: system
+          text: "你是粤教服务智能客服小粤，性格亲切友好，轻松和用户聊天。\n规则：\n1. 优先回应闲聊，语气口语化（用“呀/呢”）；\n2. 每轮结束后适度引导（二选一）：\n\
+            \   - 未提留学：“对了\U0001F61C，我们有新加坡/德国留学政策咨询，需要了解吗？”\n   - 提留学：“我们有留学规划师解答，需要对接吗？”\n\
+            3. 用户拒绝则停止引导；\n4. 禁止回复涉政/色情/暴力内容，禁止承诺留学录取率；\n5. 敏感词直接回复“该内容暂无法回复”。\n用户消息：{{{#sys.query#}}"
+        selected: false
+        title: 日常闲聊
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1778743423351'
+      position:
+        x: 1065.6685040711507
+        y: 791.0912849513355
+      positionAbsolute:
+        x: 1065.6685040711507
+        y: 791.0912849513355
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1778743423351.text#}}
+
+          想咨询其他项目请回复退出'
+        selected: false
+        title: 直接回复 8
+        type: answer
+        variables: []
+      height: 119
+      id: '1778743435934'
+      position:
+        x: 1381.6650247570158
+        y: 807.8352086611542
+      positionAbsolute:
+        x: 1381.6650247570158
+        y: 807.8352086611542
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        classes:
+        - id: '1'
+          name: "公司信息咨询\n\n当用户询问以下内容时，返回分类1： \n- 公司名称、简称、成立时间、历史沿革 \n- 公司地址、联系方式、公众号、官网\
+            \ \n- 公司资质、背景、隶属关系 \n- 公司价值观、使命、企业文化 \n- 成功案例、校区分布"
+        - id: '2'
+          name: "公司业务查询\n当用户询问以下内容时，返回分类2： \n- 公司有哪些业务、主营业务是什么 \n- 国际教育、智慧教育、素质教育、实体教育分别包含什么\
+            \ \n- 双元制教育、学历提升、留学申请、研学项目的介绍"
+        - id: '1778748626739'
+          name: "海外留学政策查询\n当用户询问以下内容时，返回分类3： \n- 新加坡/德国留学的签证要求、申请条件 \n- 各国院校申请门槛、入学要求\
+            \ \n- 最新的移民政策、就业政策 - 留学费用、奖学金政策"
+        - id: '1778748628483'
+          name: "课程与项目推荐\n当用户询问以下内容时，返回分类4： \n- 我适合什么项目/课程 \n- 初中/高中/专科/本科可以读什么 \n\
+            - 新加坡/德国有什么好的项目 - 推荐一个留学方案"
+        - id: '1778748629924'
+          name: "活动与讲座报名\n当用户询问以下内容时，返回分类5： \n- 最近有什么活动/讲座 \n- 怎么报名参加分享会/招生官见面会 \n\
+            - 活动的时间、地点、内容"
+        - id: '1778748630949'
+          name: "常见问题自助解答\n当用户询问以下内容时，返回分类6： \n- 申请流程、报名流程 \n- 学费、费用、缴费方式 \n- 退费政策、退款流程\
+            \ - 入学测试内容、考试要求 \n- 学历认证、归国福利"
+        - id: '1778748632267'
+          name: "日常闲聊互动\n当用户说以下内容时，返回分类7： \n- 打招呼、问候（你好、在吗、哈喽）\n - 无明确业务诉求的闲聊 \n-\
+            \ 表达情绪（开心、烦恼） \n- 等待时的互动"
+        instruction: '你是广东省教育服务有限公司（粤教服务）的官方智能客服，严格基于提供的知识库回答问题，禁止编造信息。
+
+          回答要求：
+
+          1. 语言简洁专业，重点信息加粗，使用分点格式
+
+          2. 涉及费用、学制、流程时必须引用知识库原文数据
+
+          3. 无法回答的问题直接说明并引导转人工，不得猜测
+
+          4. 所有回复末尾必须附上公司官方联系方式：电话020-37628058、邮箱postmaster@ges1981.com
+
+          公司代指粤教服务'
+        instructions: ''
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - sys
+        - query
+        selected: false
+        title: 意图识别
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 360
+      id: '1778748596555'
+      position:
+        x: 219.84445002664677
+        y: 35.23213216194698
+      positionAbsolute:
+        x: 219.84445002664677
+        y: 35.23213216194698
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - nV2MSazLaQ8Gvzaqs9Nx8U9c5VaHno/EiqhktrVCMEAtZ9hLWlKYHeXpvBaByvQ3
+        - oYtTxDBGIMU+eYPlyR1XOgYsyT0prxUqXnomWp2nBlxhalE9ZuymLWZVnsFCp1jI
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: qwen3-rerank
+            provider: langgenius/tongyi/tongyi
+          score_threshold: 0.02
+          top_k: 5
+          weights:
+            keyword_setting:
+              keyword_weight: 0.4
+            vector_setting:
+              embedding_model_name: multimodal-embedding-v1
+              embedding_provider_name: langgenius/tongyi/tongyi
+              vector_weight: 0.6
+            weight_type: customized
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1778735030358'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 常见问题
+        type: knowledge-retrieval
+      height: 90
+      id: '1778811663002'
+      position:
+        x: 1089.4795198506738
+        y: 546.0746108245186
+      positionAbsolute:
+        x: 1089.4795198506738
+        y: 546.0746108245186
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1778811663002'
+          - result
+        model:
+          completion_params:
+            temperature: 0.3
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: b9785c39-8e88-4a34-862d-9c4785b8304c
+          role: system
+          text: '你是粤教服务智能客服，基于知识库回答用户多轮问题，简洁回复。
+
+            知识库：{{#context#}}
+
+            用户问题：{{#sys.query#}}
+
+            无答案请回复：抱歉，该问题暂无解答，可拨打客服020‑37628058咨询。'
+        selected: false
+        title: 常见问题
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1778811978213'
+      position:
+        x: 1374.8766598478094
+        y: 587.2847296563097
+      positionAbsolute:
+        x: 1374.8766598478094
+        y: 587.2847296563097
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1778811978213.text#}}
+
+          想咨询其他项目请回复退出'
+        selected: false
+        title: 直接回复 5
+        type: answer
+        variables: []
+      height: 119
+      id: '1778812412301'
+      position:
+        x: 1702.223570649001
+        y: 668.3550477347131
+      positionAbsolute:
+        x: 1702.223570649001
+        y: 668.3550477347131
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        classes:
+        - id: '1'
+          name: 如果只是咨询的话请走这个分类
+        - id: '2'
+          name: 如果已经填写了活动ID，姓名，手机号，邮箱，备注请走这个分类
+        instructions: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - '1778735030358'
+        - sys.query
+        selected: false
+        title: 问题分类器 2
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 170
+      id: '1778815356228'
+      position:
+        x: 1053.342487374835
+        y: 278.10565071038263
+      positionAbsolute:
+        x: 1053.342487374835
+        y: 278.10565071038263
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 7f24c860-3305-48b5-9506-37dcb1196042
+          role: system
+          text: '从用户问题里提取活动筛选关键词，**只输出关键词，无筛选条件输出空字符串**。
+
+            可提取关键词：直播、新加坡、德国、教育展、分享会、研学、高考后、时间、剩余名额等。
+
+            用户问题：{{#sys.query#}}'
+        selected: false
+        title: 提取筛选关键词
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1778820055009'
+      position:
+        x: 2074.7453096021172
+        y: 196.28937430539952
+      positionAbsolute:
+        x: 2074.7453096021172
+        y: 196.28937430539952
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 7e98dfcc-bfa0-45e9-99f2-f93a832f30dd
+          role: system
+          text: '以下是目前正在报名中的活动，请整理成清晰列表，包含：
+
+            活动ID、活动名称、时间、地点、剩余名额。
+
+            请让用户按一定严格按照以下顺序和格式回复：
+
+            活动ID：
+
+            姓名：
+
+            手机号：
+
+            邮箱：
+
+            备注：
+
+            即可报名。
+
+            加一句：想咨询其他项目请回复退出
+
+            活动列表：{{#1778742172218.body#}}'
+        selected: false
+        title: 整理活动列表
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1778820404482'
+      position:
+        x: 2506.7929480143816
+        y: 320.2237067057468
+      positionAbsolute:
+        x: 2506.7929480143816
+        y: 320.2237067057468
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1778820404482.text#}}
+
+          想咨询其他项目请回复退出'
+        selected: false
+        title: 直接回复 6
+        type: answer
+        variables: []
+      height: 119
+      id: '1778820478661'
+      position:
+        x: 2926.614266369023
+        y: 293.01853645987745
+      positionAbsolute:
+        x: 2926.614266369023
+        y: 293.01853645987745
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: empty
+            id: 94e27d72-2d54-4cc1-a57f-8ca6a5968b27
+            value: ''
+            varType: string
+            variable_selector:
+            - conversation
+            - current_branch
+          - comparison_operator: is not
+            id: 0d1a9883-74af-47cc-8741-7e4d2de16455
+            value: 退出
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          id: 'true'
+          logical_operator: and
+        - case_id: 76def82c-f32a-488f-99a3-6e3cc42fe6ad
+          conditions:
+          - comparison_operator: not empty
+            id: 4d4eec1f-4e70-4ad7-a63b-36157b431db1
+            value: ''
+            varType: string
+            variable_selector:
+            - conversation
+            - current_branch
+          - comparison_operator: is
+            id: 966de097-b97d-48c9-b14f-554a1d706a02
+            value: 退出
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          id: 76def82c-f32a-488f-99a3-6e3cc42fe6ad
+          logical_operator: and
+        - case_id: b600335b-7afe-4bb8-a755-8435cd183bb1
+          conditions:
+          - comparison_operator: empty
+            id: 6b0d1caa-b632-45cf-a85f-175c21ec075f
+            value: ''
+            varType: string
+            variable_selector:
+            - conversation
+            - current_branch
+          - comparison_operator: is
+            id: 5b30d807-6288-4dec-b272-752c6191fe11
+            value: 退出
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          id: b600335b-7afe-4bb8-a755-8435cd183bb1
+          logical_operator: and
+        selected: false
+        title: 条件分支 2
+        type: if-else
+      height: 298
+      id: '1778821557139'
+      position:
+        x: -168.3281241678945
+        y: 360.73147919384763
+      positionAbsolute:
+        x: -168.3281241678945
+        y: 360.73147919384763
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 78df6556-7c0f-44b5-80f0-c5148509c3ef
+            value: '"1"'
+            varType: string
+            variable_selector:
+            - conversation
+            - current_branch
+          id: 'true'
+          logical_operator: and
+        - case_id: 71f9c965-c30e-4562-9ced-dcd15eb3436c
+          conditions:
+          - comparison_operator: is
+            id: 8a42767f-42bb-4369-aca9-fa90db61071e
+            value: '"2"'
+            varType: string
+            variable_selector:
+            - conversation
+            - current_branch
+          id: 71f9c965-c30e-4562-9ced-dcd15eb3436c
+          logical_operator: and
+        - case_id: d64af2d5-a5e1-4065-844e-3e670901aa57
+          conditions:
+          - comparison_operator: contains
+            id: 6c3bf62f-10eb-4325-a089-35f8ee64f78f
+            value: '"3"'
+            varType: string
+            variable_selector:
+            - conversation
+            - current_branch
+          id: d64af2d5-a5e1-4065-844e-3e670901aa57
+          logical_operator: and
+        - case_id: bacd8f98-7c1b-469b-9355-80d3bc577b48
+          conditions:
+          - comparison_operator: contains
+            id: 6bf2471a-c8fa-43a7-9c24-a29b8409c2db
+            value: '"4"'
+            varType: string
+            variable_selector:
+            - conversation
+            - current_branch
+          id: bacd8f98-7c1b-469b-9355-80d3bc577b48
+          logical_operator: and
+        - case_id: 7dbe04e8-ea70-464f-a79c-9e5d7ccf7182
+          conditions:
+          - comparison_operator: contains
+            id: 7428e282-cfa5-413e-b5a3-cc514fda6a41
+            value: '"5"'
+            varType: string
+            variable_selector:
+            - conversation
+            - current_branch
+          id: 7dbe04e8-ea70-464f-a79c-9e5d7ccf7182
+          logical_operator: and
+        - case_id: 44bc41c9-626f-439c-a819-910cbdc2fdbb
+          conditions:
+          - comparison_operator: contains
+            id: 3a23b777-9d9c-49f2-b94a-43da08339990
+            value: '"6"'
+            varType: string
+            variable_selector:
+            - conversation
+            - current_branch
+          id: 44bc41c9-626f-439c-a819-910cbdc2fdbb
+          logical_operator: and
+        selected: false
+        title: 条件分支 3
+        type: if-else
+      height: 364
+      id: '1778821664766'
+      position:
+        x: 404.3470125737682
+        y: 955.7500381690668
+      positionAbsolute:
+        x: 404.3470125737682
+        y: 955.7500381690668
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: constant
+          operation: set
+          value: '"5"'
+          variable_selector:
+          - conversation
+          - current_branch
+        selected: false
+        title: 变量赋值
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1778821940881'
+      position:
+        x: 598.1823689497845
+        y: 238.7090294833455
+      positionAbsolute:
+        x: 598.1823689497845
+        y: 238.7090294833455
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: constant
+          operation: set
+          value: '"6"'
+          variable_selector:
+          - conversation
+          - current_branch
+        selected: false
+        title: 变量赋值 2
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1778822080702'
+      position:
+        x: 588.0960724960294
+        y: 372.19304253578923
+      positionAbsolute:
+        x: 588.0960724960294
+        y: 372.19304253578923
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: constant
+          operation: set
+          value: '"7"'
+          variable_selector:
+          - conversation
+          - current_branch
+        selected: false
+        title: 变量赋值 3
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1778822105126'
+      position:
+        x: 748.144846230868
+        y: 502.91920185221886
+      positionAbsolute:
+        x: 748.144846230868
+        y: 502.91920185221886
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: '='
+            id: f3219395-634d-4afb-bd8b-47864ecceef0
+            value: '200'
+            varType: number
+            variable_selector:
+            - '1778742172218'
+            - status_code
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支 8
+        type: if-else
+      height: 148
+      id: '1778846489208'
+      position:
+        x: 1702.223570649001
+        y: 299.2942516788833
+      positionAbsolute:
+        x: 1702.223570649001
+        y: 299.2942516788833
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: 活动列表加载失败，请稍后再试～
+        selected: false
+        title: 直接回复 10
+        type: answer
+        variables: []
+      height: 100
+      id: '1778846556386'
+      position:
+        x: 2104.3730752425
+        y: 337.1434069856427
+      positionAbsolute:
+        x: 2104.3730752425
+        y: 337.1434069856427
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - MgKuDAFM7XrjxUsQKMVt8r4SPES2NSDLtqIToEUsbzTqB5n5+BKbBvz6Fu0BQJb4
+        desc: ''
+        isInIteration: false
+        isInLoop: false
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: qwen3-rerank
+            provider: langgenius/tongyi/tongyi
+          score_threshold: null
+          top_k: 4
+          weights:
+            keyword_setting:
+              keyword_weight: 0.3
+            vector_setting:
+              embedding_model_name: multimodal-embedding-v1
+              embedding_provider_name: langgenius/tongyi/tongyi
+              vector_weight: 0.7
+            weight_type: customized
+        query_attachment_selector: []
+        query_variable_selector:
+        - sys
+        - query
+        retrieval_mode: multiple
+        selected: false
+        title: 公司信息检索
+        type: knowledge-retrieval
+      height: 90
+      id: '17789058834040'
+      position:
+        x: 763.6840308728931
+        y: -482.94811346064705
+      positionAbsolute:
+        x: 763.6840308728931
+        y: -482.94811346064705
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - oNhINWEuVjA2E0wVxx0Tvpc1w5swWauy4v4FpJz10hRBsXtjw2XJZ66Sv60+7OCR
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: qwen3-rerank
+            provider: langgenius/tongyi/tongyi
+          top_k: 4
+        query_attachment_selector: []
+        query_variable_selector:
+        - sys
+        - query
+        retrieval_mode: multiple
+        selected: false
+        title: 公司业务
+        type: knowledge-retrieval
+      height: 90
+      id: '1778906093836'
+      position:
+        x: 814.4022339520264
+        y: -317.5653997945484
+      positionAbsolute:
+        x: 814.4022339520264
+        y: -317.5653997945484
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - uokq/qLd7Zb9VJcCH5ZCOiRzty3HHeIuMbolLp2ezeHmtuU5zSmhoWL99vW8KwCx
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: qwen3-rerank
+            provider: langgenius/tongyi/tongyi
+          top_k: 4
+        query_attachment_selector: []
+        query_variable_selector:
+        - sys
+        - query
+        retrieval_mode: multiple
+        selected: false
+        title: 留学政策
+        type: knowledge-retrieval
+      height: 90
+      id: '1778906109734'
+      position:
+        x: 858.9624918077327
+        y: -159.23286186378724
+      positionAbsolute:
+        x: 858.9624918077327
+        y: -159.23286186378724
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        classes:
+        - id: '1'
+          name: 用户仅咨询以下内容，想要了解/推荐/匹配留学课程、项目、升学方案的意图
+        - id: '2'
+          name: 用户说学历，国家，专业时走这个分支
+        desc: ''
+        instructions: ''
+        isInIteration: false
+        isInLoop: false
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - sys
+        - query
+        selected: false
+        title: 课程推荐
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 170
+      id: '17789062237550'
+      position:
+        x: 916.8262792349435
+        y: 15.595270638721303
+      positionAbsolute:
+        x: 916.8262792349435
+        y: 15.595270638721303
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1778748596555'
+          - class_name
+        desc: ''
+        isInIteration: false
+        isInLoop: false
+        model:
+          completion_params:
+            temperature: 0.5
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 11d83f6b-5ee9-4cba-ac47-702bd09bb239
+          role: system
+          text: '你是一个严格的URL查询参数生成器，只能输出纯URL查询字符串，绝对不能输出任何解释、说明、注释、JSON、markdown、换行、空格或其他额外内容。
+
+
+            ### 任务要求
+
+            从用户的问题中精确提取以下三个查询条件，生成标准URL查询字符串格式：
+
+            - target_education: 适合学历（如：高中、大专、本科、硕士、博士）
+
+            - target_country: 目标国家（如：新加坡、英国、美国、澳大利亚、加拿大）
+
+            - target_major: 意向专业（如：计算机、商科、教育学、工程学、医学）
+
+
+            ### 提取规则
+
+            1. 用户输入可能是逗号分隔的格式，如"高中，新加坡，计算机"，请按顺序对应：学历，国家，专业
+
+            2. 只有用户明确提到的字段才填写具体值，未提到的字段必须留空
+
+            3. 输出格式必须为：target_education=xxx&target_country=xxx&target_major=xxx
+
+            4. 严格遵循URL参数语法，不能有任何语法错误
+
+            5. 禁止添加任何额外字段或内容
+
+            6. 输出只能是纯URL查询字符串，不能有任何其他内容
+
+
+            ### 示例
+
+            用户输入：高中，新加坡，计算机
+
+            输出：target_education=高中&target_country=新加坡&target_major=计算机
+
+
+            用户输入：本科，美国
+
+            输出：target_education=本科&target_country=美国&target_major=
+
+
+            用户输入：商科，英国
+
+            输出：target_education=&target_country=英国&target_major=商科
+
+
+            用户输入：推荐一些课程
+
+            输出：target_education=&target_country=&target_major='
+        - id: f6441b2d-0d2c-4a47-b435-da563bd8663e
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        structured_output_enabled: false
+        title: 处理用户输入
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '17789062492240'
+      position:
+        x: 1353.342487374835
+        y: 138.0307435724928
+      positionAbsolute:
+        x: 1353.342487374835
+        y: 138.0307435724928
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '17789058834040'
+          - result
+        desc: ''
+        isInIteration: false
+        isInLoop: false
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+            公司代指粤教服务
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 10
+        model:
+          completion_params:
+            temperature: 0.4
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 33762f15-0289-4319-bb69-eb506a0e595f
+          role: system
+          text: '你是粤教服务的专业客服，请根据知识库内容，准确、友好地回答用户关于公司信息的问题。
+
+            用户问题：{{{#sys.query#}}
+
+            知识库内容：{{{#context#}}
+
+            回答要求：
+
+            1. 严格基于知识库内容回答，不得编造信息
+
+            2. 语言简洁明了，条理清晰
+
+            3. 语气亲切专业，体现企业的可靠感
+
+            4. 如果知识库中没有相关信息，那就回复："抱歉，这个问题我暂时无法为您解答，您可以留下联系方式，我们会有专业顾问与您联系。"
+
+            5.公司代指粤教服务'
+        selected: false
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '17789062852710'
+      position:
+        x: 1124.681537781756
+        y: -497.3388718564691
+      positionAbsolute:
+        x: 1124.681537781756
+        y: -497.3388718564691
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1778906093836'
+          - result
+        desc: ''
+        isInIteration: false
+        isInLoop: false
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.5
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 11923c13-a7db-4973-ad37-9f705c18b2c6
+          role: system
+          text: '//你是粤教服务的专业留学顾问，请根据知识库内容，准确介绍公司的业务和项目。
+
+
+            用户问题：{{{#sys.query#}}
+
+            知识库内容：{{{#context#}}
+
+
+            回答要求：
+
+            公司代指粤交服务
+
+            1. 严格基于知识库内容回答，不得编造项目信息
+
+            2. 重点突出项目的核心优势和特点
+
+            3. 对于不同的项目，分点说明，条理清晰
+
+            4. 回答结尾可以引导用户进一步咨询："如果您想了解某个项目的详细信息，可以告诉我哦~"'
+        selected: false
+        title: LLM 2
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '17789062912670'
+      position:
+        x: 1165.6757027465824
+        y: -361.5653997945483
+      positionAbsolute:
+        x: 1165.6757027465824
+        y: -361.5653997945483
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1778906109734'
+          - result
+        desc: ''
+        isInIteration: false
+        isInLoop: false
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.4
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: a1e4682a-0790-4fa5-a6db-15883c0e566d
+          role: system
+          text: '你是广东省教育服务有限公司（简称"粤教服务"）的专业智能客服，专注于海外学历提升咨询服务。
+
+
+            【核心规则】
+
+            1. 所有回答必须严格基于提供的知识库内容，绝对不能编造信息。如果知识库中没有相关内容，请直接回答："非常抱歉，这个问题我暂时无法解答，我会帮您转接人工客服。"
+
+            2. 回答要专业、简洁、有条理，使用中文口语化表达，避免使用技术术语。
+
+            3. 当客户询问留学方案时，先了解客户的学历背景、意向国家和专业，再推荐合适的项目。
+
+            4. 当客户表示要报名活动时，主动询问客户的姓名和手机号，然后调用活动报名工具完成报名。
+
+            5. 当客户的问题需要人工介入时，主动告知客户会有专人联系，并记录客户的联系方式。
+
+
+            {{#context#}}'
+        selected: false
+        title: LLM 3
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '17789062987310'
+      position:
+        x: 1221.4464595061522
+        y: -153.6851390924499
+      positionAbsolute:
+        x: 1221.4464595061522
+        y: -153.6851390924499
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17789062852710.text#}}
+
+          想咨询其他项目请回复退出'
+        selected: false
+        title: 直接回复 11
+        type: answer
+        variables: []
+      height: 119
+      id: '1778906312236'
+      position:
+        x: 1448.9900377807658
+        y: -657.4749083381848
+      positionAbsolute:
+        x: 1448.9900377807658
+        y: -657.4749083381848
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17789062912670.text#}}
+
+          想咨询其他项目请回复退出'
+        selected: false
+        title: 直接回复 12
+        type: answer
+        variables: []
+      height: 119
+      id: '1778906316931'
+      position:
+        x: 1545.3918603030922
+        y: -428.04361067389675
+      positionAbsolute:
+        x: 1545.3918603030922
+        y: -428.04361067389675
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17789062987310.text#}}
+
+          想咨询其他项目请回复退出'
+        selected: false
+        title: 直接回复 13
+        type: answer
+        variables: []
+      height: 119
+      id: '1778906322268'
+      position:
+        x: 1585.2035873602242
+        y: -246.37720741636002
+      positionAbsolute:
+        x: 1585.2035873602242
+        y: -246.37720741636002
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '17789062237550'
+          - class_name
+        desc: ''
+        isInIteration: false
+        isInLoop: false
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: ebadc4d6-bcf0-47dc-b7c7-df0b5e98c2de
+          role: system
+          text: '{{#context#}}你是广东省教育服务有限公司的留学顾问助手。你的唯一任务是友好地收集用户的3个核心信息，不要回答任何其他问题。
+
+
+            需要收集的信息及可选值：
+
+            1. 当前最高学历：只能是【初中毕业、高中/中职/中专毕业、专科毕业、本科毕业】中的一个
+
+            2. 意向留学国家：只能是【新加坡、德国、其他国家】中的一个
+
+            3. 意向专业：如计算机等
+
+
+            对话规则：
+
+            1.一次问清楚这三个问题：1.学历，2.意向国家，3.意向专业
+
+            2. 如果用户的回答不在可选值范围内，礼貌地回复用户从选项中选择
+
+            3. 收集完所有3个信息后，只说："好的，我已经了解您的需求了，正在为您匹配专属方案..."
+
+            5. 如果用户要求转人工，立即说："好的，正在为您转接人工客服，请稍候。"
+
+            6. 绝对不要回答任何关于留学项目、费用、政策的问题，只负责收集这3个信息'
+        - id: 72ca0eff-bf55-481a-ac3d-956dc436f672
+          role: user
+          text: '{{#sys.query#}}{{#sys.query#}}'
+        selected: false
+        title: LLM 4
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '17789063379890'
+      position:
+        x: 1270.6515585797574
+        y: 5.924836795309886
+      positionAbsolute:
+        x: 1270.6515585797574
+        y: 5.924836795309886
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17789063379890.text#}}
+
+          想咨询其他项目请回复退出'
+        selected: false
+        title: 直接回复 14
+        type: answer
+        variables: []
+      height: 119
+      id: '1778906420040'
+      position:
+        x: 1687.092144092906
+        y: -79.33613318447344
+      positionAbsolute:
+        x: 1687.092144092906
+        y: -79.33613318447344
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: accept:application/json
+        isInIteration: false
+        isInLoop: false
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 推荐课程查询
+        type: http-request
+        url: http://host.docker.internal:8000/api/course/recommend?{{#17789062492240.text#}}
+        variables: []
+      height: 157
+      id: '17789064294620'
+      position:
+        x: 1702.223570649001
+        y: 115.51746121310845
+      positionAbsolute:
+        x: 1702.223570649001
+        y: 115.51746121310845
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '17789064294620'
+          - body
+        desc: ''
+        isInIteration: false
+        isInLoop: false
+        model:
+          completion_params:
+            temperature: 0.3
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: c8f87032-74fc-4869-b72d-7dafa75b9c44
+          role: system
+          text: '。请根据后端接口返回的匹配结果，生成一份清晰、专业、有吸引力的留学项目推荐方案。{{#context#}}根据HTTP请求的结果回复到客户
+
+            '
+        - id: 33e8fc50-cef7-468d-bac6-fdded8dafb95
+          role: user
+          text: '{{#17789064294620.body#}}'
+        selected: false
+        title: 个性推荐
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '17789064415550'
+      position:
+        x: 2088.3265465881987
+        y: 79.81427322610597
+      positionAbsolute:
+        x: 2088.3265465881987
+        y: 79.81427322610597
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17789064415550.text#}}
+
+          想咨询其他项目请回复退出'
+        selected: false
+        title: 直接回复 15
+        type: answer
+        variables: []
+      height: 119
+      id: '1778906452523'
+      position:
+        x: 2461.3508137978984
+        y: 15.595270638721303
+      positionAbsolute:
+        x: 2461.3508137978984
+        y: 15.595270638721303
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: constant
+          operation: set
+          value: '"1"'
+          variable_selector:
+          - conversation
+          - current_branch
+        selected: false
+        title: 变量赋值 8
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1778915855317'
+      position:
+        x: 463.6840308728931
+        y: -482.94811346064705
+      positionAbsolute:
+        x: 463.6840308728931
+        y: -482.94811346064705
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: constant
+          operation: set
+          value: '"2"'
+          variable_selector:
+          - conversation
+          - current_branch
+        selected: false
+        title: 变量赋值 9
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1778915886423'
+      position:
+        x: 514.4022339520264
+        y: -317.5653997945484
+      positionAbsolute:
+        x: 514.4022339520264
+        y: -317.5653997945484
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: constant
+          operation: set
+          value: '"3"'
+          variable_selector:
+          - conversation
+          - current_branch
+        selected: false
+        title: 变量赋值 10
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1778915909684'
+      position:
+        x: 558.9624918077327
+        y: -159.23286186378724
+      positionAbsolute:
+        x: 558.9624918077327
+        y: -159.23286186378724
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: constant
+          operation: set
+          value: '"4"'
+          variable_selector:
+          - conversation
+          - current_branch
+        selected: false
+        title: 变量赋值 11
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1778915931615'
+      position:
+        x: 616.8262792349435
+        y: 15.595270638721303
+      positionAbsolute:
+        x: 616.8262792349435
+        y: 15.595270638721303
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: clear
+          value: []
+          variable_selector:
+          - conversation
+          - current_branch
+        selected: false
+        title: 变量赋值 13
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1778916940901'
+      position:
+        x: 133.42730094005287
+        y: 420.75719342291086
+      positionAbsolute:
+        x: 133.42730094005287
+        y: 420.75719342291086
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '已退出当前咨询，您可以重新提问😊
+
+          想咨询公司信息相关请输示例：公司地址
+
+          想咨询公司业务相关请输示例：公司有哪些业务
+
+          想咨询留学政策相关请输示例：新加坡留学
+
+          想咨询课程推荐相关请输示例：最近有什么课程推荐？
+
+          想咨询活动报名请输示例：我想活动报名
+
+          想自助了解常见问题请输示例：申请流程是？
+
+          日常闲聊请输示例：你好'
+        selected: false
+        title: 直接回复 16
+        type: answer
+        variables: []
+      height: 228
+      id: '1778916959322'
+      position:
+        x: 413.66476349800365
+        y: 546.0746108245186
+      positionAbsolute:
+        x: 413.66476349800365
+        y: 546.0746108245186
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 483.09314715411665
+      y: 161.24581282081863
+      zoom: 0.8122523963562387
+  rag_pipeline_variables: []

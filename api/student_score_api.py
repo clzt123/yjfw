@@ -10,9 +10,23 @@ from service.student_score import service_score_create, service_score_update, se
 router = APIRouter()
 
 
-@router.post("/api/scores", response_model=ScoreOut)
+@router.post(
+    "/scores",
+    response_model=ScoreOut,
+    summary="创建学生成绩",
+    description="创建新的学生成绩记录",
+    operation_id="创建学生成绩"
+)
 def create_score(score: ScoreCreate, db: Session = Depends(get_db)):
-    """创建学生成绩"""
+    """创建学生成绩记录
+    
+    Args:
+        score: 成绩创建请求
+        db: 数据库依赖注入
+    
+    Returns:
+        ScoreOut: 创建成功的成绩记录
+    """
     return service_score_create(db, score)
 
 

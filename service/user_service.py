@@ -2,6 +2,24 @@
 from sqlalchemy.orm import Session
 from dao.sys_user_dao import get_user_by_username
 from schema.user_schema import LoginResponse
+import bcrypt
+
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """
+    验证密码是否匹配
+    
+    Args:
+        plain_password: 用户输入的明文密码
+        hashed_password: 数据库中存储的加密密码
+        
+    Returns:
+        bool: 密码是否匹配
+    """
+    try:
+        return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
+    except Exception:
+        return False
 
 
 def login_service(db: Session, username: str, password: str) -> LoginResponse:
@@ -24,8 +42,8 @@ def login_service(db: Session, username: str, password: str) -> LoginResponse:
             message="账号状态异常，请联系管理员"
         )
     
-    # 验证密码（明文验证，实际项目中应使用加密密码）
-    if user.password != password:
+    # 验证密码（使用 bcrypt 进行加密验证）
+    if not verify_password(password, user.password):
         return LoginResponse(
             success=False,
             message="用户名或密码错误"

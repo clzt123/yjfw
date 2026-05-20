@@ -11,28 +11,56 @@ from service.crm_lead import service_lead_create, service_lead_update, service_l
 router = APIRouter()
 
 
-@router.post("/api/leads", response_model=LeadOut)
+@router.post(
+    "/leads",
+    response_model=LeadOut,
+    summary="创建意向客户",
+    description="创建新的意向客户记录",
+    operation_id="创建意向客户"
+)
 def create_lead(lead: LeadCreate, db: Session = Depends(get_db)):
-    """创建意向客户"""
+    """创建意向客户记录
+    
+    Args:
+        lead: 意向客户创建请求
+        db: 数据库依赖注入
+    
+    Returns:
+        LeadOut: 创建成功的意向客户记录
+    """
     return service_lead_create(db, lead)
 
 
-# @router.put("/api/leads/{id}", response_model=LeadOut)
+# @router.put("/leads/{id}", response_model=LeadOut)
 # def update_lead(id: int, lead: LeadUpdate, db: Session = Depends(get_db)):
 #     """根据ID更新意向客户"""
 #     lead.id = id
 #     return service_lead_update(db, lead)
 
 
-# @router.delete("/api/leads/{id}", response_model=LeadOut)
+# @router.delete("/leads/{id}", response_model=LeadOut)
 # def delete_lead(id: int, db: Session = Depends(get_db)):
 #     """根据ID删除意向客户"""
 #     return service_lead_delete(db, id)
 
 
-@router.post("/api/leads/update", response_model=LeadOut)
+@router.post(
+    "/leads/update",
+    response_model=LeadOut,
+    summary="更新意向客户（Dify专用）",
+    description="通过请求体传id更新意向客户记录，方便Dify调用",
+    operation_id="更新意向客户ById"
+)
 def update_lead_by_id(lead: LeadUpdateById, db: Session = Depends(get_db)):
-    """通过请求体传id更新意向客户（方便Dify调用）"""
+    """通过请求体传id更新意向客户记录
+    
+    Args:
+        lead: 包含id的更新请求（方便Dify调用）
+        db: 数据库依赖注入
+    
+    Returns:
+        LeadOut: 更新后的意向客户记录
+    """
     return service_lead_update(db, lead)
 
 

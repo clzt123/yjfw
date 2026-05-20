@@ -1,0 +1,4094 @@
+app:
+  description: ''
+  icon: f108e72f-7ce1-4a7c-868e-3ecd9daeb962
+  icon_background: ''
+  icon_type: image
+  mode: advanced-chat
+  name: 企业智能助手
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.1.42@db089179610a44ce4ba3cf123e61cb75fe20441a609ec1b0364b43447ced7210
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - document
+      - image
+      - audio
+      - video
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: 我是企业智能小助手，您可以直接向我描述您的需求或问题哦~~
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: true
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: question-classifier
+      id: 1778657212997-source-1778658191713-target
+      selected: false
+      source: '1778657212997'
+      sourceHandle: source
+      target: '1778658191713'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1778658191713-2-1778724013453-target
+      selected: false
+      source: '1778658191713'
+      sourceHandle: '2'
+      target: '1778724013453'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1778724013453-source-1778724389710-target
+      selected: false
+      source: '1778724013453'
+      sourceHandle: source
+      target: '1778724389710'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1778724389710-source-1778725235599-target
+      selected: false
+      source: '1778724389710'
+      sourceHandle: source
+      target: '1778725235599'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778725235599-source-1778726401410-target
+      selected: false
+      source: '1778725235599'
+      sourceHandle: source
+      target: '1778726401410'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1778740292054-source-1778741095984-target
+      selected: false
+      source: '1778740292054'
+      sourceHandle: source
+      target: '1778741095984'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1778741095984-source-1778742159932-target
+      selected: false
+      source: '1778741095984'
+      sourceHandle: source
+      target: '1778742159932'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778742159932-source-1778742272454-target
+      selected: false
+      source: '1778742159932'
+      sourceHandle: source
+      target: '1778742272454'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1778658191713-1778658533586-1778742938176-target
+      selected: false
+      source: '1778658191713'
+      sourceHandle: '1778658533586'
+      target: '1778742938176'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778745264045-source-1778745311155-target
+      selected: false
+      source: '1778745264045'
+      sourceHandle: source
+      target: '1778745311155'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1778744570067-source-1778745264045-target
+      selected: false
+      source: '1778744570067'
+      sourceHandle: source
+      target: '1778745264045'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1778742938176-source-1778744570067-target
+      selected: false
+      source: '1778742938176'
+      sourceHandle: source
+      target: '1778744570067'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1778658191713-1778658535721-1778762641790-target
+      selected: false
+      source: '1778658191713'
+      sourceHandle: '1778658535721'
+      target: '1778762641790'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1778762641790-source-1778762718782-target
+      selected: false
+      source: '1778762641790'
+      sourceHandle: source
+      target: '1778762718782'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1778762718782-source-1778762999551-target
+      selected: false
+      source: '1778762718782'
+      sourceHandle: source
+      target: '1778762999551'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778762999551-source-1778763155831-target
+      selected: false
+      source: '1778762999551'
+      sourceHandle: source
+      target: '1778763155831'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1778658191713-1778658554250-1778766934137-target
+      selected: false
+      source: '1778658191713'
+      sourceHandle: '1778658554250'
+      target: '1778766934137'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1778766934137-source-1778767532773-target
+      selected: false
+      source: '1778766934137'
+      sourceHandle: source
+      target: '1778767532773'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1778767532773-source-1778767709471-target
+      selected: false
+      source: '1778767532773'
+      sourceHandle: source
+      target: '1778767709471'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778767709471-source-1778767785265-target
+      selected: false
+      source: '1778767709471'
+      sourceHandle: source
+      target: '1778767785265'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: question-classifier
+      id: 1778658191713-1778658555466-1778811687479-target
+      selected: false
+      source: '1778658191713'
+      sourceHandle: '1778658555466'
+      target: '1778811687479'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: knowledge-retrieval
+      id: 1778811687479-1-1778815376921-target
+      source: '1778811687479'
+      sourceHandle: '1'
+      target: '1778815376921'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1778815376921-source-1778815567458-target
+      source: '1778815376921'
+      sourceHandle: source
+      target: '1778815567458'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778815567458-source-1778815703620-target
+      source: '1778815567458'
+      sourceHandle: source
+      target: '1778815703620'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1778811687479-2-1778815729042-target
+      source: '1778811687479'
+      sourceHandle: '2'
+      target: '1778815729042'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1778815729042-source-1778815825819-target
+      source: '1778815729042'
+      sourceHandle: source
+      target: '1778815825819'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1778815825819-source-1778815966227-target
+      source: '1778815825819'
+      sourceHandle: source
+      target: '1778815966227'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778815966227-source-1778816072251-target
+      source: '1778815966227'
+      sourceHandle: source
+      target: '1778816072251'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: knowledge-retrieval
+      id: 1778658191713-1778658609780-1778829100222-target
+      source: '1778658191713'
+      sourceHandle: '1778658609780'
+      target: '1778829100222'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1778829100222-source-1778829301430-target
+      source: '1778829100222'
+      sourceHandle: source
+      target: '1778829301430'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778829301430-source-1778829654247-target
+      source: '1778829301430'
+      sourceHandle: source
+      target: '1778829654247'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: document-extractor
+      id: 1778658191713-1-1778832086335-target
+      source: '1778658191713'
+      sourceHandle: '1'
+      target: '1778832086335'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: knowledge-retrieval
+      id: 1778832086335-source-1778833302175-target
+      source: '1778832086335'
+      sourceHandle: source
+      target: '1778833302175'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1778833302175-source-1778832991548-target
+      source: '1778833302175'
+      sourceHandle: source
+      target: '1778832991548'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: if-else
+      id: 1778832991548-source-1778833705513-target
+      source: '1778832991548'
+      sourceHandle: source
+      target: '1778833705513'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1778833705513-true-1778740292054-target
+      source: '1778833705513'
+      sourceHandle: 'true'
+      target: '1778740292054'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1778833705513-false-1778833938843-target
+      source: '1778833705513'
+      sourceHandle: 'false'
+      target: '1778833938843'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: question-classifier
+      id: 1778658191713-1778658611474-1778837922692-target
+      source: '1778658191713'
+      sourceHandle: '1778658611474'
+      target: '1778837922692'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1778837922692-1-1778838871176-target
+      source: '1778837922692'
+      sourceHandle: '1'
+      target: '1778838871176'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1778838871176-source-1778839058239-target
+      source: '1778838871176'
+      sourceHandle: source
+      target: '1778839058239'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1778839058239-source-1778839404992-target
+      source: '1778839058239'
+      sourceHandle: source
+      target: '1778839404992'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778839404992-source-1778839481073-target
+      source: '1778839404992'
+      sourceHandle: source
+      target: '1778839481073'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1778837922692-2-1778839627745-target
+      source: '1778837922692'
+      sourceHandle: '2'
+      target: '1778839627745'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1778839627745-source-1778839733258-target
+      source: '1778839627745'
+      sourceHandle: source
+      target: '1778839733258'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1778839733258-source-1778839849011-target
+      source: '1778839733258'
+      sourceHandle: source
+      target: '1778839849011'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778839849011-source-1778839975315-target
+      source: '1778839849011'
+      sourceHandle: source
+      target: '1778839975315'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1778837922692-1778837955259-1778840665900-target
+      source: '1778837922692'
+      sourceHandle: '1778837955259'
+      target: '1778840665900'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1778840665900-source-1778840759117-target
+      source: '1778840665900'
+      sourceHandle: source
+      target: '1778840759117'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1778840759117-source-1778840860689-target
+      source: '1778840759117'
+      sourceHandle: source
+      target: '1778840860689'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778840860689-source-1778840909125-target
+      source: '1778840860689'
+      sourceHandle: source
+      target: '1778840909125'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1778837922692-1778837956630-1778841285518-target
+      source: '1778837922692'
+      sourceHandle: '1778837956630'
+      target: '1778841285518'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1778841285518-source-1778841369230-target
+      source: '1778841285518'
+      sourceHandle: source
+      target: '1778841369230'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1778841369230-source-1778841568826-target
+      source: '1778841369230'
+      sourceHandle: source
+      target: '1778841568826'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778841568826-source-1778841638775-target
+      source: '1778841568826'
+      sourceHandle: source
+      target: '1778841638775'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: answer
+      id: 1778658191713-1778660048837-1778842977988-target
+      source: '1778658191713'
+      sourceHandle: '1778660048837'
+      target: '1778842977988'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1778658191713-1778848570378-1778848792603-target
+      source: '1778658191713'
+      sourceHandle: '1778848570378'
+      target: '1778848792603'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1778848792603-source-1778848927083-target
+      source: '1778848792603'
+      sourceHandle: source
+      target: '1778848927083'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1778848927083-source-1778849031931-target
+      source: '1778848927083'
+      sourceHandle: source
+      target: '1778849031931'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778849031931-source-1778849116956-target
+      source: '1778849031931'
+      sourceHandle: source
+      target: '1778849116956'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1778837922692-1778898093375-1778898401951-target
+      source: '1778837922692'
+      sourceHandle: '1778898093375'
+      target: '1778898401951'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1778898401951-source-1778899704911-target
+      source: '1778898401951'
+      sourceHandle: source
+      target: '1778899704911'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1778899704911-source-1778899934625-target
+      source: '1778899704911'
+      sourceHandle: source
+      target: '1778899934625'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778899934625-source-1778900050558-target
+      source: '1778899934625'
+      sourceHandle: source
+      target: '1778900050558'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1778837922692-1778900162216-1778900342630-target
+      source: '1778837922692'
+      sourceHandle: '1778900162216'
+      target: '1778900342630'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1778900342630-source-1778900595454-target
+      source: '1778900342630'
+      sourceHandle: source
+      target: '1778900595454'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1778900595454-source-1778900699239-target
+      source: '1778900595454'
+      sourceHandle: source
+      target: '1778900699239'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778900699239-source-1778900836742-target
+      source: '1778900699239'
+      sourceHandle: source
+      target: '1778900836742'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1778837922692-1778901466661-1778901593766-target
+      source: '1778837922692'
+      sourceHandle: '1778901466661'
+      target: '1778901593766'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1778901593766-source-1778901864336-target
+      source: '1778901593766'
+      sourceHandle: source
+      target: '1778901864336'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1778901864336-source-1778902030088-target
+      source: '1778901864336'
+      sourceHandle: source
+      target: '1778902030088'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1778902030088-source-1778902178296-target
+      source: '1778902030088'
+      sourceHandle: source
+      target: '1778902178296'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables: []
+      height: 72
+      id: '1778657212997'
+      position:
+        x: 0
+        y: 930.2642857142858
+      positionAbsolute:
+        x: 0
+        y: 930.2642857142858
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        classes:
+        - id: '1'
+          name: '意向客户录入
+
+            核心场景：用户通过文字、语音方式，想要新增、录入、记录新的意向客户相关信息。
+
+            用户典型话术：帮我录一个新客户、新增意向客户、记录一下这个客户信息、把这个客户资料存进去等。
+
+            核心特征：动作围绕「新增、录入、保存全新意向客户数据」，无查询、更新、查看行为。'
+        - id: '2'
+          name: '意向客户查询
+
+            核心场景：用户想要查看、调取、搜索已有意向客户的档案、资料、跟进记录、历史动态。
+
+            用户典型话术：查一下这个客户的记录、看看之前的跟进情况、查询XX客户信息、调取客户档案等。
+
+            核心特征：动作围绕「查看已有客户数据」，无新增、修改、更新客户状态行为。'
+        - id: '1778658533586'
+          name: '客户信息更新
+
+            核心场景：用户想要修改、更新、变更已有意向客户的业务状态（已签约、已流失、跟进中、待洽谈等销售漏斗状态），同步业务进度。
+
+            用户典型话术：把这个客户改成已签约、更新客户状态、这个客户流失了、修改客户跟进状态等。
+
+            核心特征：动作围绕「修改存量客户的状态信息」，区别于录入新客户、查询客户信息。'
+        - id: '1778658535721'
+          name: '员工日报生成
+
+            核心场景：员工口述/文字输入当日工作内容、工作进展、工作成果，需要AI自动整理、生成、录入个人当日工作日报。
+
+            用户典型话术：帮我写今日日报、记录一下今天的工作、整理下我今天的工作进展、生成今日工作总结等。
+
+            核心特征：个人主动提交、录入、生成自己的当日日报，区别于管理层查看团队日报。'
+        - id: '1778658554250'
+          name: '管理日报查阅
+
+            核心场景：具备管理权限的用户，想要查看、汇总、查询团队、下属、全体成员的日报数据、工作进度、工作产出。
+
+            用户典型话术：查看团队今日日报、汇总一下员工的工作日报、看看下属今天的工作情况、统计团队日报等。
+
+            核心特征：查看他人/团队日报，非提交个人日报，为管理查询行为。'
+        - id: '1778658555466'
+          name: '公司部门与员工信息查询
+
+            核心场景：用户想要查询公司部门信息、部门职能、员工联系方式、人员架构、岗位归属、同事信息等内部组织相关内容。
+
+            用户典型话术：查一下公司组织架构、XX部门职责是什么、XX同事的联系方式、看看部门人员分布等。
+
+            核心特征：查询企业内部组织、部门、人员、联系方式相关信息。'
+        - id: '1778658609780'
+          name: '公司信息查询
+
+            核心场景：用户咨询入职流程、公司规章制度、员工规范、业务操作流程、新人融入相关问题，需要指引解答。
+
+            用户典型话术：打印机在哪里、入职需要做什么、公司规章制度是什么、这个业务流程怎么走、新人怎么快速入职、员工规范咨询等。
+
+            核心特征：围绕入职、制度、流程、职场规范的咨询与指引需求。'
+        - id: '1778658611474'
+          name: '学生业务综管
+
+            核心场景：用户处理学生端全流程业务，包含学生成绩录入/查询、学生请假审批、学生投诉反馈、售后教务跟进等学生教务、售后相关工作。
+
+            用户典型话术：查一下学生成绩、录入学生分数、审批学生请假、处理学生投诉、跟进学生反馈问题等。
+
+            核心特征：所有学生、教务、学生售后、学生管理相关业务均归属此意图。'
+        - id: '1778848570378'
+          name: '日报汇总
+
+            核心场景：对员工的日报进行汇总生成报告
+
+            用户典型话术：生成员工日报汇总报告、生成今天的日报报告、生成这周的日报报告、生成2026年5月5日的日报报告、生成2026年5月5日到5月8日的日报报告'
+        - id: '1778660048837'
+          name: 未知意图
+        instruction: '#角色定位
+
+          你是企业内部员工智能助手的专属意图识别模型，核心任务是精准解析企业员工的文字/语音转文字输入内容，严格对照预设的8大业务场景，精准匹配唯一用户意图，输出标准化结果，为后续Chatflow分支流转提供依据。
+
+          用户输入内容：{{#sys.query#}}'
+        instructions: ''
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: qwen3.6-plus-2026-04-02
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - sys
+        - query
+        selected: false
+        title: 意图识别
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 473
+      id: '1778658191713'
+      position:
+        x: 342
+        y: 741.7642857142858
+      positionAbsolute:
+        x: 342
+        y: 741.7642857142858
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: qwen3.6-plus-2026-04-02
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 0f069dac-c06e-4296-ba85-a111113f9b32
+          role: system
+          text: "你是一个 SQL 生成助手。根据用户问题，生成一条标准的 MySQL SELECT 查询语句。\n\n数据库包含以下表，请严格使用这些表和字段：\n\
+            --表名:\ncrm_lead\n--字段:\n id, customer_name(客户姓名),\n contact_info(联系方式),\n\
+            \ background_info(背景),\n follow_up_history(跟进历史),\n status(状态), \nowner_employee_id(负责人ID),\
+            \ \ncreate_time, \nupdate_time\n\n你需要做到：\n1. 只输出纯 SQL，不要任何 markdown 代码块、不要注释、不要解释。\n\
+            2. 只生成 SELECT 语句。\n3. 如果用户问题与上述表无关，或者信息不足以生成 SQL，输出：ERROR\n\n示例：\n\nQ:\
+            \ 查询张三的所有信息？\nA: SELECT * FROM crm_lead WHERE customer_name = '张三'\n\n\
+            \n用户问题：{{#sys.query#}}"
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        structured_output_enabled: true
+        title: LLM生成sql
+        type: llm
+        vision:
+          enabled: false
+      height: 116
+      id: '1778724013453'
+      position:
+        x: 703
+        y: 214.93333333333302
+      positionAbsolute:
+        x: 703
+        y: 214.93333333333302
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-1077
+            key: ''
+            type: text
+            value: '{"sql": {{#1778724013453.text#}}}'
+          type: json
+        headers: 'accept: application/json
+
+          Content-Type: application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求—查询
+        type: http-request
+        url: http://host.docker.internal:8001/api/query
+        variables: []
+      height: 136
+      id: '1778724389710'
+      position:
+        x: 1044
+        y: 224.2666666666665
+      positionAbsolute:
+        x: 1044
+        y: 224.2666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1778724389710'
+          - body
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 6d1e04a3-dd97-4e2a-8148-ca08f6206ebd
+          role: system
+          text: "你是一个数据分析助手。请根据 API 返回的 JSON 数据，用自然语言友好地回答用户的问题。\n\nAPI 返回的 JSON 数据如下：\n\
+            {{#api_response#}}\n返回结果：{{#1778724389710.body#}}\n规则：\n1. 如果 \"code\"\
+            \ 不是 200，直接回复 \"查询失败：{message}\"，其中 {message} 替换为 JSON 中的 message 字段内容。\n\
+            2. 如果 \"code\" 是 200，检查 \"data\" 数组：\n   - 如果 data 是空数组，回复 \"未查询到相关数据。\"\
+            \n   - 如果 data 包含数据，将数据整理成易读的文本形式（推荐使用简洁的表格描述或要点列表），并可根据上下文进行适当总结，但不要编造数据中不存在的信息。\n\
+            3. 回复语言与用户原始问题保持一致（如用户用中文提问则用中文回复）。\n4. 不要输出原始的 JSON 字符串，除非 data 为空且无其他信息可展示。\n\
+            \n现在，请根据以上要求生成回复。{{#context#}}"
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: 大模型解析
+        type: llm
+        vision:
+          enabled: false
+      height: 116
+      id: '1778725235599'
+      position:
+        x: 1385
+        y: 256.93333333333305
+      positionAbsolute:
+        x: 1385
+        y: 256.93333333333305
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1778725235599.text#}}'
+        selected: false
+        title: 最终回复
+        type: answer
+        variables: []
+      height: 102
+      id: '1778726401410'
+      position:
+        x: 1726
+        y: 283.26666666666654
+      positionAbsolute:
+        x: 1726
+        y: 283.26666666666654
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: a0d7dc7f-3643-432f-9be1-869a958b33eb
+          role: system
+          text: "你是一个数据提取助手。根据用户输入，提取创建“意向客户”所需的信息，并输出一个 JSON 对象。\n{{#context#}}\n\
+            JSON 需要包含以下字段：\n- customer_name: 字符串，必填，客户姓名\n- owner_employee_id: 整数，必填，负责员工的\
+            \ ID\n- contact_info: 字符串，选填，联系方式（电话/微信等）\n- background_info: 字符串，选填，用户背景信息\n\
+            - follow_up_history: 字符串，选填，历史跟进记录\n- status: 字符串，选填，客户状态（统一为新增）\n\n规则：\n\
+            1. 只输出纯 JSON 对象，不要任何解释、不要 markdown 代码块（如```json）。\n2. 如果用户输入中缺少必填字段（customer_name\
+            \ 或 owner_employee_id），输出 {\"error\": \"缺少必填字段：xxx\"}。\n3. 对于选填字段，如果用户没有提供，直接省略，不要输出空字符串或\
+            \ null。但status字段不论有没有提供统一为新增\n4. 数字类型的字段（owner_employee_id）确保输出为数字，不要加引号。\n\
+            5. 对于中文内容，保留原始表述。\n\n示例：\n用户输入：“新客户七七，电话13222332323，大专毕业，家庭条件不错，首次跟进，负责人是我（ID\
+            \ 5）”\n输出：\n  \"customer_name\": \"七七\",\n  \"owner_employee_id\": 5,\n\
+            \  \"contact_info\": \"13222332323\",\n  \"background_info\": \"大专毕业，家庭条件不错\"\
+            ,\n  \"follow_up_history\": \"首次\",\n  \"status\": \"新增\"\n\n用户输入：“新客户王百万，负责人ID是8\"\
+            \n输出：\n\"customer_name\": \"王百万\",\n  \"owner_employee_id\": 8,\n\"status\"\
+            : \"新增\"\n\n用户输入：“新客户李四”\n输出：{\"error\":\"缺少必填字段：owner_employee_id\"}\n\
+            \n现在请处理：{{#sys.query#}}"
+        - id: 1ea23e91-fb0b-45cd-8770-f6cdff46e482
+          role: user
+          text: '{{#sys.query#}}{{#1778832086335.text#}}'
+        selected: false
+        title: LLM提取信息
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778740292054'
+      position:
+        x: 2087
+        y: 10
+      positionAbsolute:
+        x: 2087
+        y: 10
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-1687
+            key: ''
+            type: text
+            value: '{{{#1778740292054.text#}}}'
+          type: json
+        headers: 'accept:application/json
+
+          Content-Type:application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求—新增
+        type: http-request
+        url: http://host.docker.internal:8001/api/leads
+        variables: []
+      height: 136
+      id: '1778741095984'
+      position:
+        x: 2428
+        y: 0
+      positionAbsolute:
+        x: 2428
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1778741095984'
+          - body
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: f1eaa100-8f48-4588-bbf8-af10c1a7c46e
+          role: system
+          text: '根据 API 返回结果，用中文告知用户录入是否成功。
+
+
+            API 返回数据如下：
+
+            {{{#1778741095984.body#}}
+
+
+            规则：
+
+            - 如果返回的字段中包含 id（表示成功），回复：“✅ 意向客户录入成功！客户姓名：{customer_name}”
+
+            - 如果返回的 code 不是 200 或包含 error 信息，回复：“❌ 录入失败：{错误信息}”
+
+            - 只输出最终回复，不要带 JSON。{{#context#}}'
+        selected: false
+        title: LLM查看新增状态
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778742159932'
+      position:
+        x: 2769
+        y: 47.166666666666586
+      positionAbsolute:
+        x: 2769
+        y: 47.166666666666586
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1778742159932.text#}}'
+        selected: false
+        title: 回复新增结果
+        type: answer
+        variables: []
+      height: 102
+      id: '1778742272454'
+      position:
+        x: 3110
+        y: 54.166666666666586
+      positionAbsolute:
+        x: 3110
+        y: 54.166666666666586
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 40031488-ae01-4c9f-ae1a-405350f9ef6b
+          role: system
+          text: '你是一个数据提取助手。根据用户输入，提取“修改意向客户”所需的信息，并输出一个 JSON 对象。
+
+
+            JSON 需要包含以下字段：
+
+            - id: 整数，**必填**，要修改的意向客户ID。
+
+            - customer_name: 字符串，选填，新的客户姓名。
+
+            - owner_employee_id: 整数，选填，新的负责人ID。
+
+            - contact_info: 字符串，选填，新的联系方式。
+
+            - background_info: 字符串，选填，新的背景信息。
+
+            - follow_up_history: 字符串，选填，新的跟进历史。
+
+            - status: 字符串，选填，新的状态。
+
+
+            规则：
+
+            1. 只输出纯 JSON 对象，不要任何解释、不要 markdown 代码块,。
+
+            2. **如果用户输入中没有提供 id，输出 {"error": "缺少必填字段：id"}**。
+
+            3. 只输出用户明确提到的字段，没有提到的字段**不要输出**（即使是空值也不要）。
+
+            4. 数字类型的字段（id、owner_employee_id）确保输出为数字，不要加引号。
+
+            5. 保留用户原始中文表述，不要改写。
+
+
+            示例：
+
+            用户输入：“把id为8的客户状态改为已签约”
+
+            输出：{"id":8,"status":"已签约"}
+
+
+            用户输入：“修改张三的手机号为13900000000”
+
+            输出：{"error":"缺少必填字段：id"}
+
+
+            用户输入：“客户ID5的负责人改成李四，背景加一条‘’家里破产了”
+
+            输出：{"id":5,"owner_employee_id":"李四","background_info":"家里破产了"}  // 注意这里
+            owner_employee_id 应该是整数，如果用户提供的不是数字，应警告
+
+
+            请处理：{{#sys.query#}}'
+        - id: 9a6a28f6-51e9-4fab-a1c0-33540ea2a75c
+          role: user
+          text: '{{#sys.query#}}/'
+        selected: false
+        title: 更新信息提取
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778742938176'
+      position:
+        x: 703
+        y: 450.26666666666654
+      positionAbsolute:
+        x: 703
+        y: 450.26666666666654
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - type: text
+            value: '{{#1778742938176.text#}}'
+          type: raw-text
+        headers: 'accept: application/json
+
+          Content-Type: application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求—更新客户信息
+        type: http-request
+        url: http://host.docker.internal:8001/api/leads/update
+        variables: []
+      height: 136
+      id: '1778744570067'
+      position:
+        x: 1044
+        y: 440.26666666666654
+      positionAbsolute:
+        x: 1044
+        y: 440.26666666666654
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1778744570067'
+          - body
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: e8dfd6fd-585f-44bb-b1b6-89bdd5be8b03
+          role: system
+          text: "你是一个回复生成助手。请根据 API 返回的结果，用中文告知用户“修改意向客户”操作的结果。\n\nAPI 返回的 JSON 数据如下：\n\
+            {{{#1778744570067.body#}}}\n\n规则：\n1. 如果返回的 JSON 中包含字段 \"id\" 和 \"customer_name\"\
+            （表示修改成功），回复：\n   “✅ 意向客户信息更新成功！客户ID：{id}，姓名：{customer_name}”\n2. 如果返回的\
+            \ JSON 中包含 \"detail\" 字段（通常为错误信息，如客户不存在），回复：\n   “❌ 修改失败：{detail}”\n3.\
+            \ 如果返回的数据为 null 或空对象，回复：“❌ 修改失败，未找到该客户。”\n4. 只输出最终的回复文本，不要附带任何 JSON。\n\
+            \n现在请生成回复。{{#context#}}"
+        selected: false
+        title: LLM查看更新状态
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778745264045'
+      position:
+        x: 1385
+        y: 487.43333333333305
+      positionAbsolute:
+        x: 1385
+        y: 487.43333333333305
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1778745264045.text#}}'
+        selected: false
+        title: 直接回复 3
+        type: answer
+        variables: []
+      height: 102
+      id: '1778745311155'
+      position:
+        x: 1726
+        y: 494.43333333333305
+      positionAbsolute:
+        x: 1726
+        y: 494.43333333333305
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.6-plus-2026-04-02
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 45d9cb25-fc52-4b71-a711-e902ba86cf44
+          role: system
+          text: '你是一个日报生成助手。根据用户输入，提取生成“员工日报”所需的信息，并输出一个 JSON 对象。
+
+
+            JSON 需要包含以下字段：
+
+            - employee_id: 整数，**必填**，员工ID。
+
+            - report_date: 字符串，格式“YYYY-MM-DD”，**必填**，日报日期。如果用户没有明确提到日期，请使用今天的日期（2026-05-14）。
+
+            - content: 字符串，**必填**，日报正文内容。从用户的口述或文字中整理出条理清晰的工作内容总结（保留用户原意，适当润色使其通顺，但不要编造信息）。
+
+
+            规则：
+
+            1. 只输出纯 JSON 对象，不要任何解释、不要 markdown 代码块（如```json）。
+
+            2. 如果用户输入中**缺少必填字段 employee_id 或 content 无法提取**，输出：{"error": "缺少必填字段：xxx"}
+
+            3. 日期永远输出字符串，例如 "2026-05-14"。
+
+            4. 数字字段不加引号。
+
+            5. 如果用户输入的内容足以形成日报，则 content 字段必须包含有意义的文字，不能为空。
+
+
+            示例：
+
+            用户输入：“员工ID 5，今天完成了登录模块的开发，下午开会讨论了需求”
+
+            输出：{"employee_id":5, "report_date":"2026-05-14", "content":"1. 完成登录模块开发\n2.
+            参加需求讨论会"}
+
+
+            用户输入：“今天很忙”
+
+            输出：{"error":"缺少必填字段：employee_id"}
+
+
+            现在请处理：{{#sys.query#}}'
+        selected: false
+        title: 日报信息提取
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778762641790'
+      position:
+        x: 703
+        y: 666.2666666666665
+      positionAbsolute:
+        x: 703
+        y: 666.2666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-5281
+            key: ''
+            type: text
+            value: '{{{#1778762641790.text#}}}'
+          type: json
+        headers: 'accept:application/json
+
+          Content-Type:application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求—生成日报
+        type: http-request
+        url: http://host.docker.internal:8001/api/daily-reports
+        variables: []
+      height: 136
+      id: '1778762718782'
+      position:
+        x: 1044
+        y: 656.2666666666665
+      positionAbsolute:
+        x: 1044
+        y: 656.2666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1778762718782'
+          - body
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: qwen3.6-flash-2026-04-16
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: c86def22-10b0-472d-8ae2-99e633d8c30b
+          role: system
+          text: '你是一个日报助手。根据 API 返回的结果，告知用户日报录入是否成功。
+
+
+            API 返回数据如下：
+
+            {{#HTTP节点ID.body}}
+
+
+            规则：
+
+            - 如果返回的 JSON 中包含 "id" 字段，表示录入成功，回复：“✅ 日报已生成！ID：{id}，日期：{report_date}”
+
+            - 如果返回的 JSON 中包含 "detail"（错误信息），回复：“❌ 日报生成失败：{detail}”
+
+            - 如果返回为空或无法识别，回复：“❌ 日报生成失败，请稍后重试。”
+
+            - 只输出最终回复文本，不要附带 JSON。{{#context#}}'
+        selected: false
+        title: 查看日报新增状态
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778762999551'
+      position:
+        x: 1385
+        y: 703.433333333333
+      positionAbsolute:
+        x: 1385
+        y: 703.433333333333
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1778762999551.text#}}'
+        selected: false
+        title: 直接回复 4
+        type: answer
+        variables: []
+      height: 102
+      id: '1778763155831'
+      position:
+        x: 1726
+        y: 710.433333333333
+      positionAbsolute:
+        x: 1726
+        y: 710.433333333333
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.6-plus-2026-04-02
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: b41fcefe-562d-4e6e-86ee-b114d304328f
+          role: system
+          text: "你是一个 SQL 生成助手。根据用户问题，生成一条标准的 MySQL SELECT 查询语句。\n\n数据库包含以下表，请严格使用这些表和字段：\n\
+            --表名:\nemployee_daily_report\n--字段:\nemployee_id：员工id ,\n  report_date：日报填写时间\
+            \ ,\n  content：日报内容 ,\n  create_time：创建时间\n\n你需要做到：\n1. 只输出纯 SQL，不要任何\
+            \ markdown 代码块、不要注释、不要解释。\n2. 只生成 SELECT 语句。\n3. 如果用户问题与上述表无关，或者信息不足以生成\
+            \ SQL，输出：ERROR\n\n示例：\n\nQ: 查询id为5的员工所有日报信息？\nA: SELECT * FROM employee_daily_report\
+            \ WHERE employee_id= 5\n{{#sys.query#}}"
+        - id: 623d6bc9-6b43-46b5-80ad-dcac4b548a79
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: 生成日报查询SQL
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778766934137'
+      position:
+        x: 703
+        y: 882.2666666666665
+      positionAbsolute:
+        x: 703
+        y: 882.2666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-6281
+            key: ''
+            type: text
+            value: '{"sql":{{#1778766934137.text#}}}'
+          type: json
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求—日报查询
+        type: http-request
+        url: http://host.docker.internal:8001/api/query
+        variables: []
+      height: 136
+      id: '1778767532773'
+      position:
+        x: 1044
+        y: 872.2666666666665
+      positionAbsolute:
+        x: 1044
+        y: 872.2666666666665
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1778767532773'
+          - body
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: e27bb1fc-db5d-46b1-affe-63c3a87a2dc5
+          role: system
+          text: "你是一个数据分析助手。请根据 API 返回的 JSON 数据，用自然语言友好地回答用户的问题。\n\nAPI 返回的 JSON 数据如下：\n\
+            {{#api_response#}}\n返回结果：{{#1778767532773.body#}}\n规则：\n1. 如果 \"code\"\
+            \ 不是 200，直接回复 \"查询失败：{message}\"，其中 {message} 替换为 JSON 中的 message 字段内容。\n\
+            2. 如果 \"code\" 是 200，检查 \"data\" 数组：\n   - 如果 data 是空数组，回复 \"未查询到相关数据。\"\
+            \n   - 如果 data 包含数据，将数据整理成易读的文本形式（推荐使用简洁的表格描述或要点列表），并可根据上下文进行适当总结，但不要编造数据中不存在的信息。\n\
+            3. 回复语言与用户原始问题保持一致（如用户用中文提问则用中文回复）。\n4. 不要输出原始的 JSON 字符串，除非 data 为空且无其他信息可展示。\n\
+            \n现在，请根据以上要求生成回复。{{#context#}}"
+        selected: false
+        title: 日报查询回复状态
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778767709471'
+      position:
+        x: 1385
+        y: 919.4333333333332
+      positionAbsolute:
+        x: 1385
+        y: 919.4333333333332
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1778767709471.text#}}'
+        selected: false
+        title: 直接回复 5
+        type: answer
+        variables: []
+      height: 102
+      id: '1778767785265'
+      position:
+        x: 1726
+        y: 926.4333333333332
+      positionAbsolute:
+        x: 1726
+        y: 926.4333333333332
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        classes:
+        - id: '1'
+          name: '查询公司组织架构与部门信息
+
+            示例：公司有哪些部门？双元制事业部的主要职能是什么？'
+        - id: '2'
+          name: '查询公司内部人员信息
+
+            示例：张三的电话号码是多少？事业部有哪些人？'
+        instruction: '你需要判断用户的查询类型。用户输入：{{#sys.query#}}
+
+
+          如果用户询问的是公司规章制度、部门职能介绍、组织架构、公司介绍、办事流程等**固定、静态的信息**，请走分类1
+
+          如果用户询问的是具体某个员工的信息、联系方式、人员分布、某同事信息、按条件查找人员等**需要查询人员数据库**的内容，请走分类2
+
+          '
+        instructions: ''
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - '1778657212997'
+        - sys.query
+        selected: false
+        title: 意图再识别
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 169
+      id: '1778811687479'
+      position:
+        x: 697.7219683569083
+        y: 1099.6734620674433
+      positionAbsolute:
+        x: 697.7219683569083
+        y: 1099.6734620674433
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        dataset_ids:
+        - 8k+E//X77MB/49YDyVm0R/aKVxzCIzlrwHhupzUD78aDQ3Ds3bDHQBhvg8DTFDkI
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: qwen3-rerank
+            provider: langgenius/tongyi/tongyi
+          score_threshold: 0.25
+          top_k: 3
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1778657212997'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 公司部门知识检索
+        type: knowledge-retrieval
+      height: 89
+      id: '1778815376921'
+      position:
+        x: 1064
+        y: 1088.2666666666667
+      positionAbsolute:
+        x: 1064
+        y: 1088.2666666666667
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1778815376921'
+          - result
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: qwen3.6-plus-2026-04-02
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: f259abce-6be0-498d-8556-c5da318294eb
+          role: system
+          text: '根据用户输入的问题和知识检索出的答案，对输入的问题润色后进行回答。
+
+            要求：
+
+            1.回答基于输入给你的内容
+
+            2.回复格式自然，可适当分点，但不要使用 markdown 的复杂样式，只使用换行分段即可
+
+            3.不需要获取公司名称，只针对检索的内容进行回答
+
+            4.根据检索到输入的内容回答即可，不需要额外的查询。只对输入的内容进行润色即可
+
+            {{#context#}}{{#sys.query#}}'
+        - id: 92da6e7e-153e-48fe-acb7-8fa1d48fa307
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: 部门信息润色回复
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778815567458'
+      position:
+        x: 1405
+        y: 1104.1
+      positionAbsolute:
+        x: 1405
+        y: 1104.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1778815567458.text#}}'
+        selected: false
+        title: 直接回复 6
+        type: answer
+        variables: []
+      height: 102
+      id: '1778815703620'
+      position:
+        x: 1746
+        y: 1111.1
+      positionAbsolute:
+        x: 1746
+        y: 1111.1
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 1b30104c-3c0f-4dd7-aeba-4acac90783fc
+          role: system
+          text: '你是一个 SQL 查询生成器。根据用户问题，生成一条 MySQL SELECT 语句，用于查询统一用户表 sys_user。
+
+
+            表结构 (sys_user)：
+
+            - id: 用户ID (bigint)
+
+            - username: 登录账号
+
+            - real_name: 真实姓名
+
+            - user_type: 用户类型 (STUDENT/EMPLOYEE)
+
+            - employee_role: 员工角色 (普通员工、领导、管理员)
+
+            - department: 所属部门
+
+            - contact_info: 联系方式 (手机/邮箱)
+
+            - status: 账号状态 (正常/禁用)
+
+
+            要求：
+
+            1. 只输出纯 SQL 语句，不要任何解释、不要 markdown 标记（如```sql）、不要换行之外的无关字符。
+
+            2. 只生成 SELECT 语句，禁止 INSERT/UPDATE/DELETE。
+
+            3. 尽可能使用准确的字段名，对模糊查询使用 LIKE。
+
+            4. 如果用户问题无法映射到本表或无法生成有效 SQL，输出：ERROR
+
+            5. 查询结果通常需要返回 real_name, department, contact_info, employee_role 等字段，如无特别指定，默认查询所有字段。
+
+
+            示例：
+
+            Q: 张三的电话是多少？
+
+            A: SELECT * FROM sys_user WHERE real_name LIKE ''%张三%''
+
+
+            Q: 技术部有哪些人？
+
+            A: SELECT real_name, contact_info FROM sys_user WHERE department = ''技术部''
+
+
+            Q: 今天天气怎么样？
+
+            A: ERROR
+
+
+            用户问题：{{#sys.query#}}'
+        - id: 17354752-a873-4b5b-ae3c-9072fd4bfeb9
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: 生成信息查询SQL
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778815729042'
+      position:
+        x: 1064
+        y: 1281.1
+      positionAbsolute:
+        x: 1064
+        y: 1281.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-6918
+            key: ''
+            type: text
+            value: '{"sql":{{#1778815729042.text#}}}'
+          type: json
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求—查询员工信息
+        type: http-request
+        url: http://host.docker.internal:8001/api/query
+        variables: []
+      height: 136
+      id: '1778815825819'
+      position:
+        x: 1405
+        y: 1271.1
+      positionAbsolute:
+        x: 1405
+        y: 1271.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1778815825819'
+          - body
+        model:
+          completion_params:
+            temperature: 0.5
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 6423e2c6-25a3-464f-ac7d-5f960bf16251
+          role: system
+          text: '根据 API 返回的查询结果，用自然语言回答用户的问题。
+
+
+            API 返回的 JSON：
+
+            {{{#1778815825819.body#}}}
+
+
+            如果返回的 code 不是 200，请回复：“查询失败，请稍后重试。”
+
+            如果 返回的信息为空数组，请回复：“未找到相关人员信息。”
+
+            如果返回信息包含多条数据，请整理成清晰的人员列表，包含姓名、部门、联系方式等。如果用户询问特定信息（如电话号码），则直接给出。
+
+            如果返回信息包含一条数据，则直接告知用户相关信息。
+
+
+            用中文友好回复，不要显示原始 JSON。{{#context#}}'
+        - id: e190633b-54ef-41d9-807f-9ddafe99230b
+          role: user
+          text: '{{#1778815825819.body#}}'
+        selected: false
+        title: 查询结果验证
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778815966227'
+      position:
+        x: 1746
+        y: 1318.2666666666669
+      positionAbsolute:
+        x: 1746
+        y: 1318.2666666666669
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1778815966227.text#}}'
+        selected: false
+        title: 直接回复 7
+        type: answer
+        variables: []
+      height: 102
+      id: '1778816072251'
+      position:
+        x: 2087
+        y: 1325.2666666666669
+      positionAbsolute:
+        x: 2087
+        y: 1325.2666666666669
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        dataset_ids:
+        - mL4go1Oz47vjG88xos8QMP6Qme6nCKc+LJI8w1v9XjTakRoLyxC486eoeui9OQGo
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: qwen3-rerank
+            provider: langgenius/tongyi/tongyi
+          top_k: 4
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1778657212997'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 公司信息检索
+        type: knowledge-retrieval
+      height: 89
+      id: '1778829100222'
+      position:
+        x: 703
+        y: 1464.2666666666667
+      positionAbsolute:
+        x: 703
+        y: 1464.2666666666667
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1778829100222'
+          - result
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: qwen3.6-flash-2026-04-16
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 802c4cdd-c9ca-497d-8157-e732ffa6c86e
+          role: system
+          text: '根据知识库检索输入给你的信息回答用户输入的问题。
+
+            要求：
+
+            1.你所思考的内容只来源于上下文和变量的输入
+
+            2.不要做多余的思考，不要生成与检索信息无关的内容
+
+            3.针对检索输入的信息进行润色即可
+
+            {{#context#}}{{#sys.query#}}'
+        - id: 990a3b9c-ab6e-4312-b2bf-bdf31425c51a
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: 公司信息检索解析
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778829301430'
+      position:
+        x: 1044
+        y: 1480.1
+      positionAbsolute:
+        x: 1044
+        y: 1480.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1778829301430.text#}}'
+        selected: false
+        title: 直接回复 8
+        type: answer
+        variables: []
+      height: 102
+      id: '1778829654247'
+      position:
+        x: 1385
+        y: 1487.1
+      positionAbsolute:
+        x: 1385
+        y: 1487.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        is_array_file: false
+        selected: false
+        title: 文档提取
+        type: document-extractor
+        variable_selector:
+        - sys
+        - files
+      height: 103
+      id: '1778832086335'
+      position:
+        x: 703
+        y: 31.099999999999994
+      positionAbsolute:
+        x: 703
+        y: 31.099999999999994
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1778833302175'
+          - result
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.6-plus-2026-04-02
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 4bd32002-5bc9-4b12-9ae4-8814dd823e2b
+          role: system
+          text: "你是一个客户画像研判助手。请严格依据下面提供的《用户画像研判规则》，判断当前客户是否符合甲方公司的目标客户画像。\n\n【规则来源】（从知识库自动检索）\n\
+            {{#context#}}\n\n【用户输入的文本】（可能包含客户信息描述）\n{{{#sys.query#}}}\n\n【文件内容】（如果用户上传了简历或表格）\n\
+            {{{#sys.files#}}}\n\n【任务要求】\n1. 综合以上所有信息，判断该客户是否符合规则中定义的任一产品目标画像。\n2.\
+            \ 如果符合，输出：PASS\n3. 如果不符合，输出：REJECT，并附带一句话原因（例如：“不符合‘双元制招生’年龄要求”）。\n4.\
+            \ 输出格式必须严格为：\n   - 通过时：PASS\n   - 拒绝时：REJECT:原因描述\n5. 不要输出任何其他内容。"
+        - id: 5987a404-2967-4c36-91f1-fdc7ac5f6a55
+          role: user
+          text: '{{#sys.query#}}{{#1778832086335.text#}}'
+        selected: false
+        title: 意向客户研判
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778832991548'
+      position:
+        x: 1385
+        y: 71.1
+      positionAbsolute:
+        x: 1385
+        y: 71.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        dataset_ids:
+        - 7OLJdgU6+ue6axYxBlZLxqythZ10xe3SBBTnLGsAIWUPyAgYOlPZaBVOk7B8nEb2
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: qwen3-rerank
+            provider: langgenius/tongyi/tongyi
+          top_k: 4
+        query_attachment_selector: []
+        query_variable_selector:
+        - sys
+        - query
+        retrieval_mode: multiple
+        selected: false
+        title: 用户研判知识检索
+        type: knowledge-retrieval
+      height: 89
+      id: '1778833302175'
+      position:
+        x: 1044
+        y: 55.26666666666651
+      positionAbsolute:
+        x: 1044
+        y: 55.26666666666651
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 86e9e3fc-4602-4d2f-a502-76fc43c72519
+            value: PASS
+            varType: string
+            variable_selector:
+            - '1778832991548'
+            - text
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 123
+      id: '1778833705513'
+      position:
+        x: 1726
+        y: 67.6
+      positionAbsolute:
+        x: 1726
+        y: 67.6
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: 该客户不是意向客户，原因：{{#1778832991548.text#}}
+        selected: false
+        title: 直接回复 9
+        type: answer
+        variables: []
+      height: 118
+      id: '1778833938843'
+      position:
+        x: 2087
+        y: 177
+      positionAbsolute:
+        x: 2087
+        y: 177
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        classes:
+        - id: '1'
+          name: '录入学生成绩
+
+            在数据库中新增学生的成绩
+
+            示例输入：新增张三的成绩、学生id为77的数学考试成绩为99'
+        - id: '2'
+          name: '查询学生成绩
+
+            在数据库中查询学生的成绩
+
+            示例输入：查询张三的成绩、查询所有学生的数学成绩、查询分数低于60分的学生信息'
+        - id: '1778837955259'
+          name: '处理学生反馈工单
+
+            在数据库中更新学生的反馈工单
+
+            输入示例：处理学生id为7的学生工单、处理学生的投诉、处理学生的反馈、审批学生的请假'
+        - id: '1778837956630'
+          name: '查询学生反馈工单
+
+            查询数据库中的学生反馈工单表的信息
+
+            输入示例：查询投诉反馈工单表、查询请假申请、查询未处理的投诉反馈、查询未处理的投诉反馈'
+        - id: '1778898093375'
+          name: '处理学生的申请
+
+            在数据库中更新学生的行政服务表
+
+            输入示例：通过学生ID为5的请假审批、处理学生的请假审批、驳回学生ID为3的请假审批，审批人ID8'
+        - id: '1778900162216'
+          name: '查询学生的申请和考务信息
+
+            查询数据库中行政服务表的信息
+
+            输入示例：查询学生的申请、查询学生ID为5的学生申请、查询所有未处理的学生申请、查询学生3的考务信息、查询考务信息'
+        - id: '1778901466661'
+          name: '新增学生考务信息
+
+            在数据库中给学生新增考务信息
+
+            输入示例：新增一条考务信息、给学生ID为5的学生新增一条考务信息、给学生ID为6的学生添加一条教务数据ID为8的信息'
+        instruction: '你是企业内部员工智能助手的专属意图识别模型，你需要将用户关于学生业务的请求分类为以下四种之一：
+
+          分类1：新增/录入学生成绩
+
+          分类2：查询学生成绩
+
+          分类3：修改/更新/处理学生反馈工单（如修改状态、填写解决方案等）
+
+          分类4：查询学生反馈工单
+
+
+          用户输入：{{#sys.query#}}
+
+          '
+        instructions: ''
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - '1778657212997'
+        - sys.query
+        selected: false
+        title: 学生综管意图识别
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 359
+      id: '1778837922692'
+      position:
+        x: 703
+        y: 2107.333333333333
+      positionAbsolute:
+        x: 703
+        y: 2107.333333333333
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.6-flash-2026-04-16
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 84d621ba-8d6d-46dc-b324-31ed5ee7087d
+          role: system
+          text: '你是一个数据提取助手。根据用户输入，提取“新增学生成绩”所需的信息，输出一个 JSON 对象。
+
+
+            字段说明：
+
+            - student_id: 整数，必填，学生ID
+
+            - course_name: 字符串，必填，课程名称
+
+            - score: 数字，必填，分数（0-100之间的数）
+
+            - semester: 字符串，选填，学期（如“2025-2026第一学期”），如果用户未提供则不输出该字段
+
+
+            规则：
+
+            1. 只输出纯 JSON 对象，不要任何解释、不要 markdown 代码块。
+
+            2. 缺少必填字段时输出 {"error": "缺少必填字段：xxx"}。
+
+            3. 分数必须为数字，不加引号。
+
+            4. 其他字段保留用户原意。
+
+
+            示例：
+
+            用户输入：“学生ID 12 的 Python 课程得了 95 分”
+
+            输出：{"student_id":12, "course_name":"Python", "score":95}
+
+
+            用户输入：“录入成绩，学生5，数学88”
+
+            输出：{"student_id":5, "course_name":"数学", "score":88}
+
+
+            现在请处理：{{#sys.query#}}'
+        - id: 01c8c371-d7d8-407a-8e71-8a808c795e90
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: 新增成绩信息提取
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778838871176'
+      position:
+        x: 1064
+        y: 1679.1
+      positionAbsolute:
+        x: 1064
+        y: 1679.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-7597
+            key: ''
+            type: text
+            value: '{{{#1778838871176.text#}}}'
+          type: json
+        headers: accept:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求—新增学生成绩
+        type: http-request
+        url: http://host.docker.internal:8001/api/scores
+        variables: []
+      height: 136
+      id: '1778839058239'
+      position:
+        x: 1405
+        y: 1669.1
+      positionAbsolute:
+        x: 1405
+        y: 1669.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.5-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: e6483703-741e-4d04-a97c-f2755101fdf9
+          role: system
+          text: '根据API返回结果，告知用户成绩录入是否成功。
+
+
+            返回数据：{{{#1778839058239.body#}}y}
+
+
+            如果返回包含 id 字段，回复：“✅ 成绩已录入。学生ID：{student_id}，课程：{course_name}，分数：{score}”
+
+            如果包含 detail 错误信息，回复：“❌ 录入失败：{detail}”
+
+            否则回复：“❌ 录入失败，请稍后重试。”
+
+            只输出最终回复。'
+        - id: 3aae3ef6-4821-4a06-be4a-75458de2f12e
+          role: user
+          text: '{{#1778839058239.body#}}'
+        selected: false
+        title: 新增学生成绩解析
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778839404992'
+      position:
+        x: 1746
+        y: 1716.2666666666667
+      positionAbsolute:
+        x: 1746
+        y: 1716.2666666666667
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1778839404992.text#}}'
+        selected: false
+        title: 直接回复 10
+        type: answer
+        variables: []
+      height: 102
+      id: '1778839481073'
+      position:
+        x: 2087
+        y: 1723.2666666666667
+      positionAbsolute:
+        x: 2087
+        y: 1723.2666666666667
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 97011d7f-94d4-4479-ab52-5775e986b8fd
+          role: system
+          text: '你是一个SQL生成器。根据用户问题，生成一条MySQL SELECT语句，用于查询学生成绩表 student_score。
+
+
+            表结构：
+
+            - id: 自增主键
+
+            - student_id: 学生ID (int)
+
+            - course_name: 课程名称 (varchar)
+
+            - score: 分数 (decimal)
+
+            - semester: 学期 (varchar)
+
+            - create_time: 创建时间
+
+
+            要求：
+
+            1. 只输出纯SQL语句，不要任何解释或代码块。
+
+            2. 如果用户问题无法生成有效SQL，输出：ERROR
+
+            3. 默认查询所有字段，除非用户指定。
+
+
+            示例：
+
+            用户：“查一下学生ID 12的所有成绩”
+
+            输出：SELECT * FROM student_score WHERE student_id = 12
+
+
+            用户：“张三的数学成绩”
+
+            （如果没有student表，则输出 ERROR）
+
+            但你可以提示用 student_id 代替，若用户提供名字，输出 ERROR。
+
+
+            现在用户问题：{{#sys.query#}}'
+        - id: e83f458c-9fb9-4cc0-8463-6c7f16e30a10
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: 学生成绩查询SQL
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778839627745'
+      position:
+        x: 1064
+        y: 1895.1
+      positionAbsolute:
+        x: 1064
+        y: 1895.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-7922
+            key: ''
+            type: text
+            value: '{"sql":{{#1778839627745.text#}}}'
+          type: json
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求—查询学生成绩
+        type: http-request
+        url: http://host.docker.internal:8001/api/query
+        variables: []
+      height: 136
+      id: '1778839733258'
+      position:
+        x: 1405
+        y: 1885.1
+      positionAbsolute:
+        x: 1405
+        y: 1885.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1778839733258'
+          - body
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.5-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: b57707bd-cb1b-4978-aad0-672c14d8a1ba
+          role: system
+          text: '根据 API 返回的查询结果，用自然语言回答用户的问题。
+
+
+            API 返回的 JSON：
+
+            {{#1778839733258.body#}}
+
+
+            如果返回的 code 不是 200，请回复：“查询失败，请稍后重试。”
+
+            如果 返回的信息为空数组，请回复：“未找到相关人员信息。”
+
+            如果返回信息包含多条数据，请整理成清晰的人员列表，包含姓名、部门、联系方式等。如果用户询问特定信息（如电话号码），则直接给出。
+
+            如果返回信息包含一条数据，则直接告知用户相关信息。
+
+
+            用中文友好回复，不要显示原始 JSON。{{#context#}}'
+        - id: c724113b-108f-49de-a16b-df709bf83f02
+          role: user
+          text: '{{#1778839733258.body#}}'
+        selected: false
+        title: 学生成绩查询解析
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778839849011'
+      position:
+        x: 1746
+        y: 1932.2666666666667
+      positionAbsolute:
+        x: 1746
+        y: 1932.2666666666667
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1778839849011.text#}}'
+        selected: false
+        title: 直接回复 11
+        type: answer
+        variables: []
+      height: 102
+      id: '1778839975315'
+      position:
+        x: 2087
+        y: 1939.2666666666667
+      positionAbsolute:
+        x: 2087
+        y: 1939.2666666666667
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8e040abf-0c02-463c-b9a9-dc11fa22402b
+          role: system
+          text: '你是一个数据提取助手。根据用户输入，提取“修改学生反馈工单”所需的信息，输出一个 JSON 对象。
+
+
+            工单表字段：
+
+            - id: 整数，**必填**，工单ID
+
+            - status: 字符串，选填，处理进度（待处理/处理中/已解决）
+
+            - solution: 字符串，选填，最终解决方案
+
+            - is_notified: 整数，选填，是否通知学生（0或1）
+
+            - detail: 字符串，选填，详细反馈内容
+
+            - content: 字符串，选填，内容摘要
+
+
+            规则：
+
+            1. 只输出纯 JSON，只包含用户明确提到的字段。id 必须存在，否则输出 {"error":"缺少工单ID"}。
+
+            2. 数字类型不加引号。
+
+            3. 如果用户输入含糊不清，无法提取任何有效字段，输出 ERROR。
+
+
+            示例：
+
+            用户：“把工单8的状态改成已解决，解决方案是更换设备”
+
+            输出：{"id":8, "status":"已解决", "solution":"更换设备"}
+
+
+            用户：“通知学生工单5的处理结果”
+
+            输出：{"id":5, "is_notified":1} （假设“通知”含义为 is_notified=1）
+
+
+            现在处理：{{#sys.query#}}'
+        - id: 68158f05-492e-40ed-830d-9f4460ddddfb
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: 提取工单修改信息
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778840665900'
+      position:
+        x: 1064
+        y: 2111.1
+      positionAbsolute:
+        x: 1064
+        y: 2111.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-8194
+            key: ''
+            type: text
+            value: '{{#1778840665900.text#}}'
+          type: raw-text
+        headers: 'accept:application/json
+
+          Content-Type:application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求—工单修改
+        type: http-request
+        url: http://host.docker.internal:8001/api/feedbacks/update
+        variables: []
+      height: 136
+      id: '1778840759117'
+      position:
+        x: 1405
+        y: 2101.1
+      positionAbsolute:
+        x: 1405
+        y: 2101.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.5-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 119dcd28-20ce-4ed3-993e-dc746d252f57
+          role: system
+          text: '根据API返回结果，告知用户工单修改是否成功。
+
+
+            返回数据：{{{#1778840759117.body#}}ody}
+
+
+            如果返回包含 id 字段，回复：“✅ 工单 {id} 已更新。”
+
+            如果包含 detail 错误，回复：“❌ 更新失败：{detail}”
+
+            否则：“❌ 更新失败，请稍后重试。”
+
+            只输出最终回复。'
+        - id: 82f833bc-fbc6-432f-905a-893cccb92133
+          role: user
+          text: '{{#1778840759117.body#}}'
+        selected: false
+        title: 工单修改检查
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778840860689'
+      position:
+        x: 1746
+        y: 2148.2666666666664
+      positionAbsolute:
+        x: 1746
+        y: 2148.2666666666664
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1778840860689.text#}}'
+        selected: false
+        title: 直接回复 12
+        type: answer
+        variables: []
+      height: 102
+      id: '1778840909125'
+      position:
+        x: 2087
+        y: 2155.2666666666664
+      positionAbsolute:
+        x: 2087
+        y: 2155.2666666666664
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.6-plus-2026-04-02
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 240c4504-01a3-47d0-8cc5-06fa6480a302
+          role: system
+          text: '你是一个SQL生成器。根据用户问题，生成一条MySQL SELECT语句，查询学生反馈工单表 student_feedback_ticket。
+
+
+            表结构：
+
+            - id: 工单ID
+
+            - student_id: 学生ID
+
+            - content: 内容摘要 (varchar)
+
+            - detail: 详细反馈 (varchar)
+
+            - status: 状态 (待处理/处理中/已解决)
+
+            - solution: 解决方案 (varchar)
+
+            - is_notified: 是否通知 (0/1)
+
+            - create_time, update_time
+
+
+            要求：
+
+            1. 只输出纯SQL，无其他文字。
+
+            2. 无法生成时输出 ERROR。
+
+            3. 如果用户问某学生的工单，需通过 student_id 查询；如果问处理进度/状态，用 status 条件；默认查询所有字段。
+
+
+            示例：
+
+            用户：“查询学生ID 3的所有工单”
+
+            输出：SELECT * FROM student_feedback_ticket WHERE student_id = 3
+
+
+            用户：“所有待处理的工单”
+
+            输出：SELECT * FROM student_feedback_ticket WHERE status = ''待处理''
+
+
+            现在用户问题：{{#sys.query#}}'
+        - id: a51eebe1-1602-4908-bf8b-b1d43341ae29
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: 查询工单信息SQL
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778841285518'
+      position:
+        x: 1064
+        y: 2327.1
+      positionAbsolute:
+        x: 1064
+        y: 2327.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-8672
+            key: ''
+            type: text
+            value: '{"sql":{{#1778841285518.text#}}}'
+          type: json
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求—工单查询
+        type: http-request
+        url: http://host.docker.internal:8001/api/query
+        variables: []
+      height: 136
+      id: '1778841369230'
+      position:
+        x: 1405
+        y: 2315.7804920892268
+      positionAbsolute:
+        x: 1405
+        y: 2315.7804920892268
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.5-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 146eff72-2553-4aca-8c42-d77d8f84054c
+          role: system
+          text: '根据API返回的工单数据，回答用户问题。
+
+
+            返回数据：{{#HTTP节点.body}}
+
+
+            如果失败或为空，给出友好提示。
+
+            如果有多条工单，整理出工单ID、状态、内容摘要等关键信息，清晰展示。
+
+            用中文回复，不要显示原始JSON。'
+        - id: ac9b3d4e-0727-42a8-9f5f-39cf9f4b6eb2
+          role: user
+          text: '{{#1778841369230.body#}}'
+        selected: false
+        title: 工单查询检查
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778841568826'
+      position:
+        x: 1746
+        y: 2364.2666666666664
+      positionAbsolute:
+        x: 1746
+        y: 2364.2666666666664
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1778841568826.text#}}'
+        selected: false
+        title: 直接回复 13
+        type: answer
+        variables: []
+      height: 102
+      id: '1778841638775'
+      position:
+        x: 2087
+        y: 2371.2666666666664
+      positionAbsolute:
+        x: 2087
+        y: 2371.2666666666664
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: 未找到对应业务，请重新描述
+        selected: false
+        title: 直接回复 14
+        type: answer
+        variables: []
+      height: 99
+      id: '1778842977988'
+      position:
+        x: 703
+        y: 3335.1
+      positionAbsolute:
+        x: 703
+        y: 3335.1
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 7b107465-8022-409f-af49-157c627d0089
+          role: system
+          text: '你是一个 SQL 生成器。根据用户要求的时间范围，生成一条 MySQL SELECT 语句，查询员工日报表 employee_daily_report。
+
+
+            表结构：
+
+            - id: 自增主键
+
+            - employee_id: 员工 ID（整数）
+
+            - report_date: 日报日期（DATE）
+
+            - content: 日报内容（TEXT）
+
+            - create_time: 创建时间（DATETIME）
+
+
+            要求：
+
+            1. 只输出一条纯 SQL 语句，不要任何解释、不要 markdown 代码块（如```sql）、不要换行之外的无关字符。
+
+            2. 只生成 SELECT 语句。
+
+            3. 如果用户提到了日期范围（如“今天”、“昨天”、“本周”、“上周”、“2026年5月”、“最近7天”等），将其转换为对应的日期条件。注意：今天的日期是
+            2026-05-15（请作为参考，实际以你运行时为准）。
+
+            4. 如果用户未明确日期，默认查询**今天**的日报，即 WHERE report_date = ''2026-05-15''。
+
+            5. 查询所有员工在该时间范围内的日报，无需按员工分组。
+
+            6. 如果用户问题不清晰或无法生成有效 SQL，输出：ERROR
+
+            7. SQL 中不要使用函数依赖当前时间（如 NOW()），直接使用具体的日期字符串，例如 ''2026-05-15''。这样可以保证 Dify
+            环境中测试的一致性。
+
+
+            示例：
+
+            用户：“帮我汇总本周的日报”
+
+            输出：SELECT employee_id, report_date, content FROM employee_daily_report
+            WHERE report_date BETWEEN ''2026-05-10'' AND ''2026-05-15''
+
+
+            用户：“今天的日报”
+
+            输出：SELECT employee_id, report_date, content FROM employee_daily_report
+            WHERE report_date = ''2026-05-15''
+
+
+            用户：“上个月的所有日报”
+
+            输出：SELECT employee_id, report_date, content FROM employee_daily_report
+            WHERE report_date BETWEEN ''2026-04-01'' AND ''2026-04-30''
+
+
+            现在用户问题：{{#sys.query#}}'
+        - id: 195f0f75-5990-488c-b2e6-319b8afc280c
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: 日报汇总查询SQL
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778848792603'
+      position:
+        x: 703
+        y: 3168.1
+      positionAbsolute:
+        x: 703
+        y: 3168.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-8907
+            key: ''
+            type: text
+            value: '{"sql":{{#1778848792603.text#}}}'
+          type: json
+        headers: accept:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求—日报汇总查询
+        type: http-request
+        url: http://host.docker.internal:8001/api/query
+        variables: []
+      height: 136
+      id: '1778848927083'
+      position:
+        x: 1044
+        y: 3158.1
+      positionAbsolute:
+        x: 1044
+        y: 3158.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.5
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 054fdcab-39d7-4425-8cbf-8107923d844a
+          role: system
+          text: "你是一个企业日报汇总助手。根据 API 返回的员工日报数据，为管理层生成一份简洁、专业的汇总报告。\n\nAPI 返回数据：{{{#1778848927083.body#}}y}\n\
+            用户原始请求：{{#sys.query#}}\n\n任务说明：\n1. 如果返回的 `code` 不是 200，或者 `data` 为空数组，请回复：“未获取到对应时间段的日报数据，请确认日期或稍后重试。”\n\
+            2. 如果数据正常，请综合所有员工的日报内容，生成一份汇总报告。报告结构如下：\n   - 标题：{时间范围} 员工日报汇总\n   - 整体摘要：用\
+            \ 2-3 句话概括本周期内的整体工作进展和团队状态。\n   - 关键产出 / 重点进展：提炼跨员工的共性问题或重大里程碑。\n   -\
+            \ 风险与问题：如果日报中提到了阻塞、风险或需协调的事项，请总结列出。\n   - 明日计划 / 后续关注：如果日报中包含明日计划或后续安排，请汇总。\n\
+            3. 由于当前系统未关联员工姓名，报告中可直接使用“员工 ID：xxx”进行引用，不必编造姓名。\n4. 如果日报内容较少或过于碎片化，可适当简化报告，但至少要包含时间范围和整体摘要。\n\
+            5. 使用中文，语气正式、客观，可使用小标题分点，但不要使用 markdown 的复杂格式，仅用换行和简单的编号即可。\n6. 不要显示原始\
+            \ JSON，不要提及 API 或数据库。\n\n现在请生成报告。"
+        - id: c2486869-5154-4336-9ea3-db9edd423035
+          role: user
+          text: '{{#1778848927083.body#}}{{#sys.query#}}'
+        selected: false
+        title: 解析生成报告
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778849031931'
+      position:
+        x: 1385
+        y: 3205.2666666666664
+      positionAbsolute:
+        x: 1385
+        y: 3205.2666666666664
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1778849031931.text#}}'
+        selected: false
+        title: 直接回复 15
+        type: answer
+        variables: []
+      height: 102
+      id: '1778849116956'
+      position:
+        x: 1726
+        y: 3212.2666666666664
+      positionAbsolute:
+        x: 1726
+        y: 3212.2666666666664
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8d74279d-b348-49e3-9cb0-7a7ebea8d27a
+          role: system
+          text: '你是一个数据提取助手。根据用户输入，提取“修改学生行政服务”所需的信息，输出一个 JSON 对象。
+
+
+            学生行政服务表字段：
+
+            - id: 整数，**必填**，行政服务记录ID
+
+            - status: 字符串，选填，审批状态（待审批/已通过/已驳回）
+
+            - approver_id: 整数，选填，审批人/班主任ID
+
+            - reason: 字符串，选填，申请事由
+
+            - start_time: 字符串，选填，开始时间（格式 "YYYY-MM-DD HH:MM" 或 "YYYY-MM-DD"）
+
+            - end_time: 字符串，选填，结束时间（格式同上）
+
+            - service_type: 字符串，选填，服务类型（如：请假、考务查询）
+
+            - student_id: 整数，选填，学生ID
+
+            - related_academic_id: 整数，选填，关联教务数据ID
+
+
+            规则：
+
+            1. 只输出纯 JSON，只包含用户明确提到的字段。id 必须存在，否则输出 {"error":"缺少服务记录ID"}。
+
+            2. 数字类型不加引号。
+
+            3. 时间字段统一转为 "YYYY-MM-DD" 或 "YYYY-MM-DD HH:MM" 格式的字符串。
+
+            4. 如果用户输入含糊不清，无法提取任何有效字段，输出 {"error":"无法提取有效信息"}。
+
+
+            示例：
+
+            用户：“把服务记录3的状态改成已通过”
+
+            输出：{"id":3, "status":"已通过"}
+
+
+            用户：“审批学生请假，记录ID 5，审批通过”
+
+            输出：{"id":5, "status":"已通过"}
+
+
+            用户：“驳回记录8的请假申请”
+
+            输出：{"id":8, "status":"已驳回"}
+
+
+            用户：“修改记录2，审批人改成张老师”
+
+            输出：{"id":2, "approver_id":"张老师"} （若 approver_id 应为数字，请尽量提示用户提供数字ID；若用户只提供了名字，可暂时保留并交由后端处理或提示错误）
+
+
+            用户：“记录10的结束时间改到明天下午5点”
+
+            输出：{"id":10, "end_time":"2026-05-16 17:00"} （假设今天是2026-05-15）
+
+
+            现在处理：{{#sys.query#}}'
+        selected: false
+        title: 提取学生申请信息
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778898401951'
+      position:
+        x: 1064
+        y: 2551.1
+      positionAbsolute:
+        x: 1064
+        y: 2551.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-9332
+            key: ''
+            type: text
+            value: '{{#1778898401951.text#}}'
+          type: raw-text
+        headers: 'accept:application/json
+
+          Content-Type:application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求—学生信息审批
+        type: http-request
+        url: http://host.docker.internal:8001/api/student-services/update
+        variables: []
+      height: 152
+      id: '1778899704911'
+      position:
+        x: 1405
+        y: 2533.1
+      positionAbsolute:
+        x: 1405
+        y: 2533.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.5-plus-2026-02-15
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8da3888c-f5eb-458a-8f13-1703d127e779
+          role: system
+          text: '根据API返回结果，告知用户工单修改是否成功。
+
+
+            返回数据：{{{#1778899704911.body#}}}
+
+
+            如果返回包含 id 字段，回复：“✅ 工单 {id} 已更新。”
+
+            如果包含 detail 错误，回复：“❌ 更新失败：{detail}”
+
+            否则：“❌ 更新失败，请稍后重试。”
+
+            只输出最终回复。'
+        selected: false
+        title: 学生审批结果返回
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778899934625'
+      position:
+        x: 1746
+        y: 2590.9333333333334
+      positionAbsolute:
+        x: 1746
+        y: 2590.9333333333334
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1778899934625.text#}}'
+        selected: false
+        title: 直接回复 16
+        type: answer
+        variables: []
+      height: 102
+      id: '1778900050558'
+      position:
+        x: 2087
+        y: 2597.9333333333334
+      positionAbsolute:
+        x: 2087
+        y: 2597.9333333333334
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.6-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: ca3d82b3-fae3-4930-986d-686202ac8d61
+          role: system
+          text: '你是一个SQL生成器。根据用户问题，生成一条MySQL SELECT语句，查询学生行政服务表 student_admin_service。
+
+
+            表结构：
+
+            - id: 记录ID
+
+            - student_id: 学生ID
+
+            - service_type: 服务类型（如：请假、考务查询）
+
+            - start_time: 开始时间
+
+            - end_time: 结束时间
+
+            - reason: 申请事由
+
+            - status: 审批状态（待审批/已通过/已驳回）
+
+            - approver_id: 审批人ID
+
+            - related_academic_id: 关联教务数据ID
+
+            - create_time, update_time
+
+
+            要求：
+
+            1. 只输出纯SQL，无其他文字。
+
+            2. 无法生成时输出 ERROR。
+
+            3. 根据用户问题合理使用 WHERE 条件：如按学生ID、服务类型、审批状态、时间范围等过滤。默认查询所有字段。
+
+            4. 如果用户问“某学生的请假记录”，则用 student_id 和 service_type 条件；如果问“待审批的记录”，则用 status
+            条件；如果问“今天开始的请假”，则用 start_time 条件。
+
+
+            示例：
+
+            用户：“查询学生ID 5的所有行政服务记录”
+
+            输出：SELECT * FROM student_admin_service WHERE student_id = 5
+
+
+            用户：“所有待审批的请假申请”
+
+            输出：SELECT * FROM student_admin_service WHERE status = ''待审批'' AND service_type
+            = ''请假''
+
+
+            用户：“今天的考务查询记录”
+
+            输出：SELECT * FROM student_admin_service WHERE service_type = ''考务查询'' AND
+            DATE(start_time) = CURDATE()
+
+
+            现在用户问题：{{#sys.query#}}'
+        - id: 12d03650-e132-4fb8-8c5a-88c3ac181392
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: 查询学生申请SQL
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778900342630'
+      position:
+        x: 1064
+        y: 2775.1
+      positionAbsolute:
+        x: 1064
+        y: 2775.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-9506
+            key: ''
+            type: text
+            value: '{"sql":{{#1778900342630.text#}}}'
+          type: json
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求—学生申请查询
+        type: http-request
+        url: http://host.docker.internal:8001/api/query
+        variables: []
+      height: 136
+      id: '1778900595454'
+      position:
+        x: 1405
+        y: 2765.1
+      positionAbsolute:
+        x: 1405
+        y: 2765.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.5
+          mode: chat
+          name: qwen3.5-plus-2026-02-15
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 85cadbb9-229c-4973-9e53-24940c7de93a
+          role: system
+          text: '根据API返回的查询数据，回答用户问题。
+
+
+            返回数据：{{{#1778900595454.body#}}}
+
+
+            如果失败或为空，给出友好提示。
+
+            如果有多条信息，整理出工单ID、状态、内容摘要等关键信息，清晰展示。
+
+            用中文回复，不要显示原始JSON。'
+        - id: 41e6ca50-3833-400b-9626-2e0668655dc8
+          role: user
+          text: '{{#1778900595454.body#}}'
+        selected: false
+        title: 学生申请查询结果解析
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778900699239'
+      position:
+        x: 1746
+        y: 2812.2666666666664
+      positionAbsolute:
+        x: 1746
+        y: 2812.2666666666664
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1778900699239.text#}}'
+        selected: false
+        title: 直接回复 17
+        type: answer
+        variables: []
+      height: 102
+      id: '1778900836742'
+      position:
+        x: 2087
+        y: 2819.2666666666664
+      positionAbsolute:
+        x: 2087
+        y: 2819.2666666666664
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: qwen3.6-plus-2026-04-02
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 64d29c52-e309-40a9-9798-faa3c1d8ad89
+          role: system
+          text: '你是一个数据提取助手。根据用户输入，提取“新增学生考务信息”所需的信息，输出一个 JSON 对象。
+
+
+            表字段说明：
+
+            - student_id: 整数，**必填**，学生ID
+
+            - service_type: 字符串，**必填**，服务类型，固定为“考务查询”
+
+            - related_academic_id: 整数，选填，关联教务数据ID（如 DDL ID 或考试 ID）
+
+            - reason: 字符串，选填，申请事由（如果用户未提及则不输出）
+
+            - status: 字符串，选填，审批状态（默认“待审批”，如用户未提及则不输出）
+
+            - approver_id: 整数，选填，审批人ID
+
+            - start_time: 字符串，选填，开始时间（极少用于考务，忽略）
+
+            - end_time: 字符串，选填，结束时间（极少用于考务，忽略）
+
+
+            规则：
+
+            1. 只输出纯 JSON 对象，不要任何解释、不要 markdown 代码块。
+
+            2. 缺少必填字段 student_id 时输出 {"error": "缺少必填字段：student_id"}。
+
+            3. 数字类型不加引号。
+
+            4. service_type 的值始终为“考务查询”，即使没有显式提到，也必须输出该字段。
+
+            5. 如果用户提到了“教务数据ID”、“考试ID”、“DDL ID”等，提取为 related_academic_id（整数）。
+
+            6. 如果用户输入含糊不清，无法提取任何有效信息，输出 {"error":"无法提取有效信息"}。
+
+
+            示例：
+
+            用户输入：“给学生ID为5的学生新增一条考务信息”
+
+            输出：{"student_id":5, "service_type":"考务查询"}
+
+
+            用户输入：“新增一条考务信息，学生6，教务数据ID为8”
+
+            输出：{"student_id":6, "service_type":"考务查询", "related_academic_id":8}
+
+
+            用户输入：“学生9，添加考务，关联DDL 101”
+
+            输出：{"student_id":9, "service_type":"考务查询", "related_academic_id":101}
+
+
+            现在请处理：{{#sys.query#}}'
+        - id: 8a25e2f0-d598-4d35-af27-9c86dcfb9fd3
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: 新增学生考务信息提取
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778901593766'
+      position:
+        x: 1064
+        y: 2991.1
+      positionAbsolute:
+        x: 1064
+        y: 2991.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-9755
+            key: ''
+            type: text
+            value: '{{{#1778901593766.text#}}}'
+          type: json
+        headers: 'accept:application/json
+
+          Content-Type:application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求—新增考务信息
+        type: http-request
+        url: http://host.docker.internal:8001/api/student-services
+        variables: []
+      height: 136
+      id: '1778901864336'
+      position:
+        x: 1405
+        y: 2981.1
+      positionAbsolute:
+        x: 1405
+        y: 2981.1
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.4
+          mode: chat
+          name: qwen3.5-plus
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: dfd26879-b1c7-4d0e-8141-e6502f7ce117
+          role: system
+          text: '根据API返回结果，告知用户考务信息录入是否成功。
+
+
+            返回数据：{{{#1778901864336.body#}}}
+
+
+            如果返回包含 id 字段，回复：“✅ 信息已录入。学生ID：{student_id}，教务数据：{related_academic_id}
+
+            如果包含 detail 错误信息，回复：“❌ 录入失败：{detail}”
+
+            否则回复：“❌ 录入失败，请稍后重试。”
+
+            只输出最终回复。'
+        - id: 451288de-cc92-4a83-8253-21aec99560a6
+          role: user
+          text: '{{#1778901864336.body#}}'
+        selected: false
+        title: 新增考务信息解析
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1778902030088'
+      position:
+        x: 1746
+        y: 3028.2666666666664
+      positionAbsolute:
+        x: 1746
+        y: 3028.2666666666664
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1778902030088.text#}}'
+        selected: false
+        title: 直接回复 18
+        type: answer
+        variables: []
+      height: 102
+      id: '1778902178296'
+      position:
+        x: 2087
+        y: 3035.2666666666664
+      positionAbsolute:
+        x: 2087
+        y: 3035.2666666666664
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: -110.5020949690188
+      y: -377.5813013558991
+      zoom: 0.574349177498518
+  rag_pipeline_variables: []

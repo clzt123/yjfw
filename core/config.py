@@ -17,14 +17,13 @@ class Settings(BaseSettings):
         APP_HOST: 应用服务监听地址
         APP_PORT: 应用服务监听端口
         DEBUG: 是否开启调试模式
-        AUTH_PLUGIN_MAP: MySQL 认证插件映射配置
     """
     DATABASE_URL: str = os.getenv(
         "DATABASE_URL",
         "mysql+pymysql://root:123456@localhost:3306/osatable"
     )
     APP_HOST: str = os.getenv("APP_HOST", "0.0.0.0")
-    APP_PORT: int = int(os.getenv("APP_PORT", "8000"))
+    APP_PORT: int = int(os.getenv("APP_PORT", "8080"))
     DEBUG: bool = os.getenv("DEBUG", "false").lower() == "true"
 
     class Config:

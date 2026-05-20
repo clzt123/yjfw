@@ -1,1 +1,1 @@
-from . import course, event
+from . import course_api, event_api

@@ -1,3 +1,4 @@
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from core.database import get_db
@@ -17,7 +18,8 @@ router = APIRouter()
     "/available",
     response_model=List[EventLectureResponse],
     summary="获取可报名的活动列表",
-    description="返回所有活动的详细信息，包括已报名人数和最大报名人数"
+    description="返回所有活动的详细信息，包括已报名人数和最大报名人数",
+    operation_id="获取可报名的活动列表"
 )
 def get_available_events(
     db: Session = Depends(get_db)
@@ -44,7 +46,8 @@ def get_available_events(
     "/register",
     response_model=EventRegistrationResponse,
     summary="活动报名",
-    description="用户报名参加指定活动，系统自动检查名额并更新已报名人数"
+    description="用户报名参加指定活动，系统自动检查名额并更新已报名人数",
+    operation_id="活动报名"
 )
 def register_event(
     registration: EventRegistrationCreate,

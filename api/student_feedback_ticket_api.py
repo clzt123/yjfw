@@ -10,26 +10,54 @@ from service.student_feedback_ticket import service_feedback_create, service_fee
 router = APIRouter()
 
 
-@router.post("/api/feedbacks", response_model=FeedbackOut)
+@router.post(
+    "/feedbacks",
+    response_model=FeedbackOut,
+    summary="创建投诉反馈",
+    description="创建新的学生投诉反馈工单",
+    operation_id="创建投诉反馈"
+)
 def create_feedback(feedback: FeedbackCreate, db: Session = Depends(get_db)):
-    """创建投诉反馈"""
+    """创建投诉反馈工单
+    
+    Args:
+        feedback: 反馈创建请求
+        db: 数据库依赖注入
+    
+    Returns:
+        FeedbackOut: 创建成功的反馈工单记录
+    """
     return service_feedback_create(db, feedback)
 
 
-# @router.put("/api/feedbacks/{id}", response_model=FeedbackOut)
+# @router.put("/feedbacks/{id}", response_model=FeedbackOut)
 # def update_feedback(id: int, feedback: FeedbackUpdate, db: Session = Depends(get_db)):
 #     """根据ID更新投诉反馈"""
 #     feedback.id = id
 #     return service_feedback_update(db, feedback)
 
 
-# @router.delete("/api/feedbacks/{id}", response_model=FeedbackOut)
+# @router.delete("/feedbacks/{id}", response_model=FeedbackOut)
 # def delete_feedback(id: int, db: Session = Depends(get_db)):
 #     """根据ID删除投诉反馈"""
 #     return service_feedback_delete(db, id)
 
 
-@router.post("/api/feedbacks/update", response_model=FeedbackOut)
+@router.post(
+    "/feedbacks/update",
+    response_model=FeedbackOut,
+    summary="更新投诉反馈（Dify专用）",
+    description="通过请求体传id更新投诉反馈记录，方便Dify调用",
+    operation_id="更新投诉反馈ById"
+)
 def update_feedback_by_id(feedback: FeedbackUpdateById, db: Session = Depends(get_db)):
-    """通过请求体传id更新投诉反馈（方便Dify调用）"""
+    """通过请求体传id更新投诉反馈记录
+    
+    Args:
+        feedback: 包含id的更新请求（方便Dify调用）
+        db: 数据库依赖注入
+    
+    Returns:
+        FeedbackOut: 更新后的反馈工单记录
+    """
     return service_feedback_update(db, feedback)

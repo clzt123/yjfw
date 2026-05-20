@@ -18,11 +18,21 @@ class QueryResponse(BaseModel):
     message: str = None
 
 
-@router.post("/api/query", response_model=QueryResponse)
+@router.post(
+    "/execute",
+    response_model=QueryResponse,
+    summary="执行SQL查询",
+    description="执行动态SQL查询语句，返回JSON格式的查询结果",
+    operation_id="执行SQL查询"
+)
 def query_sql(request: QueryRequest):
-    """
-    执行 SQL 查询语句
-    接收 SQL 字符串，执行后返回 JSON 格式的查询结果
+    """执行SQL查询语句
+    
+    Args:
+        request: SQL查询请求，包含sql字段
+    
+    Returns:
+        QueryResponse: 查询结果，包含code、data和message字段
     """
     try:
         result = execute_query(request.sql)
