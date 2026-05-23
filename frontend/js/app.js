@@ -38,7 +38,7 @@ function goBack() {
 /**
  * 导航到聊天页面（通用方法）
  * @param {string} agentTypeStr - 智能体类型 (customer/employee/student)
- * @param {string} [studentId] - 学生ID（仅学生智能体需要）
+ * @param {number} [studentId] - 用户数据库ID（学生/员工智能体需要，来自登录接口返回的id字段）
  */
 function openChat(agentTypeStr, studentId = null) {
     const config = AGENT_CONFIG[agentTypeStr];
@@ -55,9 +55,9 @@ function openChat(agentTypeStr, studentId = null) {
     // 格式: http://host/chat/{appId}
     let iframeUrl = `${config.baseUrl}/chat/${config.appId}`;
     
-    // 如果是学生智能体，添加student_id参数
-    if (agentTypeStr === 'student' && studentId) {
-        iframeUrl += `?student_id=${encodeURIComponent(studentId)}`;
+    // 通过sys.user_id传递登录用户数据库ID（Dify原生支持，学生和员工均需自动绑定）
+    if ((agentTypeStr === 'student' || agentTypeStr === 'employee') && studentId) {
+        iframeUrl += `?sys.user_id=${encodeURIComponent(studentId)}`;
     }
     
     // 设置iframe源
@@ -120,11 +120,11 @@ async function handleLogin(event) {
             
             // 验证入口类型和用户类型是否匹配
             if (currentLoginType === 'EMPLOYEE' && userType === 'EMPLOYEE') {
-                // 员工入口 + 员工账号 = 正确
-                openChat('employee');
+                // 员工入口 + 员工账号 = 正确，传递数据库ID
+                openChat('employee', result.id);
             } else if (currentLoginType === 'STUDENT' && userType === 'STUDENT') {
-                // 学生入口 + 学生账号 = 正确
-                openChat('student', username);
+                // 学生入口 + 学生账号 = 正确，传递数据库ID
+                openChat('student', result.id);
             } else if (currentLoginType === 'EMPLOYEE' && userType === 'STUDENT') {
                 // 员工入口 + 学生账号 = 错误
                 loginError.textContent = '您使用的是学生账号，请从学生入口登录';

@@ -10,6 +10,8 @@ from api.student_services_api import router as student_services_router
 from api.crm_lead_api import router as crm_lead_router
 from api.employee_daily_report_api import router as employee_daily_report_router
 from api.student_feedback_ticket_api import router as student_feedback_ticket_router
+from api.student_psych_alert_api import router as student_psych_alert_router
+from api.student_psych_profile_api import router as student_psych_profile_router
 from api.query_api import router as query_router
 from api.user_api import router as user_router
 from core.config import settings
@@ -45,6 +47,8 @@ app.include_router(student_services_router, prefix="/api/v1/service", tags=["学
 app.include_router(crm_lead_router, prefix="/api/v1/lead", tags=["意向客户"])
 app.include_router(employee_daily_report_router, prefix="/api/v1/report", tags=["员工日报"])
 app.include_router(student_feedback_ticket_router, prefix="/api/v1/feedback", tags=["投诉反馈"])
+app.include_router(student_psych_alert_router, prefix="/api/v1/psych-alert", tags=["心理预警"])
+app.include_router(student_psych_profile_router, prefix="/api/v1/psych-profile", tags=["心理画像"])
 app.include_router(query_router, prefix="/api/v1/query", tags=["SQL查询"])
 
 # 挂载静态文件目录

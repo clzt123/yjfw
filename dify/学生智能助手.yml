@@ -652,9 +652,21 @@ workflow:
         isInIteration: false
         isInLoop: false
         sourceType: start
-        targetType: assigner
-      id: 1778654009845-source-1778898067278-target
+        targetType: llm
+      id: 1778654009845-source-1779000000002-target
       source: '1778654009845'
+      sourceHandle: source
+      target: '1779000000002'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: assigner
+      id: 1779000000002-source-1778898067278-target
+      source: '1779000000002'
       sourceHandle: source
       target: '1778898067278'
       targetHandle: target
@@ -677,17 +689,8 @@ workflow:
         selected: false
         title: 学生输入
         type: start
-        variables:
-        - default: ''
-          hide: true
-          hint: ''
-          label: 学生ID
-          options: []
-          placeholder: ''
-          required: false
-          type: text-input
-          variable: student_id
-      height: 109
+        variables: []
+      height: 73
       id: '1778654009845'
       position:
         x: -193.79518957525804
@@ -884,9 +887,9 @@ workflow:
           max_write_timeout: 0
         title: 请假信息导入
         type: http-request
-        url: http://host.docker.internal:5000/api/v1/osa/student_admin_service/create
+        url: http://host.docker.internal:5000/api/v1/service/student-services
         variables: []
-      height: 154
+      height: 153
       id: '1778656625189'
       position:
         x: 2050
@@ -1195,9 +1198,9 @@ workflow:
           max_write_timeout: 0
         title: 新增危险的学生
         type: http-request
-        url: http://host.docker.internal:5000/api/v1/osa/student_psych_alert/create
+        url: http://host.docker.internal:5000/api/v1/psych-alert/alerts
         variables: []
-      height: 154
+      height: 153
       id: '1778657692052'
       position:
         x: 2050
@@ -1258,7 +1261,7 @@ workflow:
         title: 危机基础干预
         type: answer
         variables: []
-      height: 103
+      height: 102
       id: '1778657762214'
       position:
         x: 2050
@@ -1316,7 +1319,7 @@ workflow:
         title: 日常闲聊
         type: answer
         variables: []
-      height: 103
+      height: 102
       id: '1778657948194'
       position:
         x: 2050
@@ -1439,9 +1442,9 @@ workflow:
           max_write_timeout: 0
         title: 提交工单信息
         type: http-request
-        url: http://host.docker.internal:5000/api/v1/osa/student_feedback_ticket/create
+        url: http://host.docker.internal:5000/api/v1/feedback/feedbacks
         variables: []
-      height: 154
+      height: 153
       id: '1778658619215'
       position:
         x: 1708
@@ -1522,9 +1525,9 @@ workflow:
           max_write_timeout: 0
         title: 获取考务数据
         type: http-request
-        url: http://host.docker.internal:5000/api/v1/osa/query
+        url: http://host.docker.internal:5000/api/v1/query/execute
         variables: []
-      height: 138
+      height: 137
       id: '1778659533568'
       position:
         x: 1688
@@ -1545,7 +1548,7 @@ workflow:
         title: 回复学生
         type: answer
         variables: []
-      height: 103
+      height: 102
       id: '1778659726182'
       position:
         x: 2372
@@ -1610,7 +1613,7 @@ workflow:
         title: 回复结果
         type: answer
         variables: []
-      height: 103
+      height: 102
       id: '1778660497968'
       position:
         x: 1688
@@ -1751,7 +1754,7 @@ workflow:
         headers: 'accept: application/json
 
           Content-Type: application/json'
-        method: put
+        method: post
         params: ''
         retry_config:
           max_retries: 3
@@ -1765,9 +1768,9 @@ workflow:
           max_write_timeout: 0
         title: 描绘学生心理画像
         type: http-request
-        url: http://host.docker.internal:5000/api/v1/osa/student_psych_profile/update
+        url: http://host.docker.internal:5000/api/v1/psych-profile/profile/update
         variables: []
-      height: 154
+      height: 153
       id: '1778664918291'
       position:
         x: 2050
@@ -1821,7 +1824,7 @@ workflow:
       positionAbsolute:
         x: 1708
         y: 449.5
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -1920,7 +1923,7 @@ workflow:
         title: 回复学生
         type: answer
         variables: []
-      height: 103
+      height: 102
       id: '1778723955452'
       position:
         x: 2392
@@ -1959,9 +1962,9 @@ workflow:
           max_write_timeout: 0
         title: 拿到查询结果
         type: http-request
-        url: http://host.docker.internal:5000/api/v1/osa/query
+        url: http://host.docker.internal:5000/api/v1/query/execute
         variables: []
-      height: 138
+      height: 137
       id: '1778724074540'
       position:
         x: 1708
@@ -2018,7 +2021,7 @@ workflow:
         title: 回复学生
         type: answer
         variables: []
-      height: 103
+      height: 102
       id: '1778724132358'
       position:
         x: 2392
@@ -2057,9 +2060,9 @@ workflow:
           max_write_timeout: 0
         title: 查询留学业务进度
         type: http-request
-        url: http://host.docker.internal:5000/api/v1/osa/query
+        url: http://host.docker.internal:5000/api/v1/query/execute
         variables: []
-      height: 138
+      height: 137
       id: '1778725372908'
       position:
         x: 1346
@@ -2121,7 +2124,7 @@ workflow:
         title: 回复学生
         type: answer
         variables: []
-      height: 103
+      height: 102
       id: '1778725411564'
       position:
         x: 2030
@@ -2136,7 +2139,7 @@ workflow:
       width: 242
     - data:
         dataset_ids:
-        - QlepbV3rHqdq5oFgBUAyA3w5GtMrOk/ZlV7jfRWfiL0KTABBodavIW0Mh4Q3Z0UO
+        - uokq/qLd7Zb9VJcCH5ZCOiRzty3HHeIuMbolLp2ezeHmtuU5zSmhoWL99vW8KwCx
         multiple_retrieval_config:
           reranking_enable: true
           reranking_mode: reranking_model
@@ -2167,7 +2170,7 @@ workflow:
       width: 242
     - data:
         dataset_ids:
-        - yuY1P91LWRnzhqGAOT/gagVQfVRkn0u97i0gb95KsOP4kdaZRzV0ZDAGSP/+8YL1
+        - oNhINWEuVjA2E0wVxx0Tvpc1w5swWauy4v4FpJz10hRBsXtjw2XJZ66Sv60+7OCR
         multiple_retrieval_config:
           reranking_enable: true
           reranking_mode: reranking_model
@@ -2193,7 +2196,7 @@ workflow:
       positionAbsolute:
         x: 1004
         y: 2258.333333333333
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -2204,7 +2207,7 @@ workflow:
         title: 回复学生
         type: answer
         variables: []
-      height: 103
+      height: 102
       id: '1778726389772'
       position:
         x: 1688
@@ -2751,9 +2754,9 @@ workflow:
           max_write_timeout: 0
         title: 查询请假的流程
         type: http-request
-        url: http://host.docker.internal:5000/api/v1/osa/query
+        url: http://host.docker.internal:5000/api/v1/query/execute
         variables: []
-      height: 138
+      height: 137
       id: '1778896067658'
       position:
         x: 1708
@@ -2814,7 +2817,7 @@ workflow:
         title: 请假结果
         type: answer
         variables: []
-      height: 103
+      height: 102
       id: '1778896129000'
       position:
         x: 2392
@@ -2828,12 +2831,44 @@ workflow:
       type: custom
       width: 242
     - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: qwen3.5-flash
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: auto-extract-student-id
+          role: system
+          text: '{{#sys.user_id#}}'
+        selected: false
+        title: 透传学生ID
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1779000000002'
+      position:
+        x: 256.47027946119897
+        y: 1400
+      positionAbsolute:
+        x: 256.47027946119897
+        y: 1400
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
         items:
         - input_type: variable
           operation: over-write
           value:
-          - '1778654009845'
-          - student_id
+          - '1779000000002'
+          - text
           variable_selector:
           - conversation
           - student_id
@@ -2855,7 +2890,7 @@ workflow:
       type: custom
       width: 242
     viewport:
-      x: 623.7306830997713
-      y: -439.9721152512411
-      zoom: 0.923655537541026
+      x: -183.734404256159
+      y: -1659.1425288030287
+      zoom: 0.9236555375410258
   rag_pipeline_variables: []

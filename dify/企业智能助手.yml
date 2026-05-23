@@ -15,7 +15,15 @@ dependencies:
 kind: app
 version: 0.6.0
 workflow:
-  conversation_variables: []
+  conversation_variables:
+  - description: 当前登录员工的数据库ID，由工作流自动获取（来自sys.user_id）
+    id: b3d7f12a-4e8c-45a1-9d3e-8f6c72b1a0e5
+    name: employee_id
+    selector:
+    - conversation
+    - employee_id
+    value: ''
+    value_type: string
   environment_variables: []
   features:
     file_upload:
@@ -72,10 +80,34 @@ workflow:
     - data:
         isInLoop: false
         sourceType: start
-        targetType: question-classifier
-      id: 1778657212997-source-1778658191713-target
+        targetType: llm
+      id: 1778657212997-source-1779000000004-target
       selected: false
       source: '1778657212997'
+      sourceHandle: source
+      target: '1779000000004'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: assigner
+      id: 1779000000004-source-1779000000005-target
+      source: '1779000000004'
+      sourceHandle: source
+      target: '1779000000005'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: question-classifier
+      id: 1779000000005-source-1778658191713-target
+      selected: false
+      source: '1779000000005'
       sourceHandle: source
       target: '1778658191713'
       targetHandle: target
@@ -954,6 +986,65 @@ workflow:
       type: custom
       width: 242
     - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: qwen3.6-plus-2026-04-02
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: auto-extract-employee-id
+          role: system
+          text: '{{#sys.user_id#}}'
+        selected: false
+        title: 透传员工ID
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1779000000004'
+      position:
+        x: 0
+        y: 885
+      positionAbsolute:
+        x: 0
+        y: 885
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1779000000004'
+          - text
+          variable_selector:
+          - conversation
+          - employee_id
+        selected: false
+        title: 变量赋值
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1779000000005'
+      position:
+        x: 0
+        y: 930.2642857142858
+      positionAbsolute:
+        x: 0
+        y: 930.2642857142858
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
         classes:
         - id: '1'
           name: '意向客户录入
@@ -1075,13 +1166,7 @@ workflow:
         prompt_template:
         - id: 0f069dac-c06e-4296-ba85-a111113f9b32
           role: system
-          text: "你是一个 SQL 生成助手。根据用户问题，生成一条标准的 MySQL SELECT 查询语句。\n\n数据库包含以下表，请严格使用这些表和字段：\n\
-            --表名:\ncrm_lead\n--字段:\n id, customer_name(客户姓名),\n contact_info(联系方式),\n\
-            \ background_info(背景),\n follow_up_history(跟进历史),\n status(状态), \nowner_employee_id(负责人ID),\
-            \ \ncreate_time, \nupdate_time\n\n你需要做到：\n1. 只输出纯 SQL，不要任何 markdown 代码块、不要注释、不要解释。\n\
-            2. 只生成 SELECT 语句。\n3. 如果用户问题与上述表无关，或者信息不足以生成 SQL，输出：ERROR\n\n示例：\n\nQ:\
-            \ 查询张三的所有信息？\nA: SELECT * FROM crm_lead WHERE customer_name = '张三'\n\n\
-            \n用户问题：{{#sys.query#}}"
+          text: "你是一个 SQL 生成助手。根据用户问题，生成一条标准的 MySQL SELECT 查询语句。\n\n数据库包含以下表，请严格使用这些表和字段：\n--表名:\ncrm_lead\n--字段:\n id, customer_name(客户姓名),\n contact_info(联系方式),\n background_info(背景),\n follow_up_history(跟进历史),\n status(状态), \nowner_employee_id(负责人ID), \ncreate_time, \nupdate_time\n\n你需要做到：\n1. 只输出纯 SQL，不要任何 markdown 代码块、不要注释、不要解释。\n2. 只生成 SELECT 语句。\n3. 如果用户问题与上述表无关，或者信息不足以生成 SQL，输出：ERROR\n\n示例：\n\nQ: 查询张三的所有信息？\nA: SELECT * FROM crm_lead WHERE customer_name = '张三'\n\n\n用户问题：{{#sys.query#}}"
         retry_config:
           max_retries: 3
           retry_enabled: true
@@ -1133,7 +1218,7 @@ workflow:
           max_write_timeout: 0
         title: HTTP 请求—查询
         type: http-request
-        url: http://host.docker.internal:8001/api/query
+        url: http://host.docker.internal:8080/api/v1/query/execute
         variables: []
       height: 136
       id: '1778724389710'
@@ -1163,13 +1248,7 @@ workflow:
         prompt_template:
         - id: 6d1e04a3-dd97-4e2a-8148-ca08f6206ebd
           role: system
-          text: "你是一个数据分析助手。请根据 API 返回的 JSON 数据，用自然语言友好地回答用户的问题。\n\nAPI 返回的 JSON 数据如下：\n\
-            {{#api_response#}}\n返回结果：{{#1778724389710.body#}}\n规则：\n1. 如果 \"code\"\
-            \ 不是 200，直接回复 \"查询失败：{message}\"，其中 {message} 替换为 JSON 中的 message 字段内容。\n\
-            2. 如果 \"code\" 是 200，检查 \"data\" 数组：\n   - 如果 data 是空数组，回复 \"未查询到相关数据。\"\
-            \n   - 如果 data 包含数据，将数据整理成易读的文本形式（推荐使用简洁的表格描述或要点列表），并可根据上下文进行适当总结，但不要编造数据中不存在的信息。\n\
-            3. 回复语言与用户原始问题保持一致（如用户用中文提问则用中文回复）。\n4. 不要输出原始的 JSON 字符串，除非 data 为空且无其他信息可展示。\n\
-            \n现在，请根据以上要求生成回复。{{#context#}}"
+          text: "你是一个数据分析助手。请根据 API 返回的 JSON 数据，用自然语言友好地回答用户的问题。\n\nAPI 返回的 JSON 数据如下：\n{{#api_response#}}\n返回结果：{{#1778724389710.body#}}\n规则：\n1. 如果 \"code\" 不是 200，直接回复 \"查询失败：{message}\"，其中 {message} 替换为 JSON 中的 message 字段内容。\n2. 如果 \"code\" 是 200，检查 \"data\" 数组：\n   - 如果 data 是空数组，回复 \"未查询到相关数据。\"\n   - 如果 data 包含数据，将数据整理成易读的文本形式（推荐使用简洁的表格描述或要点列表），并可根据上下文进行适当总结，但不要编造数据中不存在的信息。\n3. 回复语言与用户原始问题保持一致（如用户用中文提问则用中文回复）。\n4. 不要输出原始的 JSON 字符串，除非 data 为空且无其他信息可展示。\n\n现在，请根据以上要求生成回复。{{#context#}}"
         retry_config:
           max_retries: 3
           retry_enabled: true
@@ -1226,20 +1305,7 @@ workflow:
         prompt_template:
         - id: a0d7dc7f-3643-432f-9be1-869a958b33eb
           role: system
-          text: "你是一个数据提取助手。根据用户输入，提取创建“意向客户”所需的信息，并输出一个 JSON 对象。\n{{#context#}}\n\
-            JSON 需要包含以下字段：\n- customer_name: 字符串，必填，客户姓名\n- owner_employee_id: 整数，必填，负责员工的\
-            \ ID\n- contact_info: 字符串，选填，联系方式（电话/微信等）\n- background_info: 字符串，选填，用户背景信息\n\
-            - follow_up_history: 字符串，选填，历史跟进记录\n- status: 字符串，选填，客户状态（统一为新增）\n\n规则：\n\
-            1. 只输出纯 JSON 对象，不要任何解释、不要 markdown 代码块（如```json）。\n2. 如果用户输入中缺少必填字段（customer_name\
-            \ 或 owner_employee_id），输出 {\"error\": \"缺少必填字段：xxx\"}。\n3. 对于选填字段，如果用户没有提供，直接省略，不要输出空字符串或\
-            \ null。但status字段不论有没有提供统一为新增\n4. 数字类型的字段（owner_employee_id）确保输出为数字，不要加引号。\n\
-            5. 对于中文内容，保留原始表述。\n\n示例：\n用户输入：“新客户七七，电话13222332323，大专毕业，家庭条件不错，首次跟进，负责人是我（ID\
-            \ 5）”\n输出：\n  \"customer_name\": \"七七\",\n  \"owner_employee_id\": 5,\n\
-            \  \"contact_info\": \"13222332323\",\n  \"background_info\": \"大专毕业，家庭条件不错\"\
-            ,\n  \"follow_up_history\": \"首次\",\n  \"status\": \"新增\"\n\n用户输入：“新客户王百万，负责人ID是8\"\
-            \n输出：\n\"customer_name\": \"王百万\",\n  \"owner_employee_id\": 8,\n\"status\"\
-            : \"新增\"\n\n用户输入：“新客户李四”\n输出：{\"error\":\"缺少必填字段：owner_employee_id\"}\n\
-            \n现在请处理：{{#sys.query#}}"
+          text: "你是一个数据提取助手。\\n当前登录员工ID：{{#conversation.employee_id#}}\\n根据用户输入，提取创建“意向客户”所需的信息，并输出一个 JSON 对象。\n{{#context#}}\nJSON 需要包含以下字段：\n- customer_name: 字符串，必填，客户姓名\n- owner_employee_id: 整数，负责人ID。**默认使用当前登录员工ID {{#conversation.employee_id#}}，除非用户明确指定了其他负责人**\n- contact_info: 字符串，选填，联系方式（电话/微信等）\n- background_info: 字符串，选填，用户背景信息\n- follow_up_history: 字符串，选填，历史跟进记录\n- status: 字符串，选填，客户状态（统一为新增）\n\n规则：\n1. 只输出纯 JSON 对象，不要任何解释、不要 markdown 代码块（如```json）。\n2. 如果用户输入中缺少必填字段（customer_name（owner_employee_id 会自动使用当前登录员工ID）），输出 {\"error\": \"缺少必填字段：xxx\"}。\n2.5. owner_employee_id 如用户未指定，自动填入当前登录员工ID {{#conversation.employee_id#}}。\n3. 对于选填字段，如果用户没有提供，直接省略，不要输出空字符串或 null。但status字段不论有没有提供统一为新增\n4. 数字类型的字段（owner_employee_id）确保输出为数字，不要加引号。\n5. 对于中文内容，保留原始表述。\n\n示例：\n用户输入：“新客户七七，电话13222332323，大专毕业，家庭条件不错，首次跟进，负责人是我（ID 5）”\n输出：\n  \"customer_name\": \"七七\",\n  \"owner_employee_id\": 5,\n  \"contact_info\": \"13222332323\",\n  \"background_info\": \"大专毕业，家庭条件不错\",\n  \"follow_up_history\": \"首次\",\n  \"status\": \"新增\"\n\n用户输入：“新客户王百万，负责人ID是8\"\n输出：\n\"customer_name\": \"王百万\",\n  \"owner_employee_id\": 8,\n\"status\": \"新增\"\n\n用户输入：“新客户李四”\n输出：{\"error\":\"缺少必填字段：customer_name\"}\n\n现在请处理：{{#sys.query#}}"
         - id: 1ea23e91-fb0b-45cd-8770-f6cdff46e482
           role: user
           text: '{{#sys.query#}}{{#1778832086335.text#}}'
@@ -1270,8 +1336,8 @@ workflow:
           - id: key-value-1687
             key: ''
             type: text
-            value: '{{{#1778740292054.text#}}}'
-          type: json
+            value: '{{#1778740292054.text#}}'
+          type: raw-text
         headers: 'accept:application/json
 
           Content-Type:application/json'
@@ -1289,7 +1355,7 @@ workflow:
           max_write_timeout: 0
         title: HTTP 请求—新增
         type: http-request
-        url: http://host.docker.internal:8001/api/leads
+        url: http://host.docker.internal:8080/api/v1/lead/leads
         variables: []
       height: 136
       id: '1778741095984'
@@ -1384,7 +1450,7 @@ workflow:
         prompt_template:
         - id: 40031488-ae01-4c9f-ae1a-405350f9ef6b
           role: system
-          text: '你是一个数据提取助手。根据用户输入，提取“修改意向客户”所需的信息，并输出一个 JSON 对象。
+          text: '你是一个数据提取助手。\n当前登录员工ID：{{#conversation.employee_id#}}\n根据用户输入，提取“修改意向客户”所需的信息，并输出一个 JSON 对象。
 
 
             JSON 需要包含以下字段：
@@ -1431,8 +1497,7 @@ workflow:
 
             用户输入：“客户ID5的负责人改成李四，背景加一条‘’家里破产了”
 
-            输出：{"id":5,"owner_employee_id":"李四","background_info":"家里破产了"}  // 注意这里
-            owner_employee_id 应该是整数，如果用户提供的不是数字，应警告
+            输出：{"id":5,"owner_employee_id":"李四","background_info":"家里破产了"}  // 注意这里 owner_employee_id 应该是整数，如果用户提供的不是数字，应警告
 
 
             请处理：{{#sys.query#}}'
@@ -1483,7 +1548,7 @@ workflow:
           max_write_timeout: 0
         title: HTTP 请求—更新客户信息
         type: http-request
-        url: http://host.docker.internal:8001/api/leads/update
+        url: http://host.docker.internal:8080/api/v1/lead/leads/update
         variables: []
       height: 136
       id: '1778744570067'
@@ -1513,12 +1578,7 @@ workflow:
         prompt_template:
         - id: e8dfd6fd-585f-44bb-b1b6-89bdd5be8b03
           role: system
-          text: "你是一个回复生成助手。请根据 API 返回的结果，用中文告知用户“修改意向客户”操作的结果。\n\nAPI 返回的 JSON 数据如下：\n\
-            {{{#1778744570067.body#}}}\n\n规则：\n1. 如果返回的 JSON 中包含字段 \"id\" 和 \"customer_name\"\
-            （表示修改成功），回复：\n   “✅ 意向客户信息更新成功！客户ID：{id}，姓名：{customer_name}”\n2. 如果返回的\
-            \ JSON 中包含 \"detail\" 字段（通常为错误信息，如客户不存在），回复：\n   “❌ 修改失败：{detail}”\n3.\
-            \ 如果返回的数据为 null 或空对象，回复：“❌ 修改失败，未找到该客户。”\n4. 只输出最终的回复文本，不要附带任何 JSON。\n\
-            \n现在请生成回复。{{#context#}}"
+          text: "你是一个回复生成助手。请根据 API 返回的结果，用中文告知用户“修改意向客户”操作的结果。\n\nAPI 返回的 JSON 数据如下：\n{{{#1778744570067.body#}}}\n\n规则：\n1. 如果返回的 JSON 中包含字段 \"id\" 和 \"customer_name\"（表示修改成功），回复：\n   “✅ 意向客户信息更新成功！客户ID：{id}，姓名：{customer_name}”\n2. 如果返回的 JSON 中包含 \"detail\" 字段（通常为错误信息，如客户不存在），回复：\n   “❌ 修改失败：{detail}”\n3. 如果返回的数据为 null 或空对象，回复：“❌ 修改失败，未找到该客户。”\n4. 只输出最终的回复文本，不要附带任何 JSON。\n\n现在请生成回复。{{#context#}}"
         selected: false
         title: LLM查看更新状态
         type: llm
@@ -1571,12 +1631,12 @@ workflow:
         prompt_template:
         - id: 45d9cb25-fc52-4b71-a711-e902ba86cf44
           role: system
-          text: '你是一个日报生成助手。根据用户输入，提取生成“员工日报”所需的信息，并输出一个 JSON 对象。
+          text: '你是一个日报生成助手。\n当前登录员工ID：{{#conversation.employee_id#}}\n根据用户输入，提取生成“员工日报”所需的信息，并输出一个 JSON 对象。
 
 
             JSON 需要包含以下字段：
 
-            - employee_id: 整数，**必填**，员工ID。
+            - employee_id: 整数，员工ID。**默认使用当前登录员工ID {{#conversation.employee_id#}}，除非用户明确指定了其他员工**。
 
             - report_date: 字符串，格式“YYYY-MM-DD”，**必填**，日报日期。如果用户没有明确提到日期，请使用今天的日期（2026-05-14）。
 
@@ -1587,7 +1647,7 @@ workflow:
 
             1. 只输出纯 JSON 对象，不要任何解释、不要 markdown 代码块（如```json）。
 
-            2. 如果用户输入中**缺少必填字段 employee_id 或 content 无法提取**，输出：{"error": "缺少必填字段：xxx"}
+            2. 如果用户输入中**content 无法提取（employee_id 如未指定会自动使用当前登录员工ID）**，输出：{"error": "缺少必填字段：xxx"}
 
             3. 日期永远输出字符串，例如 "2026-05-14"。
 
@@ -1600,8 +1660,7 @@ workflow:
 
             用户输入：“员工ID 5，今天完成了登录模块的开发，下午开会讨论了需求”
 
-            输出：{"employee_id":5, "report_date":"2026-05-14", "content":"1. 完成登录模块开发\n2.
-            参加需求讨论会"}
+            输出：{"employee_id":5, "report_date":"2026-05-14", "content":"1. 完成登录模块开发\n2. 参加需求讨论会"}
 
 
             用户输入：“今天很忙”
@@ -1637,8 +1696,8 @@ workflow:
           - id: key-value-5281
             key: ''
             type: text
-            value: '{{{#1778762641790.text#}}}'
-          type: json
+            value: '{{#1778762641790.text#}}'
+          type: raw-text
         headers: 'accept:application/json
 
           Content-Type:application/json'
@@ -1656,7 +1715,7 @@ workflow:
           max_write_timeout: 0
         title: HTTP 请求—生成日报
         type: http-request
-        url: http://host.docker.internal:8001/api/daily-reports
+        url: http://host.docker.internal:8080/api/v1/report/daily-reports
         variables: []
       height: 136
       id: '1778762718782'
@@ -1753,12 +1812,7 @@ workflow:
         prompt_template:
         - id: b41fcefe-562d-4e6e-86ee-b114d304328f
           role: system
-          text: "你是一个 SQL 生成助手。根据用户问题，生成一条标准的 MySQL SELECT 查询语句。\n\n数据库包含以下表，请严格使用这些表和字段：\n\
-            --表名:\nemployee_daily_report\n--字段:\nemployee_id：员工id ,\n  report_date：日报填写时间\
-            \ ,\n  content：日报内容 ,\n  create_time：创建时间\n\n你需要做到：\n1. 只输出纯 SQL，不要任何\
-            \ markdown 代码块、不要注释、不要解释。\n2. 只生成 SELECT 语句。\n3. 如果用户问题与上述表无关，或者信息不足以生成\
-            \ SQL，输出：ERROR\n\n示例：\n\nQ: 查询id为5的员工所有日报信息？\nA: SELECT * FROM employee_daily_report\
-            \ WHERE employee_id= 5\n{{#sys.query#}}"
+          text: "你是一个 SQL 生成助手。根据用户问题，生成一条标准的 MySQL SELECT 查询语句。\n\n数据库包含以下表，请严格使用这些表和字段：\n--表名:\nemployee_daily_report\n--字段:\nemployee_id：员工id ,\n  report_date：日报填写时间 ,\n  content：日报内容 ,\n  create_time：创建时间\n\n你需要做到：\n1. 只输出纯 SQL，不要任何 markdown 代码块、不要注释、不要解释。\n2. 只生成 SELECT 语句。\n3. 如果用户问题与上述表无关，或者信息不足以生成 SQL，输出：ERROR\n\n示例：\n\nQ: 查询id为5的员工所有日报信息？\nA: SELECT * FROM employee_daily_report WHERE employee_id= 5\n{{#sys.query#}}"
         - id: 623d6bc9-6b43-46b5-80ad-dcac4b548a79
           role: user
           text: '{{#sys.query#}}'
@@ -1806,7 +1860,7 @@ workflow:
           max_write_timeout: 0
         title: HTTP 请求—日报查询
         type: http-request
-        url: http://host.docker.internal:8001/api/query
+        url: http://host.docker.internal:8080/api/v1/query/execute
         variables: []
       height: 136
       id: '1778767532773'
@@ -1836,13 +1890,7 @@ workflow:
         prompt_template:
         - id: e27bb1fc-db5d-46b1-affe-63c3a87a2dc5
           role: system
-          text: "你是一个数据分析助手。请根据 API 返回的 JSON 数据，用自然语言友好地回答用户的问题。\n\nAPI 返回的 JSON 数据如下：\n\
-            {{#api_response#}}\n返回结果：{{#1778767532773.body#}}\n规则：\n1. 如果 \"code\"\
-            \ 不是 200，直接回复 \"查询失败：{message}\"，其中 {message} 替换为 JSON 中的 message 字段内容。\n\
-            2. 如果 \"code\" 是 200，检查 \"data\" 数组：\n   - 如果 data 是空数组，回复 \"未查询到相关数据。\"\
-            \n   - 如果 data 包含数据，将数据整理成易读的文本形式（推荐使用简洁的表格描述或要点列表），并可根据上下文进行适当总结，但不要编造数据中不存在的信息。\n\
-            3. 回复语言与用户原始问题保持一致（如用户用中文提问则用中文回复）。\n4. 不要输出原始的 JSON 字符串，除非 data 为空且无其他信息可展示。\n\
-            \n现在，请根据以上要求生成回复。{{#context#}}"
+          text: "你是一个数据分析助手。请根据 API 返回的 JSON 数据，用自然语言友好地回答用户的问题。\n\nAPI 返回的 JSON 数据如下：\n{{#api_response#}}\n返回结果：{{#1778767532773.body#}}\n规则：\n1. 如果 \"code\" 不是 200，直接回复 \"查询失败：{message}\"，其中 {message} 替换为 JSON 中的 message 字段内容。\n2. 如果 \"code\" 是 200，检查 \"data\" 数组：\n   - 如果 data 是空数组，回复 \"未查询到相关数据。\"\n   - 如果 data 包含数据，将数据整理成易读的文本形式（推荐使用简洁的表格描述或要点列表），并可根据上下文进行适当总结，但不要编造数据中不存在的信息。\n3. 回复语言与用户原始问题保持一致（如用户用中文提问则用中文回复）。\n4. 不要输出原始的 JSON 字符串，除非 data 为空且无其他信息可展示。\n\n现在，请根据以上要求生成回复。{{#context#}}"
         selected: false
         title: 日报查询回复状态
         type: llm
@@ -2138,7 +2186,7 @@ workflow:
           max_write_timeout: 0
         title: HTTP 请求—查询员工信息
         type: http-request
-        url: http://host.docker.internal:8001/api/query
+        url: http://host.docker.internal:8080/api/v1/query/execute
         variables: []
       height: 136
       id: '1778815825819'
@@ -2359,11 +2407,7 @@ workflow:
         prompt_template:
         - id: 4bd32002-5bc9-4b12-9ae4-8814dd823e2b
           role: system
-          text: "你是一个客户画像研判助手。请严格依据下面提供的《用户画像研判规则》，判断当前客户是否符合甲方公司的目标客户画像。\n\n【规则来源】（从知识库自动检索）\n\
-            {{#context#}}\n\n【用户输入的文本】（可能包含客户信息描述）\n{{{#sys.query#}}}\n\n【文件内容】（如果用户上传了简历或表格）\n\
-            {{{#sys.files#}}}\n\n【任务要求】\n1. 综合以上所有信息，判断该客户是否符合规则中定义的任一产品目标画像。\n2.\
-            \ 如果符合，输出：PASS\n3. 如果不符合，输出：REJECT，并附带一句话原因（例如：“不符合‘双元制招生’年龄要求”）。\n4.\
-            \ 输出格式必须严格为：\n   - 通过时：PASS\n   - 拒绝时：REJECT:原因描述\n5. 不要输出任何其他内容。"
+          text: "你是一个客户画像研判助手。请严格依据下面提供的《用户画像研判规则》，判断当前客户是否符合甲方公司的目标客户画像。\n\n【规则来源】（从知识库自动检索）\n{{#context#}}\n\n【用户输入的文本】（可能包含客户信息描述）\n{{{#sys.query#}}}\n\n【文件内容】（如果用户上传了简历或表格）\n{{{#sys.files#}}}\n\n【任务要求】\n1. 综合以上所有信息，判断该客户是否符合规则中定义的任一产品目标画像。\n2. 如果符合，输出：PASS\n3. 如果不符合，输出：REJECT，并附带一句话原因（例如：“不符合‘双元制招生’年龄要求”）。\n4. 输出格式必须严格为：\n   - 通过时：PASS\n   - 拒绝时：REJECT:原因描述\n5. 不要输出任何其他内容。"
         - id: 5987a404-2967-4c36-91f1-fdc7ac5f6a55
           role: user
           text: '{{#sys.query#}}{{#1778832086335.text#}}'
@@ -2631,8 +2675,8 @@ workflow:
           - id: key-value-7597
             key: ''
             type: text
-            value: '{{{#1778838871176.text#}}}'
-          type: json
+            value: '{{#1778838871176.text#}}'
+          type: raw-text
         headers: accept:application/json
         method: post
         params: ''
@@ -2648,7 +2692,7 @@ workflow:
           max_write_timeout: 0
         title: HTTP 请求—新增学生成绩
         type: http-request
-        url: http://host.docker.internal:8001/api/scores
+        url: http://host.docker.internal:8080/api/v1/score/scores
         variables: []
       height: 136
       id: '1778839058239'
@@ -2831,7 +2875,7 @@ workflow:
           max_write_timeout: 0
         title: HTTP 请求—查询学生成绩
         type: http-request
-        url: http://host.docker.internal:8001/api/query
+        url: http://host.docker.internal:8080/api/v1/query/execute
         variables: []
       height: 136
       id: '1778839733258'
@@ -3020,7 +3064,7 @@ workflow:
           max_write_timeout: 0
         title: HTTP 请求—工单修改
         type: http-request
-        url: http://host.docker.internal:8001/api/feedbacks/update
+        url: http://host.docker.internal:8080/api/v1/feedback/feedbacks/update
         variables: []
       height: 136
       id: '1778840759117'
@@ -3205,7 +3249,7 @@ workflow:
           max_write_timeout: 0
         title: HTTP 请求—工单查询
         type: http-request
-        url: http://host.docker.internal:8001/api/query
+        url: http://host.docker.internal:8080/api/v1/query/execute
         variables: []
       height: 136
       id: '1778841369230'
@@ -3337,8 +3381,7 @@ workflow:
 
             2. 只生成 SELECT 语句。
 
-            3. 如果用户提到了日期范围（如“今天”、“昨天”、“本周”、“上周”、“2026年5月”、“最近7天”等），将其转换为对应的日期条件。注意：今天的日期是
-            2026-05-15（请作为参考，实际以你运行时为准）。
+            3. 如果用户提到了日期范围（如“今天”、“昨天”、“本周”、“上周”、“2026年5月”、“最近7天”等），将其转换为对应的日期条件。注意：今天的日期是 2026-05-15（请作为参考，实际以你运行时为准）。
 
             4. 如果用户未明确日期，默认查询**今天**的日报，即 WHERE report_date = ''2026-05-15''。
 
@@ -3346,28 +3389,24 @@ workflow:
 
             6. 如果用户问题不清晰或无法生成有效 SQL，输出：ERROR
 
-            7. SQL 中不要使用函数依赖当前时间（如 NOW()），直接使用具体的日期字符串，例如 ''2026-05-15''。这样可以保证 Dify
-            环境中测试的一致性。
+            7. SQL 中不要使用函数依赖当前时间（如 NOW()），直接使用具体的日期字符串，例如 ''2026-05-15''。这样可以保证 Dify 环境中测试的一致性。
 
 
             示例：
 
             用户：“帮我汇总本周的日报”
 
-            输出：SELECT employee_id, report_date, content FROM employee_daily_report
-            WHERE report_date BETWEEN ''2026-05-10'' AND ''2026-05-15''
+            输出：SELECT employee_id, report_date, content FROM employee_daily_report WHERE report_date BETWEEN ''2026-05-10'' AND ''2026-05-15''
 
 
             用户：“今天的日报”
 
-            输出：SELECT employee_id, report_date, content FROM employee_daily_report
-            WHERE report_date = ''2026-05-15''
+            输出：SELECT employee_id, report_date, content FROM employee_daily_report WHERE report_date = ''2026-05-15''
 
 
             用户：“上个月的所有日报”
 
-            输出：SELECT employee_id, report_date, content FROM employee_daily_report
-            WHERE report_date BETWEEN ''2026-04-01'' AND ''2026-04-30''
+            输出：SELECT employee_id, report_date, content FROM employee_daily_report WHERE report_date BETWEEN ''2026-04-01'' AND ''2026-04-30''
 
 
             现在用户问题：{{#sys.query#}}'
@@ -3418,7 +3457,7 @@ workflow:
           max_write_timeout: 0
         title: HTTP 请求—日报汇总查询
         type: http-request
-        url: http://host.docker.internal:8001/api/query
+        url: http://host.docker.internal:8080/api/v1/query/execute
         variables: []
       height: 136
       id: '1778848927083'
@@ -3446,14 +3485,7 @@ workflow:
         prompt_template:
         - id: 054fdcab-39d7-4425-8cbf-8107923d844a
           role: system
-          text: "你是一个企业日报汇总助手。根据 API 返回的员工日报数据，为管理层生成一份简洁、专业的汇总报告。\n\nAPI 返回数据：{{{#1778848927083.body#}}y}\n\
-            用户原始请求：{{#sys.query#}}\n\n任务说明：\n1. 如果返回的 `code` 不是 200，或者 `data` 为空数组，请回复：“未获取到对应时间段的日报数据，请确认日期或稍后重试。”\n\
-            2. 如果数据正常，请综合所有员工的日报内容，生成一份汇总报告。报告结构如下：\n   - 标题：{时间范围} 员工日报汇总\n   - 整体摘要：用\
-            \ 2-3 句话概括本周期内的整体工作进展和团队状态。\n   - 关键产出 / 重点进展：提炼跨员工的共性问题或重大里程碑。\n   -\
-            \ 风险与问题：如果日报中提到了阻塞、风险或需协调的事项，请总结列出。\n   - 明日计划 / 后续关注：如果日报中包含明日计划或后续安排，请汇总。\n\
-            3. 由于当前系统未关联员工姓名，报告中可直接使用“员工 ID：xxx”进行引用，不必编造姓名。\n4. 如果日报内容较少或过于碎片化，可适当简化报告，但至少要包含时间范围和整体摘要。\n\
-            5. 使用中文，语气正式、客观，可使用小标题分点，但不要使用 markdown 的复杂格式，仅用换行和简单的编号即可。\n6. 不要显示原始\
-            \ JSON，不要提及 API 或数据库。\n\n现在请生成报告。"
+          text: "你是一个企业日报汇总助手。根据 API 返回的员工日报数据，为管理层生成一份简洁、专业的汇总报告。\n\nAPI 返回数据：{{{#1778848927083.body#}}y}\n用户原始请求：{{#sys.query#}}\n\n任务说明：\n1. 如果返回的 `code` 不是 200，或者 `data` 为空数组，请回复：“未获取到对应时间段的日报数据，请确认日期或稍后重试。”\n2. 如果数据正常，请综合所有员工的日报内容，生成一份汇总报告。报告结构如下：\n   - 标题：{时间范围} 员工日报汇总\n   - 整体摘要：用 2-3 句话概括本周期内的整体工作进展和团队状态。\n   - 关键产出 / 重点进展：提炼跨员工的共性问题或重大里程碑。\n   - 风险与问题：如果日报中提到了阻塞、风险或需协调的事项，请总结列出。\n   - 明日计划 / 后续关注：如果日报中包含明日计划或后续安排，请汇总。\n3. 由于当前系统未关联员工姓名，报告中可直接使用“员工 ID：xxx”进行引用，不必编造姓名。\n4. 如果日报内容较少或过于碎片化，可适当简化报告，但至少要包含时间范围和整体摘要。\n5. 使用中文，语气正式、客观，可使用小标题分点，但不要使用 markdown 的复杂格式，仅用换行和简单的编号即可。\n6. 不要显示原始 JSON，不要提及 API 或数据库。\n\n现在请生成报告。"
         - id: c2486869-5154-4336-9ea3-db9edd423035
           role: user
           text: '{{#1778848927083.body#}}{{#sys.query#}}'
@@ -3616,7 +3648,7 @@ workflow:
           max_write_timeout: 0
         title: HTTP 请求—学生信息审批
         type: http-request
-        url: http://host.docker.internal:8001/api/student-services/update
+        url: http://host.docker.internal:8080/api/v1/service/student-services/update
         variables: []
       height: 152
       id: '1778899704911'
@@ -3741,8 +3773,7 @@ workflow:
 
             3. 根据用户问题合理使用 WHERE 条件：如按学生ID、服务类型、审批状态、时间范围等过滤。默认查询所有字段。
 
-            4. 如果用户问“某学生的请假记录”，则用 student_id 和 service_type 条件；如果问“待审批的记录”，则用 status
-            条件；如果问“今天开始的请假”，则用 start_time 条件。
+            4. 如果用户问“某学生的请假记录”，则用 student_id 和 service_type 条件；如果问“待审批的记录”，则用 status 条件；如果问“今天开始的请假”，则用 start_time 条件。
 
 
             示例：
@@ -3754,14 +3785,12 @@ workflow:
 
             用户：“所有待审批的请假申请”
 
-            输出：SELECT * FROM student_admin_service WHERE status = ''待审批'' AND service_type
-            = ''请假''
+            输出：SELECT * FROM student_admin_service WHERE status = ''待审批'' AND service_type = ''请假''
 
 
             用户：“今天的考务查询记录”
 
-            输出：SELECT * FROM student_admin_service WHERE service_type = ''考务查询'' AND
-            DATE(start_time) = CURDATE()
+            输出：SELECT * FROM student_admin_service WHERE service_type = ''考务查询'' AND DATE(start_time) = CURDATE()
 
 
             现在用户问题：{{#sys.query#}}'
@@ -3812,7 +3841,7 @@ workflow:
           max_write_timeout: 0
         title: HTTP 请求—学生申请查询
         type: http-request
-        url: http://host.docker.internal:8001/api/query
+        url: http://host.docker.internal:8080/api/v1/query/execute
         variables: []
       height: 136
       id: '1778900595454'
@@ -3988,8 +4017,8 @@ workflow:
           - id: key-value-9755
             key: ''
             type: text
-            value: '{{{#1778901593766.text#}}}'
-          type: json
+            value: '{{#1778901593766.text#}}'
+          type: raw-text
         headers: 'accept:application/json
 
           Content-Type:application/json'
@@ -4007,7 +4036,7 @@ workflow:
           max_write_timeout: 0
         title: HTTP 请求—新增考务信息
         type: http-request
-        url: http://host.docker.internal:8001/api/student-services
+        url: http://host.docker.internal:8080/api/v1/service/student-services
         variables: []
       height: 136
       id: '1778901864336'

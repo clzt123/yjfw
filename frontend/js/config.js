@@ -9,14 +9,14 @@ const AGENT_CONFIG = {
     },
     // 企业智能体
     employee: {
-        appId: 'KOleENYxpzWkTSAX',
+        appId: '501ybrT90iMRUcPR',
         baseUrl: 'http://localhost',
         name: '企业智能体',
         title: '企业助手'
     },
     // 学生智能体
     student: {
-        appId: '1CWhaJpQNXAOijuA',
+        appId: 'mE2DiQvwTcmU5H2S',
         baseUrl: 'http://localhost',
         name: '学生智能体',
         title: '学生助手'
